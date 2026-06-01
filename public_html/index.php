@@ -1,16 +1,17 @@
 <?php
-$pageTitle = 'BTP PraaS | Professional-as-a-Service for Modern IT Teams';
-$metaDescription = 'Scale instantly with experienced IT professionals backed by a dedicated support team. BTP PraaS delivers Staff Augmentation 2.0 with primary and backup professionals.';
+$pageTitle = 'BTP PraaS | Next Generation Staff Augmentation 2.0';
+$metaDescription = 'BTP PraaS delivers Professional-as-a-Service staff augmentation with skilled IT professionals, backup support, flexible scaling, and dedicated team continuity.';
 $pagePath = '/';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="hero hero-home">
     <div class="hero-copy">
-        <h1>Professional-as-a-Service for Modern <span>IT Teams</span></h1>
-        <p>Scale instantly with experienced IT professionals backed by a dedicated support team.</p>
+        <p class="eyebrow">Introducing PraaS (Professional-as-a-Service)</p>
+        <h1>Next Generation Staffing Augmentation 2.0 with <span>Backup Support</span></h1>
+        <p>Ensure uninterrupted productivity with skilled professionals, backed by a team ready to step in seamlessly whenever needed.</p>
         <div class="actions">
-            <a class="button button-primary" href="/contact">Schedule a Consultation <span aria-hidden="true">&rarr;</span></a>
-            <a class="button button-outline" href="/services">Explore Services <span aria-hidden="true">&rarr;</span></a>
+            <a class="button button-primary" href="/contact">Get a PraaS Pro <span aria-hidden="true">&rarr;</span></a>
+            <a class="button button-outline" href="/about">How It Works <span aria-hidden="true">&rarr;</span></a>
         </div>
         <div class="hero-benefits" aria-label="Key PraaS benefits">
             <span><b>Team</b>Continuity</span>
@@ -38,22 +39,22 @@ require __DIR__ . '/includes/header.php';
 <section class="section services-preview">
     <div class="container split-intro">
         <div class="section-heading">
-            <p class="eyebrow">Our Services</p>
-            <h2>End-to-End IT Staffing Solutions</h2>
-            <p>Comprehensive professional services designed to optimize operations, enhance security, and drive business growth.</p>
+            <p class="eyebrow">Why Choose BTP PraaS?</p>
+            <h2>Empowering your team with flexible talent.</h2>
+            <p>Your partner for scalable staff augmentation, whether for ongoing operational needs or groundbreaking projects.</p>
             <a class="button button-secondary" href="/services">View All Services <span aria-hidden="true">&rarr;</span></a>
         </div>
         <div class="card-grid">
             <?php
             $services = [
-                ['Cloud Engineering', 'Azure cloud solutions built for performance, security, and scalability.', 'CE'],
-                ['Microsoft 365', 'Collaboration and productivity professionals for modern workplace teams.', 'M365'],
-                ['SharePoint Solutions', 'SharePoint experts for better document management, workflow, and collaboration.', 'S'],
-                ['Power Platform Automation', 'Workflow automation and business apps that drive measurable efficiency.', 'PP'],
-                ['Cybersecurity', 'Security professionals for monitoring, controls, hardening, and response support.', 'CS'],
-                ['Help Desk & IT Support', '24/7 support coverage to keep business operations running smoothly.', 'HD'],
-                ['Infrastructure & Networking', 'Reliable infrastructure and network expertise that scales with demand.', 'IN'],
-                ['Project Delivery', 'Project professionals who help deliver IT initiatives on time and on budget.', 'PD'],
+                ['Developers', 'Front-end and back-end professionals who build and maintain robust applications.', 'DEV'],
+                ['DBA / Architects', 'Database experts for design, optimization, security, reliability, and performance.', 'DBA'],
+                ['DevOps Engineers', 'Specialists who streamline development and operations for scalable workflows.', 'OPS'],
+                ['Cybersecurity Specialists', 'Security pros who help protect systems, data, users, and business operations.', 'SEC'],
+                ['UI/UX Designers', 'Creative professionals focused on intuitive interfaces and user-centered experiences.', 'UX'],
+                ['Cloud Engineers', 'Cloud pros for deploying, managing, and optimizing cloud infrastructure.', 'CLD'],
+                ['QA Testers', 'Quality professionals who test applications against business and technical standards.', 'QA'],
+                ['Automation Specialists', 'Professionals who streamline processes and reduce manual effort.', 'AUTO'],
             ];
             foreach ($services as $service): ?>
                 <article class="service-card">
@@ -70,12 +71,12 @@ require __DIR__ . '/includes/header.php';
 <section class="section section-dark">
     <div class="container two-column">
         <div>
-            <p class="eyebrow">Staff Augmentation 2.0</p>
-            <h2>One professional in front. A full team behind them.</h2>
+            <p class="eyebrow">Professional-as-a-Service</p>
+            <h2>Flexible staffing tailored to your needs.</h2>
         </div>
         <div>
-            <p>BTP PraaS modernizes staff augmentation with a Professional-as-a-Service model. Each engagement is built around a skilled primary professional, a trained backup professional, and team support that keeps work moving when availability changes.</p>
-            <p>The result is continuity, flexibility, and lower operating cost without sacrificing capability.</p>
+            <p>Gain access to top professionals backed by a dedicated team for smooth transitions, changing project demands, and task-specific support.</p>
+            <p>Each PraaS engagement is designed to preserve continuity, adapt to your workflows, and provide the flexibility traditional staffing often lacks.</p>
         </div>
     </div>
 </section>
@@ -84,18 +85,18 @@ require __DIR__ . '/includes/header.php';
     <div class="container feature-grid">
         <article>
             <img src="/assets/images/flex-staffing.png" alt="Flexible staffing illustration">
-            <h3>Flexible Scaling</h3>
-            <p>Add or reduce professional capacity as project demand changes. PraaS helps you scale without long hiring cycles or heavy fixed overhead.</p>
+            <h3>Flexible Staffing</h3>
+            <p>Scale up or down to meet changing project demands while tailoring skillsets to your unique requirements.</p>
         </article>
         <article>
             <img src="/assets/images/team-support.png" alt="Team support illustration">
-            <h3>Team Continuity</h3>
-            <p>Backup professionals and shared team knowledge reduce the risk of delays, disruption, and single-person dependency.</p>
+            <h3>Proactive Team Support</h3>
+            <p>Backup professionals, shared team communication, and task-specific support help reduce absence and transition risk.</p>
         </article>
         <article>
             <img src="/assets/images/cost-savings.png" alt="Cost savings illustration">
-            <h3>Cost Savings</h3>
-            <p>Access qualified talent on demand while reducing recruiting, onboarding, benefits, and idle-capacity costs.</p>
+            <h3>Smart Cost Savings</h3>
+            <p>Skip recruitment fees, reduce downtime costs, and avoid cost penalties from rigid staffing models.</p>
         </article>
     </div>
 </section>
@@ -109,18 +110,18 @@ require __DIR__ . '/includes/header.php';
         <div class="testimonial-grid">
             <blockquote>
                 <img src="/assets/images/testimonial-1.png" alt="Client testimonial profile">
-                <p>&quot;PraaS gave us the extra IT talent we needed without adding another full-time role. The backup model made the service feel reliable from day one.&quot;</p>
-                <cite>Technology Operations Leader</cite>
+                <p>&quot;PraaS helped us meet tight deadlines without sacrificing quality, and the proactive support model gave us confidence during absences.&quot;</p>
+                <cite>Jessica M., IT Operations Manager</cite>
             </blockquote>
             <blockquote>
                 <img src="/assets/images/testimonial-2.png" alt="Client testimonial profile">
-                <p>&quot;The Professional-as-a-Service model helped us keep projects moving through demand spikes and scheduling changes.&quot;</p>
-                <cite>Business Systems Director</cite>
+                <p>&quot;Knowing that our PraaS Pro can call home for expert assistance gave our team a stronger support structure.&quot;</p>
+                <cite>David K., Software Development Lead</cite>
             </blockquote>
             <blockquote>
                 <img src="/assets/images/testimonial-3.png" alt="Client testimonial profile">
-                <p>&quot;BTP PraaS gave us scalable expertise, a clear support structure, and a better cost profile than traditional hiring.&quot;</p>
-                <cite>Executive Sponsor</cite>
+                <p>&quot;The backup professional support kept productivity moving through transitions, vacations, and schedule changes.&quot;</p>
+                <cite>Monica L., Technology Director</cite>
             </blockquote>
         </div>
     </div>

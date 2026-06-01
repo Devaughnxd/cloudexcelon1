@@ -2,13 +2,13 @@ const { chromium } = require('playwright');
 
 const baseUrl = process.env.SITE_URL || 'http://127.0.0.1:8080';
 const pages = [
-  { path: '/', title: 'BTP PraaS | Professional-as-a-Service for Modern IT Teams', h1: 'Professional-as-a-Service for Modern IT Teams' },
-  { path: '/about.php', title: 'About BTP PraaS | Staff Augmentation 2.0', h1: 'Staff Augmentation 2.0 for organizations that need continuity.' },
-  { path: '/services.php', title: 'BTP PraaS Services | IT Professionals On Demand', h1: 'Hire skilled professionals on demand, backed by a dedicated team.' },
-  { path: '/news.php', title: 'BTP PraaS News | Staffing Insights', h1: 'Insights for flexible IT teams.' },
-  { path: '/contact.php', title: 'Contact BTP PraaS | Schedule a Consultation', h1: 'Schedule a consultation.' },
-  { path: '/privacy-policy.php', title: 'Privacy Policy | BTP PraaS', h1: 'Privacy Policy' },
-  { path: '/legal-notice.php', title: 'Legal Notice | BTP PraaS', h1: 'Legal Notice' },
+  { path: '/', title: 'BTP PraaS | Next Generation Staff Augmentation 2.0', h1: 'Next Generation Staffing Augmentation 2.0 with Backup Support' },
+  { path: '/about', title: 'About BTP PraaS | Introducing PraaS Pro', h1: 'Revolutionizing staff augmentation service.' },
+  { path: '/services', title: 'BTP PraaS Services | Save Time And Money With PraaS Pro', h1: 'Save time and money with PraaS Pro service.' },
+  { path: '/news', title: 'BTP PraaS News | IT Staffing Insights', h1: 'Discover insights that matter.' },
+  { path: '/contact', title: 'Contact BTP PraaS | Let Us Connect Today', h1: "Let's connect today." },
+  { path: '/privacy-policy', title: 'Privacy Policy | BTP PraaS', h1: 'Privacy Policy' },
+  { path: '/legal-notice', title: 'Legal Notice | BTP PraaS', h1: 'Legal Notice' },
 ];
 
 (async () => {

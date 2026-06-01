@@ -4,7 +4,7 @@ $metaDescription = 'Legal notice for BTP PraaS, a solution brand of BTP Innovati
 $pagePath = '/legal-notice';
 require __DIR__ . '/includes/header.php';
 ?>
-<section class="page-hero legal-hero"><div class="container narrow"><h1>Legal Notice</h1><p>Effective Date: May 2025</p></div></section>
+<section class="page-hero legal-hero notice-hero"><div class="container narrow"><p class="eyebrow">Legal</p><h1>Legal Notice</h1><p>Effective Date: May 2025</p></div></section>
 <section class="section legal-copy"><div class="container narrow">
     <h2>Website owner</h2>
     <p>BTP PraaS<br><?= e($site['brand']) ?><br><?= e($site['address']) ?><br><?= e($site['city']) ?></p>
