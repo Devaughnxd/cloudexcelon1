@@ -1,0 +1,10 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/USERNAME/public_html/
+    - /bin/cp -R public_html/assets $DEPLOYPATH
+    - /bin/cp -R public_html/includes $DEPLOYPATH
+    - /bin/cp public_html/*.php $DEPLOYPATH
+    - /bin/cp public_html/.htaccess $DEPLOYPATH
+    - /bin/cp public_html/robots.txt $DEPLOYPATH
+    - /bin/cp public_html/sitemap.xml $DEPLOYPATH
