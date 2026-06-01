@@ -22,8 +22,7 @@ require __DIR__ . '/includes/header.php';
     </div>
     <div class="hero-visual" aria-hidden="true">
         <div class="cloud-shape"></div>
-        <div class="diagonal blue"></div>
-        <div class="diagonal red"></div>
+        <div class="hero-orbit"></div>
     </div>
 </section>
 
