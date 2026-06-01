@@ -28,8 +28,8 @@ $bodyClass = $bodyClass ?? '';
     <meta name="twitter:description" content="<?= e($metaDescription) ?>">
     <meta name="theme-color" content="#000000">
     <link rel="icon" href="/assets/images/btp-praas-logo.png">
-    <link rel="preload" href="/assets/css/styles.css" as="style">
-    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="preload" href="/assets/css/style.css" as="style">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <?php
     include_schema([
         '@context' => 'https://schema.org',
