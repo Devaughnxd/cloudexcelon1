@@ -1,15 +1,22 @@
 <?php
-$pageTitle = 'Contact BTP PraaS | Schedule a Consultation';
-$metaDescription = 'Contact BTP PraaS to schedule a consultation and hire skilled IT professionals backed by a dedicated support team.';
+$pageTitle = 'Contact BTP PraaS | Let Us Connect Today';
+$metaDescription = 'Contact BTP PraaS for questions or expert IT pros. Reach the team by form, phone, email, or New York office contact details.';
 $pagePath = '/contact';
 $submitted = $_SERVER['REQUEST_METHOD'] === 'POST';
 require __DIR__ . '/includes/header.php';
 ?>
-<section class="page-hero">
-    <div class="container narrow">
-        <p class="eyebrow">Contact Us</p>
-        <h1>Schedule a consultation.</h1>
-        <p>Tell us what kind of professional support you need and the BTP PraaS team will follow up.</p>
+<section class="page-hero page-hero-split contact-hero">
+    <div class="container page-hero-grid">
+        <div>
+            <p class="eyebrow">Contact Us</p>
+            <h1>Let's connect today.</h1>
+            <p>Whether you have questions or need expert IT pros, our team is ready to assist you.</p>
+        </div>
+        <aside class="contact-quick-card">
+            <h2>Contact information</h2>
+            <p>We're here to assist with questions about BTP PraaS and our services.</p>
+            <a href="tel:+18007816632"><?= e($site['phone']) ?></a>
+        </aside>
     </div>
 </section>
 <section class="section contact-section">
@@ -28,10 +35,10 @@ require __DIR__ . '/includes/header.php';
             <button class="button button-primary" type="submit">Send Message <span aria-hidden="true">&rarr;</span></button>
         </form>
         <aside class="contact-card">
-            <h2>Contact Information</h2>
+            <h2>Feel free to contact us</h2>
             <p><?= e($site['address']) ?><br><?= e($site['city']) ?></p>
             <p><a href="tel:+18007816632"><?= e($site['phone']) ?></a><br><a href="mailto:<?= e($site['email']) ?>"><?= e($site['email']) ?></a></p>
-            <p>BTP PraaS is a solution brand of BTP Innovations.</p>
+            <p>For general inquiries, use the contact form and we'll get back to you as soon as possible.</p>
         </aside>
     </div>
 </section>

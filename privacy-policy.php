@@ -4,7 +4,7 @@ $metaDescription = 'BTP PraaS privacy policy describing how contact information 
 $pagePath = '/privacy-policy';
 require __DIR__ . '/includes/header.php';
 ?>
-<section class="page-hero legal-hero"><div class="container narrow"><h1>Privacy Policy</h1><p>Effective Date: May 2025</p></div></section>
+<section class="page-hero legal-hero privacy-hero"><div class="container narrow"><p class="eyebrow">Privacy</p><h1>Privacy Policy</h1><p>Effective Date: May 2025</p></div></section>
 <section class="section legal-copy"><div class="container narrow">
     <p>BTP PraaS respects your privacy. Information submitted through this website may include your name, company, email address, phone number, and message details.</p>
     <h2>How information is used</h2>
