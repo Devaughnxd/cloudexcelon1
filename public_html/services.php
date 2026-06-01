@@ -22,41 +22,60 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 <section class="section">
-    <div class="container services-list">
-        <?php
-        $items = [
-            ['Developers', 'Front-end and back-end professionals who build and maintain robust applications.'],
-            ['DBA / Architects', 'Experts in database design, buildout, optimization, performance, security, and reliability.'],
-            ['DevOps Engineers', 'Specialists in streamlining development and operations for efficient, scalable workflows.'],
-            ['Cybersecurity Specialists', 'Experts who help safeguard systems against threats and protect data.'],
-            ['UI / UX Designers', 'Creative professionals focused on user-centered interfaces and experiences.'],
-            ['Cloud Engineers', 'Professionals skilled in deploying, managing, and optimizing cloud infrastructure.'],
-            ['QA Testers', 'Detail-oriented professionals who help ensure applications meet quality standards.'],
-            ['IT Support Specialists', 'End-user support professionals who maintain systems and support smooth daily operations.'],
-            ['Automation Specialists', 'Professionals who streamline processes, boost efficiency, and reduce manual effort.'],
-        ];
-        foreach ($items as $item): ?>
-            <article class="service-row">
-                <div>
-                    <span class="service-dot"></span>
-                    <h2><?= e($item[0]) ?></h2>
-                </div>
-                <p><?= e($item[1]) ?></p>
-            </article>
-        <?php endforeach; ?>
-    </div>
-</section>
-<section class="section muted">
-    <div class="container engagement-grid">
-        <div class="section-heading">
-            <p class="eyebrow">Cost-Saving Advantages</p>
-            <h2>Four ways PraaS improves traditional staffing.</h2>
+    <div class="container service-outcomes">
+        <div class="section-heading compact">
+            <p class="eyebrow">PraaS Advantages</p>
+            <h2>Staffing support built around continuity, savings, and speed.</h2>
+            <p>BTP PraaS gives you access to skilled professionals without the usual friction of recruiting, vendor coordination, or single-resource dependency.</p>
         </div>
-        <article><h3>Recruitment</h3><p>Skip third-party staffing fees with direct access to top-tier professionals.</p></article>
-        <article><h3>Continuity</h3><p>Maintain momentum with backup professionals ready to step in when needed.</p></article>
-        <article><h3>Scalability</h3><p>Adjust team size to meet project demands without long-term commitments.</p></article>
+        <div class="outcome-grid">
+            <article><span>01</span><h3>Recruitment Savings</h3><p>Reduce the time, cost, and administrative burden of sourcing specialized technical talent through traditional hiring channels.</p></article>
+            <article><span>02</span><h3>Continuity Coverage</h3><p>Primary professionals are supported by backup coverage so vacations, transitions, or unexpected absences do not stall critical work.</p></article>
+            <article><span>03</span><h3>Expert Team Support</h3><p>PraaS Pros can call home to the BTP support structure for task-specific expertise, peer review, and practical guidance.</p></article>
+            <article><span>04</span><h3>Flexible Scaling</h3><p>Scale capacity up or down as project needs, support volume, budgets, or timelines change.</p></article>
+        </div>
     </div>
 </section>
+
+<section class="section muted talent-section">
+    <div class="container">
+        <div class="section-heading compact">
+            <p class="eyebrow">Talent Categories</p>
+            <h2>Expert PraaS Pros for the work your team needs done.</h2>
+            <p>Each category can support ongoing operations, project delivery, modernization, troubleshooting, or specialized execution.</p>
+        </div>
+        <div class="talent-grid">
+            <?php
+            $talent = [
+                ['DEV', 'Developers', 'Front-end and back-end professionals who build, enhance, integrate, and maintain business applications.', ['Application builds', 'API integrations', 'Feature delivery']],
+                ['DBA', 'DBA / Architects', 'Database experts for data architecture, design, optimization, backup planning, security, reliability, and performance.', ['Database design', 'Performance tuning', 'Data reliability']],
+                ['OPS', 'DevOps Engineers', 'Engineers who streamline development and operations through automation, CI/CD, release practices, and environment reliability.', ['CI/CD pipelines', 'Environment automation', 'Release support']],
+                ['SEC', 'Cybersecurity Specialists', 'Security professionals who help assess risk, harden systems, monitor threats, improve controls, and protect business data.', ['Risk reduction', 'Security monitoring', 'Control hardening']],
+                ['UX', 'UI / UX Designers', 'Design professionals who create intuitive interfaces, user journeys, wireframes, prototypes, and customer-friendly digital experiences.', ['Product flows', 'Interface design', 'User experience reviews']],
+                ['CLD', 'Cloud Engineers', 'Cloud professionals skilled in deploying, managing, optimizing, and securing cloud infrastructure and services.', ['Cloud migration', 'Azure operations', 'Cost optimization']],
+                ['QA', 'QA Testers', 'Quality professionals who validate application behavior, document defects, improve releases, and support stronger user acceptance.', ['Test plans', 'Regression testing', 'UAT support']],
+                ['SUP', 'IT Support Specialists', 'End-user and operations support professionals who help maintain systems, resolve issues, and keep employees productive.', ['Help desk coverage', 'Escalation support', 'User productivity']],
+                ['AUTO', 'Automation Specialists', 'Process automation professionals who reduce manual effort, connect systems, improve workflows, and increase operational efficiency.', ['Workflow automation', 'Process improvement', 'Manual task reduction']],
+            ];
+            foreach ($talent as $item): ?>
+                <article class="talent-card">
+                    <div class="talent-top">
+                        <span class="service-icon"><?= e($item[0]) ?></span>
+                        <h3><?= e($item[1]) ?></h3>
+                    </div>
+                    <p><?= e($item[2]) ?></p>
+                    <div class="best-for">
+                        <strong>Best for</strong>
+                        <?php foreach ($item[3] as $tag): ?>
+                            <span><?= e($tag) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <div class="section-heading compact">
@@ -78,10 +97,11 @@ require __DIR__ . '/includes/header.php';
             <p class="eyebrow">Your Gateway To Top Professionals</p>
             <h2>Discover expert PraaS Pros ready to elevate your projects and operations.</h2>
         </div>
-        <div class="step-list">
-            <p><strong>1. Match:</strong> BTP aligns the professional category, skill level, and scope to your business need.</p>
-            <p><strong>2. Support:</strong> Your primary professional works with a backup and a support team to maintain continuity.</p>
-            <p><strong>3. Scale:</strong> Capacity can expand or contract as projects, support volume, and budgets change.</p>
+        <div class="engagement-steps">
+            <article><strong>1. Discover</strong><p>We clarify your business need, technology environment, resource gap, timeline, and success criteria.</p></article>
+            <article><strong>2. Match</strong><p>BTP aligns the professional category, skill level, backup coverage, and scope to the engagement.</p></article>
+            <article><strong>3. Operate</strong><p>Your PraaS Pro starts with team support, escalation access, and a continuity plan.</p></article>
+            <article><strong>4. Scale</strong><p>Capacity can expand or contract as projects, support volume, budget, or priorities change.</p></article>
         </div>
     </div>
 </section>
