@@ -49,6 +49,7 @@ Do not deploy these local tooling folders to the live site:
 5. Upload the website ZIP.
 6. Extract files directly inside `public_html`.
 7. Verify `index.php`, `.htaccess`, `assets`, and `includes` are in `public_html`.
+   Confirm the stylesheet exists at `assets/css/style.css`.
 8. Test the website in a browser.
 9. Enable SSL in cPanel.
 10. Visit the new domain homepage, services page, and contact page.
@@ -140,3 +141,12 @@ Until SMTP is configured, the form displays a confirmation message but does not 
 - Logs for troubleshooting
 
 Composer, Scheduled Tasks, and Sitejet Builder are available on InterServer but are not required for this website.
+
+## Checking Logs If Something Breaks
+
+1. In cPanel, open **Errors** to review recent PHP or Apache errors.
+2. Open **Metrics > Raw Access** if you need request history.
+3. Check whether the domain is using PHP 8.3.
+4. Confirm `.htaccess` is present in the domain document root.
+5. Confirm `index.php`, `assets`, and `includes` are directly inside the live document root.
+6. If a page returns 404, verify Apache rewrite rules are enabled and that `.htaccess` was uploaded.

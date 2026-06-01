@@ -38,6 +38,7 @@ public_html/
   .cpanel.yml
   assets/
     css/
+      style.css
     js/
     images/
   includes/

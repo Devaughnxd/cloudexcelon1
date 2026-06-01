@@ -114,6 +114,19 @@ require __DIR__ . '/includes/header.php';
     </div>
 </section>
 
+<section class="section muted">
+    <div class="container onboarding-grid">
+        <div class="section-heading">
+            <p class="eyebrow">Seamless Onboarding</p>
+            <h2>Move from staffing need to productive support faster.</h2>
+            <p>PraaS is built to reduce the time, confusion, and handoff gaps that slow down traditional staffing and vendor relationships.</p>
+        </div>
+        <article><span>01</span><h3>Clarify the need</h3><p>Define the role, technology need, project scope, timeline, and operating expectations.</p></article>
+        <article><span>02</span><h3>Match the team</h3><p>Align the primary professional, backup coverage, and BTP support resources to the work.</p></article>
+        <article><span>03</span><h3>Start with continuity</h3><p>Begin the engagement with shared context, communication rhythm, and backup readiness.</p></article>
+    </div>
+</section>
+
 <section class="section testimonials">
     <div class="container">
         <div class="section-heading compact">

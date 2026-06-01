@@ -524,6 +524,34 @@ p {
     gap: 26px;
 }
 
+.onboarding-grid {
+    display: grid;
+    grid-template-columns: 1.2fr repeat(3, 1fr);
+    gap: 22px;
+    align-items: stretch;
+}
+
+.onboarding-grid article {
+    padding: 26px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+}
+
+.onboarding-grid span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 34px;
+    margin-bottom: 16px;
+    color: var(--white);
+    font-weight: 850;
+    background: var(--blue-deep);
+    border-radius: 999px;
+}
+
 .feature-grid article {
     overflow: hidden;
     border-bottom: 4px solid var(--blue);
@@ -746,6 +774,74 @@ p {
 .value-grid article,
 .news-grid article {
     padding: 28px;
+}
+
+.news-grid article a {
+    color: var(--blue-deep);
+    font-weight: 850;
+}
+
+.news-controls-section {
+    padding-block: 32px 0;
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-bar span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
+    padding: 8px 15px;
+    color: var(--black);
+    font-weight: 800;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+}
+
+.filter-bar .active {
+    color: var(--white);
+    background: var(--red-deep);
+    border-color: var(--red-deep);
+}
+
+.newsletter-section {
+    padding-top: 0;
+}
+
+.newsletter-card {
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 420px);
+    gap: 28px;
+    align-items: center;
+    padding: 34px;
+    color: var(--white);
+    background: linear-gradient(110deg, var(--black), #062b4c);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.newsletter-card h2,
+.newsletter-card p {
+    color: var(--white);
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter-form input {
+    min-width: 0;
+    flex: 1;
+    padding: 13px 14px;
+    font: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 6px;
 }
 
 .services-list {
@@ -1084,8 +1180,14 @@ p {
     .footer-grid,
     .process-grid,
     .engagement-grid,
-    .timeline {
+    .timeline,
+    .onboarding-grid,
+    .newsletter-card {
         grid-template-columns: 1fr;
+    }
+
+    .newsletter-form {
+        display: grid;
     }
 
     .service-stack {
