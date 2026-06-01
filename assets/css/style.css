@@ -849,6 +849,109 @@ p {
     gap: 18px;
 }
 
+.service-outcomes .compact {
+    max-width: 760px;
+}
+
+.outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 30px;
+}
+
+.outcome-grid article {
+    position: relative;
+    min-height: 250px;
+    padding: 28px;
+    overflow: hidden;
+    color: var(--white);
+    background: linear-gradient(150deg, var(--black), #062f55);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.outcome-grid article:nth-child(even) {
+    background: linear-gradient(150deg, #07121f, #0a64b7);
+}
+
+.outcome-grid span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 34px;
+    margin-bottom: 18px;
+    color: var(--white);
+    font-weight: 850;
+    background: var(--red-deep);
+    border-radius: 999px;
+}
+
+.outcome-grid h3,
+.outcome-grid p {
+    color: var(--white);
+}
+
+.talent-section {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.talent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 30px;
+}
+
+.talent-card {
+    display: grid;
+    align-content: start;
+    gap: 16px;
+    min-height: 300px;
+    padding: 26px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
+}
+
+.talent-top {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.talent-top h3 {
+    margin: 0;
+}
+
+.best-for {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.best-for strong {
+    flex-basis: 100%;
+    color: var(--black);
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.best-for span {
+    display: inline-flex;
+    padding: 6px 10px;
+    color: #16425f;
+    font-size: 13px;
+    font-weight: 750;
+    background: #eaf6ff;
+    border: 1px solid rgba(42, 168, 255, 0.28);
+    border-radius: 999px;
+}
+
 .engagement-grid {
     display: grid;
     grid-template-columns: 1.3fr repeat(3, 1fr);
@@ -914,6 +1017,32 @@ p {
 
 .step-list strong {
     color: var(--blue);
+}
+
+.engagement-steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.engagement-steps article {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius);
+}
+
+.engagement-steps strong {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--blue);
+    font-size: 18px;
+}
+
+.engagement-steps p {
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 15px;
 }
 
 .contact-grid {
@@ -1182,7 +1311,13 @@ p {
     .engagement-grid,
     .timeline,
     .onboarding-grid,
-    .newsletter-card {
+    .newsletter-card,
+    .outcome-grid,
+    .talent-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .engagement-steps {
         grid-template-columns: 1fr;
     }
 
