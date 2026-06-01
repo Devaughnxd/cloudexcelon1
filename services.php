@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'BTP PraaS Services | Save Time And Money With PraaS Pro';
-$metaDescription = 'Explore BTP PraaS services, cost-saving advantages, and PraaS Pro talent categories including developers, DBA architects, DevOps, cybersecurity, UX, cloud, QA, support, and automation.';
+$metaDescription = 'Explore BTP PraaS services including recruitment savings, continuity, support, scalability, technology procurement, vendor sourcing, Resource-as-a-Service, SaaS licensing, and IT talent categories.';
 $pagePath = '/services';
 require __DIR__ . '/includes/header.php';
 ?>
@@ -9,7 +9,7 @@ require __DIR__ . '/includes/header.php';
         <div>
             <p class="eyebrow">Services</p>
             <h1>Save time and money with PraaS Pro service.</h1>
-            <p>Discover the cost-saving advantages of BTP PraaS, designed to streamline workforce needs with efficiency, continuity, and savings.</p>
+            <p>Discover the cost-saving advantages of BTP PraaS, designed to streamline workforce needs, technology sourcing, vendor coordination, and resource alignment.</p>
         </div>
         <div class="service-stack" aria-label="Service coverage areas">
             <span>Recruitment Savings</span>
@@ -55,6 +55,21 @@ require __DIR__ . '/includes/header.php';
         <article><h3>Recruitment</h3><p>Skip third-party staffing fees with direct access to top-tier professionals.</p></article>
         <article><h3>Continuity</h3><p>Maintain momentum with backup professionals ready to step in when needed.</p></article>
         <article><h3>Scalability</h3><p>Adjust team size to meet project demands without long-term commitments.</p></article>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="section-heading compact">
+            <p class="eyebrow">Specialties</p>
+            <h2>Technology sourcing and Resource-as-a-Service support.</h2>
+            <p>BTP PraaS also helps organizations make better buying and sourcing decisions across technology products, services, licensing, and resource needs.</p>
+        </div>
+        <div class="card-grid specialty-grid">
+            <article class="service-card"><span class="service-icon">TP</span><h3>Technology Procurement</h3><p>Support for sourcing technology products and services with less confusion and better business alignment.</p><a href="/contact">Start Sourcing <span aria-hidden="true">&rarr;</span></a></article>
+            <article class="service-card"><span class="service-icon">VS</span><h3>Vendor Sourcing</h3><p>Help comparing options, coordinating vendors, and reducing the friction of disconnected service relationships.</p><a href="/contact">Discuss Vendors <span aria-hidden="true">&rarr;</span></a></article>
+            <article class="service-card"><span class="service-icon">SAAS</span><h3>SaaS & Licensing</h3><p>Guidance for software purchasing, licensing decisions, underused tools, and value optimization.</p><a href="/contact">Review Licensing <span aria-hidden="true">&rarr;</span></a></article>
+            <article class="service-card"><span class="service-icon">IT</span><h3>IT Cost Optimization</h3><p>Practical support to reduce waste, clarify pricing, and align technology spend with priorities.</p><a href="/contact">Optimize Costs <span aria-hidden="true">&rarr;</span></a></article>
+        </div>
     </div>
 </section>
 <section class="section section-dark">

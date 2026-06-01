@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'About BTP PraaS | Introducing PraaS Pro';
-$metaDescription = 'Learn about PraaS Pro, the BTP PraaS Professional-as-a-Service model for flexible staffing, backup coverage, continuity, and team support.';
+$metaDescription = 'Learn how BTP PraaS combines Professional-as-a-Service, Resource-as-a-Service, procurement guidance, vendor sourcing, backup coverage, continuity, and team support.';
 $pagePath = '/about';
 require __DIR__ . '/includes/header.php';
 ?>
@@ -9,7 +9,7 @@ require __DIR__ . '/includes/header.php';
         <div>
             <p class="eyebrow">Introducing PraaS Pro</p>
             <h1>Revolutionizing staff augmentation service.</h1>
-            <p>Professional-as-a-Service is BTP PraaS' answer to modern staffing challenges, bringing flexibility, support, and continuity into one delivery model.</p>
+            <p>Professional-as-a-Service is BTP PraaS' answer to modern staffing and sourcing challenges, bringing flexibility, support, procurement clarity, and continuity into one delivery model.</p>
         </div>
         <aside class="hero-panel">
             <span>Operating Model</span>
@@ -22,8 +22,9 @@ require __DIR__ . '/includes/header.php';
     <div class="container two-column">
         <div>
             <h2>What Is BTP PraaS?</h2>
-            <p>PraaS stands for Professional-as-a-Service, an autonomous solution brand under BTP Innovations. The PraaS team operates independently while drawing on BTP Innovations resources and expertise.</p>
-            <p>The model gives clients a handpicked professional supported by backup coverage and a broader team, reducing the limits of traditional contract staffing.</p>
+            <p>PraaS stands for Professional-as-a-Service, an autonomous solution brand under BTP Innovations. The PraaS team operates independently while drawing on BTP Innovations resources, partner access, and technology expertise.</p>
+            <p>BTP PraaS helps organizations source technology, compare options, coordinate vendors, and connect the right resources to the right business priorities.</p>
+            <p>The model gives clients handpicked professionals, backup coverage, team support, and a more coordinated path from business need to solution.</p>
         </div>
         <img class="rounded-media" src="/assets/images/pros-headshots.png" alt="PraaS professionals">
     </div>
@@ -41,6 +42,18 @@ require __DIR__ . '/includes/header.php';
         <article><h3>Team Support</h3><p>PraaS Pros can call home for assistance with task-specific challenges and specialized expertise.</p></article>
         <article><h3>Flexible Scaling</h3><p>Adjust staffing up or down to match changing project and operational needs.</p></article>
         <article><h3>Cost Effectiveness</h3><p>Reduce traditional recruitment overhead without compromising professional quality.</p></article>
+    </div>
+</section>
+<section class="section">
+    <div class="container two-column">
+        <div>
+            <p class="eyebrow">Practical Focus</p>
+            <h2>Reduce friction and improve technology buying decisions.</h2>
+        </div>
+        <div>
+            <p>Many organizations lose time and money managing fragmented providers, unclear pricing, underused tools, and disconnected service relationships.</p>
+            <p>BTP PraaS helps simplify that process through advisory support, sourcing guidance, partner ecosystem access, and execution support.</p>
+        </div>
     </div>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Contact BTP PraaS | Let Us Connect Today';
-$metaDescription = 'Contact BTP PraaS for questions or expert IT pros. Reach the team by form, phone, email, or New York office contact details.';
+$metaDescription = 'Contact BTP PraaS for expert IT pros, technology procurement, vendor sourcing, Resource-as-a-Service, SaaS licensing, or staffing support.';
 $pagePath = '/contact';
 $submitted = $_SERVER['REQUEST_METHOD'] === 'POST';
 require __DIR__ . '/includes/header.php';
@@ -10,11 +10,11 @@ require __DIR__ . '/includes/header.php';
         <div>
             <p class="eyebrow">Contact Us</p>
             <h1>Let's connect today.</h1>
-            <p>Whether you have questions or need expert IT pros, our team is ready to assist you.</p>
+            <p>Whether you have questions, need expert IT pros, or want to simplify technology sourcing, our team is ready to assist you.</p>
         </div>
         <aside class="contact-quick-card">
             <h2>Contact information</h2>
-            <p>We're here to assist with questions about BTP PraaS and our services.</p>
+            <p>Connect with BTP PraaS to simplify technology sourcing and align the right resources with your business goals.</p>
             <a href="tel:+18007816632"><?= e($site['phone']) ?></a>
         </aside>
     </div>

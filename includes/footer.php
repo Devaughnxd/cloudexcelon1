@@ -7,8 +7,8 @@ declare(strict_types=1);
         <div class="container footer-cta-inner">
             <div>
                 <p class="eyebrow">Flexible Staff Augmentation Made Simple</p>
-                <h2>Hire skilled professionals on demand, backed by a dedicated support team.</h2>
-                <p>Let's simplify your staffing needs with primary and backup pros who keep work moving.</p>
+                <h2>Hire skilled professionals and simplify technology sourcing.</h2>
+                <p>Let's align the right resources, vendors, and technology options with your business goals.</p>
             </div>
             <a class="button button-primary" href="/contact">Hire a PraaS Pro Now</a>
         </div>
