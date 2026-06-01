@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 $host = $_SERVER['HTTP_HOST'] ?? '';
 $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'https';
-$siteUrl = getenv('SITE_URL') ?: ($host !== '' ? $scheme . '://' . $host : 'https://YOUR-DOMAIN.com');
-$siteHost = parse_url($siteUrl, PHP_URL_HOST) ?: 'YOUR-DOMAIN.com';
+$siteUrl = getenv('SITE_URL') ?: ($host !== '' ? $scheme . '://' . $host : 'https://dev.cloudexcelon.com');
+$siteHost = parse_url($siteUrl, PHP_URL_HOST) ?: 'dev.cloudexcelon.com';
 
 $site = [
     'name' => 'BTP PraaS',
     'tagline' => 'Flexible IT Staffing Solutions | Backed by a Dedicated Team',
     'url' => rtrim($siteUrl, '/'),
     'host' => $siteHost,
-    'email' => 'info@praas.pro',
-    'legalEmail' => 'service@praas.pro',
+    'email' => 'info@dev.cloudexcelon.com',
+    'legalEmail' => 'service@dev.cloudexcelon.com',
     'phone' => '(800) 781-6632',
     'address' => '276 5th Avenue Suite 704',
     'city' => 'New York, NY 10001',

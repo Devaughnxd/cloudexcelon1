@@ -2,28 +2,30 @@
 
 This site is designed for InterServer shared hosting with PHP 8.3, File Manager, SSL, and cPanel Git Version Control.
 
-## New Domain Setup
+## Domain Setup
 
-Before deployment, replace `YOUR-DOMAIN.com` in these files with the new live domain:
+The current target sub-domain is:
+
+```text
+https://dev.cloudexcelon.com
+```
+
+Before deploying to a different domain, replace the domain in these files:
 
 - `public_html/sitemap.xml`
 - `public_html/robots.txt`
 
-Use the full public domain without a trailing slash, for example:
+Use the full public domain without a trailing slash.
 
-```text
-https://example.com
-```
+The PHP templates do not hardcode the original PraaS domain for SEO URLs. Canonical tags, Open Graph URLs, schema URLs, and the footer website link automatically use the domain that serves the site.
 
-The PHP templates do not hardcode `praas.pro` for SEO URLs. Canonical tags, Open Graph URLs, schema URLs, and the footer website link automatically use the domain that serves the site.
-
-If the new domain needs different contact emails, update:
+If the domain needs different contact emails, update:
 
 ```text
 public_html/includes/site.php
 ```
 
-Change `info@praas.pro` and `service@praas.pro` to addresses for the new domain.
+Change `info@dev.cloudexcelon.com` and `service@dev.cloudexcelon.com` to addresses for the new domain.
 
 ## What to Deploy
 

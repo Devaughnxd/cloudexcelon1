@@ -51,12 +51,19 @@ public_html/
 
 The contact form is frontend-ready and posts to `/contact`. SMTP delivery is intentionally left as TODO comments in `public_html/contact.php` so it can be configured with InterServer SMTP credentials or a transactional email provider.
 
-## New Domain
+## Production Domain
 
-Before launch, replace `YOUR-DOMAIN.com` in:
+The current deployment domain is:
+
+```text
+https://dev.cloudexcelon.com
+```
+
+If the domain changes later, update:
 
 - `public_html/sitemap.xml`
 - `public_html/robots.txt`
+- `public_html/includes/site.php`
 
 The PHP templates automatically use the current deployed domain for canonical tags, Open Graph tags, schema URLs, and the footer website link.
 
