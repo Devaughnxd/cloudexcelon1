@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'BTP PraaS | Next Generation Staff Augmentation 2.0';
-$metaDescription = 'BTP PraaS delivers Professional-as-a-Service staff augmentation with skilled IT professionals, backup support, flexible scaling, and dedicated team continuity.';
+$metaDescription = 'BTP PraaS delivers Professional-as-a-Service staff augmentation, Resource-as-a-Service support, technology procurement guidance, and skilled IT professionals backed by backup coverage.';
 $pagePath = '/';
 require __DIR__ . '/includes/header.php';
 ?>
@@ -8,7 +8,7 @@ require __DIR__ . '/includes/header.php';
     <div class="hero-copy">
         <p class="eyebrow">Introducing PraaS (Professional-as-a-Service)</p>
         <h1>Next Generation Staffing Augmentation 2.0 with <span>Backup Support</span></h1>
-        <p>Ensure uninterrupted productivity with skilled professionals, backed by a team ready to step in seamlessly whenever needed.</p>
+        <p>Practical technology procurement and Resource-as-a-Service solutions for modern businesses, with skilled professionals backed by a team ready to step in seamlessly whenever needed.</p>
         <div class="actions">
             <a class="button button-primary" href="/contact">Get a PraaS Pro <span aria-hidden="true">&rarr;</span></a>
             <a class="button button-outline" href="/about">How It Works <span aria-hidden="true">&rarr;</span></a>
@@ -24,6 +24,19 @@ require __DIR__ . '/includes/header.php';
         <div class="cloud-shape"></div>
         <div class="diagonal blue"></div>
         <div class="diagonal red"></div>
+    </div>
+</section>
+
+<section class="section intro-band">
+    <div class="container two-column">
+        <div>
+            <p class="eyebrow">BTP Innovations Ecosystem</p>
+            <h2>Clearer sourcing, better resource alignment, and less operational friction.</h2>
+        </div>
+        <div>
+            <p>BTP PraaS helps organizations access the technology products, services, and resources they need without adding unnecessary complexity to procurement, vendor management, or project execution.</p>
+            <p>Whether a business is purchasing software, evaluating infrastructure options, sourcing technical resources, or planning a broader technology initiative, PraaS creates a clearer path from need to solution.</p>
+        </div>
     </div>
 </section>
 
