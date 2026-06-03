@@ -8,6 +8,16 @@ git commit -m "Update SecuriSCOPE website"
 git push origin deploy-securiscope
 ```
 
+## Pre-Deployment QOS
+
+From the main repository, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1
+```
+
+Review `docs/website-audit.md`, `docs/competitive-benchmark.md`, `docs/content-source-policy.md`, and `docs/qos-checklist.md` before refreshing the deploy branch.
+
 ## Plesk Git Deployment
 
 1. Open Plesk > Websites & Domains.
