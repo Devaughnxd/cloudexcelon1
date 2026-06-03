@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://managesp.cloudexcelon.com/sitemap.xml
