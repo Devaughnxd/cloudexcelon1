@@ -136,7 +136,9 @@ foreach ($brands as $slug => $brand) {
     if (is_dir($siteRoot)) {
         $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($siteRoot, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
         foreach ($it as $file) {
-            $file->isDir() ? rmdir($file->getPathname()) : unlink($file->getPathname());
+            if (!$file->isDir()) {
+                unlink($file->getPathname());
+            }
         }
     }
 
@@ -144,11 +146,12 @@ foreach ($brands as $slug => $brand) {
     write_file($siteRoot . '/includes/site.php', "<?php\nreturn $brandPhp;\n");
     write_file($siteRoot . '/assets/css/style.css', css($brand));
     write_file($siteRoot . '/assets/js/main.js', js());
-    if (is_file($logoSource)) {
+    $brandLogoSource = $slug === 'praas' ? 'C:\\Users\\DEVAU\\OneDrive\\Desktop\\BTP\\BTP_PraaS-WM29r4HBIJTLGZI4w3hFMw.png' : $logoSource;
+    if (is_file($brandLogoSource)) {
         if (!is_dir($siteRoot . '/assets/images')) {
             mkdir($siteRoot . '/assets/images', 0777, true);
         }
-        copy($logoSource, $siteRoot . '/assets/images/btp-logo.png');
+        copy($brandLogoSource, $siteRoot . '/assets/images/btp-logo.png');
     }
 
     foreach (['index' => 'Home', 'about' => 'About Us', 'services' => 'Services', 'news' => 'News', 'contact' => 'Contact'] as $page => $label) {
@@ -218,10 +221,13 @@ function page(array $brand, string $page): string
 
     if ($page === 'index') {
         $cards = cards($services);
+        $lifecycle = lifecycleCards();
         $body = <<<HTML
 <section class="hero"><div><p class="eyebrow">{$name}</p><h1>{$headline}</h1><p>{$summary}</p><div class="actions"><a class="btn red" href="/contact">Start a Conversation</a><a class="btn outline" href="/services">Explore Services</a></div></div><aside><span>Strategic Focus</span><strong>{$tagline}</strong></aside></section>
 <section class="section split"><div><p class="eyebrow">What We Do</p><h2>One coordinated path from technology need to business outcome.</h2></div><div><p>{$about[0]}</p><p>{$about[1]}</p></div></section>
+<section class="section dark split"><div><p class="eyebrow">One Platform. Multiple Solutions.</p><h2>BTP connects advisory, sourcing, engineering, implementation, managed services, and optimization through one strategic ecosystem.</h2></div><div><p>BTP Innovations serves as the connective tissue between technology, people, infrastructure, operations, and business processes. Each solution brand plugs into a broader delivery model so clients do not have to manage disconnected vendors, siloed technical teams, or unclear handoffs.</p><p>That platform approach helps organizations move from decision-making to execution with one relationship and a clearer path to measurable outcomes.</p></div></section>
 <section class="section muted"><div class="section-head"><p class="eyebrow">Core Services</p><h2>Focused capabilities for modern business technology.</h2></div><div class="cards">{$cards}</div></section>
+<section class="section"><div class="section-head"><p class="eyebrow">Technology Lifecycle</p><h2>Support across the full lifecycle: build, source, deploy, manage, and optimize.</h2></div><div class="process">{$lifecycle}</div></section>
 <section class="section proof"><div><strong>Advisory-first</strong><span>Practical guidance before technology decisions.</span></div><div><strong>Execution-ready</strong><span>Support from planning through implementation.</span></div><div><strong>Lifecycle support</strong><span>Help after deployment, optimization, and growth.</span></div></section>
 HTML;
         return layout($brand, $title, $description, $body);
@@ -229,9 +235,11 @@ HTML;
 
     if ($page === 'about') {
         $paras = implode('', array_map(fn($p) => '<p>' . h($p) . '</p>', $about));
+        $models = modelCards($brand);
         $body = <<<HTML
 <section class="page-hero"><p class="eyebrow">About {$name}</p><h1>{$headline}</h1><p>{$summary}</p></section>
 <section class="section split"><div><p class="eyebrow">BTP Innovations Ecosystem</p><h2>Built to reduce complexity and move decisions into execution.</h2></div><div>{$paras}</div></section>
+<section class="section muted"><div class="section-head"><p class="eyebrow">Delivery Model</p><h2>How BTP turns strategy into accountable execution.</h2></div><div class="cards">{$models}</div></section>
 <section class="section muted process"><article><span>01</span><h3>Assess</h3><p>Clarify goals, current environment, constraints, priorities, and business impact.</p></article><article><span>02</span><h3>Align</h3><p>Match the right strategy, resources, partners, and solution path.</p></article><article><span>03</span><h3>Execute</h3><p>Move from recommendation to implementation with practical support.</p></article></section>
 HTML;
         return layout($brand, $title, $description, $body);
@@ -239,10 +247,12 @@ HTML;
 
     if ($page === 'services') {
         $cards = detailCards($services);
+        $advisory = advisoryProcessCards();
         $body = <<<HTML
 <section class="page-hero"><p class="eyebrow">Services</p><h1>{$tagline}</h1><p>{$summary}</p></section>
 <section class="section"><div class="section-head"><p class="eyebrow">Capabilities</p><h2>Services designed for practical business outcomes.</h2></div><div class="detail-cards">{$cards}</div></section>
-<section class="section dark split"><div><p class="eyebrow">Why It Matters</p><h2>Technology decisions are easier when advisory, sourcing, and execution work together.</h2></div><div><p>{$about[1]}</p><p>{$cta}</p><a class="btn red" href="/contact">Talk With {$name}</a></div></section>
+<section class="section muted"><div class="section-head"><p class="eyebrow">Advisory Process</p><h2>Objective analysis before recommendation and delivery.</h2></div><div class="process">{$advisory}</div></section>
+<section class="section dark split"><div><p class="eyebrow">Why It Matters</p><h2>Technology decisions are easier when advisory, sourcing, and execution work together.</h2></div><div><p>{$about[1]}</p><p>BTP applies a consistent discovery, market mapping, feature and pricing analysis, partner vetting, and delivery recommendation process across solution categories.</p><p>{$cta}</p><a class="btn red" href="/contact">Talk With {$name}</a></div></section>
 HTML;
         return layout($brand, $title, $description, $body);
     }
@@ -251,7 +261,7 @@ HTML;
         $articles = newsCards($brand);
         $body = <<<HTML
 <section class="page-hero"><p class="eyebrow">News</p><h1>Insights from {$name}.</h1><p>Practical updates on {$tagline}</p></section>
-<section class="section split"><div><p class="eyebrow">Featured Insight</p><h2>How coordinated technology decisions reduce cost, risk, and operational drag.</h2></div><div><p>{$about[1]}</p><p>{$cta}</p><div class="actions"><a class="btn red" href="/contact">Discuss Your Priorities</a><a class="btn outline" href="/services">View Services</a></div></div></section>
+<section class="section split"><div><p class="eyebrow">Featured Insight</p><h2>How coordinated technology decisions reduce cost, risk, and operational drag.</h2></div><div><p>{$about[1]}</p><p>BTP's Quarterback model orchestrates the right expertise around each client need, from discovery and gap identification to expert engagement and delivery accountability.</p><p>{$cta}</p><div class="actions"><a class="btn red" href="/contact">Discuss Your Priorities</a><a class="btn outline" href="/services">View Services</a></div></div></section>
 <section class="section muted"><div class="section-head"><p class="eyebrow">Articles</p><h2>Current focus areas for business leaders.</h2></div><div class="cards">{$articles}</div></section>
 <section class="section newsletter"><div><p class="eyebrow">Stay Connected</p><h2>Get practical technology guidance from the BTP Innovations ecosystem.</h2></div><form method="post" action="/contact"><label>Email<input type="email" name="email" required></label><button class="btn red" type="submit">Request Updates</button><!-- TODO: Connect newsletter signup to an email marketing or CRM platform. --></form></section>
 HTML;
@@ -268,6 +278,41 @@ HTML;
 function cards(array $items): string
 {
     return implode('', array_map(fn($x) => '<article><span>' . h(strtoupper(substr($x, 0, 2))) . '</span><h3>' . h($x) . '</h3><p>Practical support aligned to business goals, environment needs, and execution priorities.</p></article>', $items));
+}
+
+function lifecycleCards(): string
+{
+    $items = [
+        ['Build', 'Architecture and engineering for platforms, applications, and technical foundations.'],
+        ['Source', 'Procurement, vendor access, partner selection, and infrastructure distribution.'],
+        ['Deploy', 'Implementation, integration, migration, and rollout support.'],
+        ['Manage', 'Managed services, support, operational continuity, and vendor coordination.'],
+        ['Optimize', 'AI, automation, cost reduction, reporting, and lifecycle improvement.'],
+    ];
+    return implode('', array_map(fn($x) => '<article><span>' . h(substr($x[0], 0, 2)) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
+}
+
+function advisoryProcessCards(): string
+{
+    $items = [
+        ['Discovery & Scoping', 'Document requirements, constraints, budget, risks, and success criteria before any vendor or solution is considered.'],
+        ['Market Mapping', 'Map the solution landscape across providers, partners, competitors, and implementation options for the specific use case.'],
+        ['Feature & Pricing Analysis', 'Compare service features, SLAs, capability gaps, monthly and non-recurring costs, and strategic differentiators.'],
+        ['Partner Vetting', 'Layer in real customer satisfaction signals, delivery experience, support quality, and partner fit.'],
+        ['Recommendation & Delivery', 'Provide a clear recommendation, roadmap, quotes where applicable, and BTP as the accountable delivery relationship.'],
+    ];
+    return implode('', array_map(fn($x) => '<article><span>' . h(substr($x[0], 0, 2)) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
+}
+
+function modelCards(array $brand): string
+{
+    $items = [
+        ['Engineering-First IPC Model', 'Cross-functional engineering teams work together from day one so security, infrastructure, cloud, application, and operations decisions are not handled in silos.'],
+        ['BTP Quarterback Model', 'A dedicated strategic advisor orchestrates the right subject matter experts around the client need, then keeps the engagement aligned through delivery.'],
+        ['Strategic Partnership Model', 'Executive alignment, account management, partner selection, and feedback loops keep recommendations tied to business outcomes instead of vendor pressure.'],
+        ['Enablement & Knowledge Base', $brand['name'] . ' benefits from BTP-approved messaging, reusable delivery playbooks, technical runbooks, and reference architectures.'],
+    ];
+    return implode('', array_map(fn($x) => '<article><span>' . h(substr($x[0], 0, 2)) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
 }
 
 function detailCards(array $items): string
