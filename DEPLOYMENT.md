@@ -16,7 +16,7 @@ From the main repository, run:
 powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1
 ```
 
-Review `docs/website-audit.md`, `docs/competitive-benchmark.md`, `docs/content-source-policy.md`, and `docs/qos-checklist.md` before refreshing the deploy branch.
+Review `docs/website-audit.md`, `docs/plesk-preview-audit.md`, `docs/competitive-benchmark.md`, `docs/content-source-policy.md`, and `docs/qos-checklist.md` before refreshing the deploy branch.
 
 ## Plesk Git Deployment
 
