@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://datastaisis.cloudexcelon.com/sitemap.xml
