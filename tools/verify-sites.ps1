@@ -52,7 +52,8 @@ $patterns = @(
     @{ Pattern = "Veteran-Owned"; Reason = "unverified ownership claim" },
     @{ Pattern = "500\+ Clients|250\+|\$150M|99\.9|99%"; Reason = "unverified/fake metric" },
     @{ Pattern = "privacy-policy|legal-notice"; Reason = "removed legal/privacy page link" },
-    @{ Pattern = "\.\./assets|\./assets|public_html"; Reason = "inconsistent deploy path" }
+    @{ Pattern = "\.\./assets|\./assets|public_html"; Reason = "inconsistent deploy path" },
+    @{ Pattern = "(href|action)=`"/"; Reason = "hardcoded root-relative internal link; use site_url() for Plesk preview compatibility" }
 )
 
 foreach ($entry in $patterns) {

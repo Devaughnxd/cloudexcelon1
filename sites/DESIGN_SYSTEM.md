@@ -4,7 +4,7 @@ Typography: Segoe UI/Inter-style system font, strong enterprise headlines, reada
 
 Palette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus controlled brand accent tokens.
 
-Asset system: all CSS, JavaScript, logos, and visuals resolve through the PHP `asset()` helper and root-relative `/assets/...` URLs.
+Asset system: all CSS, JavaScript, logos, visuals, internal links, and form actions resolve through PHP `asset()` and `site_url()` helpers so the same files work on the live domain root and under Plesk preview paths.
 
 Buttons: red primary conversion CTA, blue secondary service action, black-outline discovery action.
 

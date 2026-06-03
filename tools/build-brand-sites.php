@@ -244,7 +244,26 @@ function page(string $slug, array $brand, string $page, array $brands): string
         'contact' => contactPage($brand, $brands),
         default => '',
     };
+    $body = previewSafeLinks($body);
     return "<?php\n\$pageTitle = " . var_export($titles[$page], true) . ";\n\$metaDescription = " . var_export($descriptions[$page], true) . ";\n\$pagePath = " . var_export($page === 'index' ? '/' : '/' . $page, true) . ";\nrequire __DIR__ . '/includes/header.php';\n?>\n" . $body . "\n<?php require __DIR__ . '/includes/footer.php'; ?>\n";
+}
+
+function previewSafeLinks(string $html): string
+{
+    $routes = [
+        '/contact.php' => 'contact.php',
+        '/services' => 'services',
+        '/contact' => 'contact',
+        '/about' => 'about',
+        '/news' => 'news',
+        '/' => '',
+    ];
+    foreach ($routes as $literal => $route) {
+        $dynamic = "<?= e(site_url(" . var_export($route, true) . ")) ?>";
+        $html = str_replace('href="' . $literal . '"', 'href="' . $dynamic . '"', $html);
+        $html = str_replace('action="' . $literal . '"', 'action="' . $dynamic . '"', $html);
+    }
+    return $html;
 }
 
 function homePage(string $slug, array $brand, array $brands): string
@@ -635,7 +654,51 @@ function headerInclude(): string
 <?php
 $brand = require __DIR__ . '/site.php';
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
-function asset(string $path): string { return '/assets/' . ltrim($path, '/'); }
+function site_base_path(): string
+{
+    static $base = null;
+    global $brand;
+    if ($base !== null) {
+        return $base;
+    }
+    $configured = getenv('BTP_BASE_PATH') ?: '';
+    if ($configured !== '') {
+        $base = '/' . trim($configured, '/');
+        return $base === '/' ? '' : $base;
+    }
+    $sources = [
+        $_SERVER['HTTP_X_ORIGINAL_URL'] ?? '',
+        $_SERVER['UNENCODED_URL'] ?? '',
+        $_SERVER['REQUEST_URI'] ?? '',
+        $_SERVER['SCRIPT_NAME'] ?? '',
+    ];
+    foreach ($sources as $source) {
+        $path = parse_url((string) $source, PHP_URL_PATH) ?: (string) $source;
+        if (preg_match('#^(/plesk-site-preview/[^/]+)#', $path, $match)) {
+            $base = rtrim($match[1], '/');
+            return $base;
+        }
+    }
+    $host = (string) ($_SERVER['HTTP_HOST'] ?? '');
+    $host = preg_replace('/:\d+$/', '', $host) ?: $host;
+    if (
+        isset($brand['domain']) &&
+        filter_var($host, FILTER_VALIDATE_IP) &&
+        !in_array($host, ['127.0.0.1', '::1'], true)
+    ) {
+        $base = '/plesk-site-preview/' . $brand['domain'];
+        return $base;
+    }
+    $base = '';
+    return $base;
+}
+function site_url(string $path = ''): string
+{
+    $base = site_base_path();
+    $path = trim($path, '/');
+    return ($base === '' ? '' : $base) . ($path === '' ? '/' : '/' . $path);
+}
+function asset(string $path): string { return site_url('assets/' . ltrim($path, '/')); }
 function footerDescription(array $brand): string { return $brand['name'] . ' helps clients clarify needs, compare options, coordinate delivery paths, and move technology work toward accountable next steps.'; }
 $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
 ?><!doctype html>
@@ -650,7 +713,7 @@ $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
   <meta property="og:description" content="<?= e($metaDescription ?? $brand['summary']) ?>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<?= e($canonical) ?>">
-  <meta property="og:image" content="https://<?= e($brand['domain']) ?><?= e(asset('images/logo.png')) ?>">
+  <meta property="og:image" content="https://<?= e($brand['domain']) ?>/assets/images/logo.png">
   <link rel="preload" href="<?= e(asset('css/style.css')) ?>" as="style">
   <link rel="stylesheet" href="<?= e(asset('css/style.css')) ?>">
   <script src="<?= e(asset('js/main.js')) ?>" defer></script>
@@ -660,9 +723,9 @@ $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" width="210" height="82"></a>
+    <a class="brand" href="<?= e(site_url()) ?>" aria-label="<?= e($brand['name']) ?> home"><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" width="210" height="82"></a>
     <?php require __DIR__ . '/navigation.php'; ?>
-    <a class="button button-primary header-cta" href="/contact"><?= e($brand['cta']) ?></a>
+    <a class="button button-primary header-cta" href="<?= e(site_url('contact')) ?>"><?= e($brand['cta']) ?></a>
     <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
@@ -675,11 +738,11 @@ function navigationInclude(): string
     return <<<'PHP'
 <nav class="site-nav" aria-label="Primary navigation">
   <ul class="nav-menu">
-    <li><a href="/">Home</a></li>
-    <li><a href="/about">About</a></li>
-    <li><a href="/services">Services</a></li>
-    <li><a href="/news">News</a></li>
-    <li><a href="/contact">Contact</a></li>
+    <li><a href="<?= e(site_url()) ?>">Home</a></li>
+    <li><a href="<?= e(site_url('about')) ?>">About</a></li>
+    <li><a href="<?= e(site_url('services')) ?>">Services</a></li>
+    <li><a href="<?= e(site_url('news')) ?>">News</a></li>
+    <li><a href="<?= e(site_url('contact')) ?>">Contact</a></li>
   </ul>
 </nav>
 PHP;
@@ -692,13 +755,13 @@ function footerInclude(): string
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="footer-logo-panel" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" loading="lazy"></a>
+      <a class="footer-logo-panel" href="<?= e(site_url()) ?>" aria-label="<?= e($brand['name']) ?> home"><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" loading="lazy"></a>
       <p><?= e(footerDescription($brand)) ?></p>
-      <div class="social-links" aria-label="Social links"><a href="https://www.linkedin.com/company/btp-innovations/" aria-label="LinkedIn">in</a><a href="mailto:info@btpinnovations.com" aria-label="Email">@</a><a href="/contact" aria-label="Request consultation">→</a></div>
+      <div class="social-links" aria-label="Social links"><a href="https://www.linkedin.com/company/btp-innovations/" aria-label="LinkedIn">in</a><a href="mailto:info@btpinnovations.com" aria-label="Email">@</a><a href="<?= e(site_url('contact')) ?>" aria-label="Request consultation">→</a></div>
     </div>
-    <div><h3>Navigation</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></div>
-    <div><h3>Services</h3><?php foreach (array_slice($brand['capabilities'], 0, 6) as $capability): ?><a href="/services"><?= e($capability) ?></a><?php endforeach; ?></div>
-    <div class="footer-contact"><h3>Contact</h3><p>info@btpinnovations.com<br>(800) 781-6632</p><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><a class="button button-primary" href="/contact">Request Consultation</a></div>
+    <div><h3>Navigation</h3><a href="<?= e(site_url()) ?>">Home</a><a href="<?= e(site_url('about')) ?>">About</a><a href="<?= e(site_url('services')) ?>">Services</a><a href="<?= e(site_url('news')) ?>">News</a><a href="<?= e(site_url('contact')) ?>">Contact</a></div>
+    <div><h3>Services</h3><?php foreach (array_slice($brand['capabilities'], 0, 6) as $capability): ?><a href="<?= e(site_url('services')) ?>"><?= e($capability) ?></a><?php endforeach; ?></div>
+    <div class="footer-contact"><h3>Contact</h3><p>info@btpinnovations.com<br>(800) 781-6632</p><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><a class="button button-primary" href="<?= e(site_url('contact')) ?>">Request Consultation</a></div>
   </div>
 </footer>
 </body>
@@ -719,6 +782,16 @@ PHP;
 function js(): string
 {
     return <<<'JS'
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.addEventListener('load', () => {
+  const navEntries = performance.getEntriesByType?.('navigation') || [];
+  const navType = navEntries[0]?.type || performance.navigation?.type;
+  if (!location.hash && (navType === 'reload' || navType === 1)) {
+    window.scrollTo(0, 0);
+  }
+});
 const toggle = document.querySelector('.nav-toggle');
 toggle?.addEventListener('click', () => {
   const isOpen = document.body.classList.toggle('nav-open');
@@ -966,7 +1039,14 @@ function websiteAudit(string $slug, array $brand): string
         "- Finding: Visual and deployment changes needed a consistent verification process before refreshing deployment branches.\n" .
         "- Planned correction: Add a QOS checklist per site and a root verification script that lint-checks PHP, checks content/path hygiene, and smoke-tests site routes/assets locally.\n" .
         "- Fix applied: Added `docs/qos-checklist.md` to every generated site and introduced `tools/verify-sites.ps1` as the pre-deployment gate.\n" .
-        "- Verification: Run `powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1` before pushing deploy branches.\n\n";
+        "- Verification: Run `powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1` before pushing deploy branches.\n\n" .
+        "### {$date} - Plesk preview and reload behavior caused inconsistent loading perception\n" .
+        "- Severity: High\n" .
+        "- Affected area: Header include, navigation include, footer include, generated page links, asset helper, JavaScript reload handling\n" .
+        "- Finding: Plesk preview serves the site under `/plesk-site-preview/{domain}/`, but root-relative links and assets can resolve outside the preview path. Browser scroll restoration can also reload the page at the previous scroll position, making the site appear to load directly into lower sections or the footer.\n" .
+        "- Planned correction: Replace hardcoded root links with a dynamic `site_url()` helper, make `asset()` preview-aware, convert generated page links/forms to helper-based URLs, and reset scroll to the top on reload when no hash is present.\n" .
+        "- Fix applied: Added preview-safe routing helpers, updated shared header/navigation/footer links, converted generated body links, and added reload scroll restoration handling in `assets/js/main.js`.\n" .
+        "- Verification: Regenerate sites, confirm active HTML/PHP contains no hardcoded root internal links, lint PHP, and smoke-test all routes/assets.\n\n";
 }
 
 function competitorSet(string $slug): array
@@ -1088,7 +1168,7 @@ function contentSourcePolicy(string $slug, array $brand): string
 
 function designSystem(): string
 {
-    return "# BTP Design System\n\nTypography: Segoe UI/Inter-style system font, strong enterprise headlines, readable body copy, no viewport-scaled letter spacing.\n\nPalette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus controlled brand accent tokens.\n\nAsset system: all CSS, JavaScript, logos, and visuals resolve through the PHP `asset()` helper and root-relative `/assets/...` URLs.\n\nButtons: red primary conversion CTA, blue secondary service action, black-outline discovery action.\n\nCards: 8px radius, light border, subtle shadow, compact enterprise spacing, and color-accented service tops.\n\nSpacing: shorter pages, intentional whitespace, compact card grids, and visual split sections.\n\nHero system: concise executive headline, proof chips, and a brand-specific SVG service visual.\n\nContent system: every site includes hero, service cards, benefits/trust, visual process, ecosystem links, final CTA, News cards, and one lead form.\n\nForms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n\nBenchmarking: competitor and peer websites are reviewed for visual quality, UX flow, information architecture, CTA strategy, and scanability only. Page copy and factual claims must come from BTP-owned sources.\n\nQOS: run `tools/verify-sites.ps1` before pushing deploy branches. Each site includes `docs/website-audit.md`, `docs/competitive-benchmark.md`, `docs/qos-checklist.md`, and `docs/content-source-policy.md`.\n";
+    return "# BTP Design System\n\nTypography: Segoe UI/Inter-style system font, strong enterprise headlines, readable body copy, no viewport-scaled letter spacing.\n\nPalette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus controlled brand accent tokens.\n\nAsset system: all CSS, JavaScript, logos, visuals, internal links, and form actions resolve through PHP `asset()` and `site_url()` helpers so the same files work on the live domain root and under Plesk preview paths.\n\nButtons: red primary conversion CTA, blue secondary service action, black-outline discovery action.\n\nCards: 8px radius, light border, subtle shadow, compact enterprise spacing, and color-accented service tops.\n\nSpacing: shorter pages, intentional whitespace, compact card grids, and visual split sections.\n\nHero system: concise executive headline, proof chips, and a brand-specific SVG service visual.\n\nContent system: every site includes hero, service cards, benefits/trust, visual process, ecosystem links, final CTA, News cards, and one lead form.\n\nForms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n\nBenchmarking: competitor and peer websites are reviewed for visual quality, UX flow, information architecture, CTA strategy, and scanability only. Page copy and factual claims must come from BTP-owned sources.\n\nQOS: run `tools/verify-sites.ps1` before pushing deploy branches. Each site includes `docs/website-audit.md`, `docs/competitive-benchmark.md`, `docs/qos-checklist.md`, and `docs/content-source-policy.md`.\n";
 }
 
 function masterReadme(array $brands): string
