@@ -1,26 +1,58 @@
 <?php
 return array (
   'name' => 'BTP DatastAIsis',
+  'short' => 'DatastAIsis',
   'domain' => 'datastaisis.cloudexcelon.com',
-  'tagline' => 'AI, automation, analytics, and operational intelligence for business outcomes.',
-  'headline' => 'AI, data, and automation solutions for smarter decisions and more efficient operations.',
-  'summary' => 'BTP DatastAIsis helps organizations use data, AI, and automation to improve decisions, streamline workflows, and unlock more value from their technology environment.',
-  'about' => 
-  array (
-    0 => 'As part of the BTP Innovations ecosystem, DatastAIsis supports businesses across data strategy, analytics, workflow automation, AI-enabled solutions, reporting, and operational intelligence.',
-    1 => 'Many organizations have valuable data but struggle to organize it, interpret it, or turn it into meaningful action.',
-    2 => 'BTP DatastAIsis helps clients move from scattered information and manual processes to clearer insights and more efficient operations.',
-  ),
-  'services' => 
-  array (
-    0 => 'AI Solutions',
-    1 => 'Data Analytics',
-    2 => 'Automation',
-    3 => 'Business Intelligence',
-    4 => 'Workflow Optimization',
-    5 => 'Data Strategy',
-    6 => 'Operational Insights',
-  ),
-  'cta' => 'Connect with BTP DatastAIsis to turn data, AI, and automation into practical business value.',
   'accent' => '#2AA8FF',
+  'cta' => 'Plan an AI and Data Session',
+  'tagline' => 'AI, automation, analytics, and operational intelligence for business outcomes.',
+  'headline' => 'AI, automation, and analytics that turn scattered work into operational intelligence.',
+  'summary' => 'BTP DatastAIsis helps organizations structure data, automate repetitive workflows, build analytics, and apply AI to improve decisions and business outcomes.',
+  'audience' => 'Teams with scattered reporting, manual processes, inconsistent data, limited visibility, or AI interest that needs practical use cases and controlled implementation.',
+  'problems' => 
+  array (
+    0 => 'Data spread across disconnected systems',
+    1 => 'Manual reporting and repetitive workflows',
+    2 => 'AI ideas without business alignment',
+    3 => 'Limited operational visibility',
+  ),
+  'capabilities' => 
+  array (
+    0 => 'AI solutions',
+    1 => 'Data analytics',
+    2 => 'Workflow automation',
+    3 => 'Business intelligence',
+    4 => 'Workflow optimization',
+    5 => 'Data strategy',
+    6 => 'Operational insights',
+  ),
+  'deliverables' => 
+  array (
+    0 => 'Data and automation opportunity map',
+    1 => 'Use-case prioritization',
+    2 => 'Dashboard or reporting plan',
+    3 => 'Automation workflow design',
+    4 => 'AI implementation roadmap',
+  ),
+  'process' => 
+  array (
+    0 => 'Identify use cases',
+    1 => 'Map data sources',
+    2 => 'Prioritize automation',
+    3 => 'Build insight workflows',
+    4 => 'Measure outcomes',
+  ),
+  'outcomes' => 
+  array (
+    0 => 'Better decisions',
+    1 => 'Less repetitive work',
+    2 => 'Clearer reporting',
+    3 => 'Practical AI adoption',
+  ),
+  'related' => 
+  array (
+    0 => 'codeignite',
+    1 => 'cloudexcelon',
+    2 => 'securiscope',
+  ),
 );
