@@ -1,0 +1,9 @@
+<?php
+$pageTitle = 'Contact BTP CodeIGNITE | Start a Conversation';
+$metaDescription = 'Contact BTP CodeIGNITE to discuss business needs, service questions, assessments, sourcing, support, or project planning.';
+$pagePath = '/contact';
+require __DIR__ . '/includes/header.php';
+?>
+<section class="page-hero"><div class="container"><p class="eyebrow">BTP Innovations</p><h1>Contact BTP CodeIGNITE</h1><p>Start with one business inquiry. BTP will route the conversation to the right advisory, sourcing, engineering, or support path.</p></div></section>
+<section class="section contact-section"><div class="container contact-grid"><form id="btp-lead-form" class="contact-form" method="post" action="/contact.php"><input type="hidden" name="brand" value="BTP CodeIGNITE"><label for="full_name">Name<input id="full_name" name="full_name" autocomplete="name" required></label><label for="company_name">Company<input id="company_name" name="company_name" autocomplete="organization"></label><label for="email">Email<input id="email" type="email" name="email" autocomplete="email" required></label><label for="phone">Phone<input id="phone" name="phone" autocomplete="tel"></label><label class="full" for="message">Message<textarea id="message" name="message" rows="6" required></textarea></label><!-- TODO: Connect this form to Microsoft Forms, Power Automate, Dynamics 365, HubSpot, Salesforce, or SMTP/PHP mail when production routing is selected. --><button class="button button-primary full" type="submit">Discuss Your Project</button></form><aside class="contact-panel"><h2>Business Inquiries</h2><p>Software development and application engineering for platform innovation.</p><p><strong>Email</strong><br>info@btpinnovations.com</p><p><strong>Phone</strong><br>(800) 781-6632</p><p><strong>Address</strong><br>276 5th Avenue Suite 704<br>New York, NY 10001</p></aside></div></section>
+<?php require __DIR__ . '/includes/footer.php'; ?>

@@ -6,71 +6,66 @@ OUT = ROOT / "assets" / "brand-logos"
 OUT.mkdir(parents=True, exist_ok=True)
 
 BRANDS = {
-    "praas": ("BTP", "PraaS", "A BTP Innovations Technology Brand"),
-    "techadvisors": ("BTP", "TechAdvisors", "A BTP Innovations Technology Brand"),
-    "securiscope": ("BTP", "SecuriSCOPE", "A BTP Innovations Technology Brand"),
-    "managesp": ("BTP", "ManageSP", "A BTP Innovations Technology Brand"),
-    "cloudexcelon": ("BTP", "CloudEXCELON", "A BTP Innovations Technology Brand"),
-    "codeignite": ("BTP", "CodeIGNITE", "A BTP Innovations Technology Brand"),
-    "datastaisis": ("BTP", "DatastAIsis", "A BTP Innovations Technology Brand"),
+    "praas": "PraaS",
+    "techadvisors": "TechAdvisors",
+    "securiscope": "SecuriSCOPE",
+    "managesp": "ManageSP",
+    "cloudexcelon": "CloudEXCELON",
+    "codeignite": "CodeIGNITE",
+    "datastaisis": "DatastAIsis",
 }
 
+TAGLINE = "A BTP Innovations Technology Brand"
+COLORS = ["#000000", "#FF3B30", "#2AA8FF"]
 
-def font(size: int) -> ImageFont.FreeTypeFont:
-    candidates = [
-        r"C:\Windows\Fonts\arialbd.ttf",
-        r"C:\Windows\Fonts\arial.ttf",
-        r"C:\Windows\Fonts\segoeuib.ttf",
-    ]
-    for candidate in candidates:
-        if Path(candidate).exists():
-            return ImageFont.truetype(candidate, size=size)
+
+def font(size: int, bold: bool = True):
+    names = ["arialbd.ttf", "segoeuib.ttf"] if bold else ["arial.ttf", "segoeui.ttf"]
+    for name in names:
+        path = Path("C:/Windows/Fonts") / name
+        if path.exists():
+            return ImageFont.truetype(str(path), size=size)
     return ImageFont.load_default()
 
 
-def fit_font(text: str, start: int, max_width: int) -> ImageFont.FreeTypeFont:
-    size = start
-    while size > 14:
+def fit(text: str, start: int, max_width: int):
+    draw = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
+    for size in range(start, 13, -1):
         f = font(size)
-        box = ImageDraw.Draw(Image.new("RGB", (1, 1))).textbbox((0, 0), text, font=f)
+        box = draw.textbbox((0, 0), text, font=f)
         if box[2] - box[0] <= max_width:
             return f
-        size -= 1
-    return font(size)
+    return font(14)
 
 
-def draw_logo(slug: str, top: str, bottom: str, tagline: str) -> None:
-    width, height = 360, 170
-    img = Image.new("RGBA", (width, height), "white")
-    draw = ImageDraw.Draw(img)
+def svg_text(slug: str, brand: str) -> str:
+    brand_size = 46 if len(brand) <= 8 else 34 if len(brand) <= 12 else 28
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="360" height="170" viewBox="0 0 360 170" role="img" aria-label="BTP {brand} logo">
+  <rect x="28" y="62" width="27" height="48" fill="{COLORS[0]}"/>
+  <rect x="63" y="32" width="27" height="78" fill="{COLORS[1]}"/>
+  <rect x="98" y="2" width="27" height="108" fill="{COLORS[2]}"/>
+  <text x="132" y="61" fill="#000000" font-family="Arial, Segoe UI, sans-serif" font-size="58" font-weight="800">BTP</text>
+  <text x="132" y="108" fill="#000000" font-family="Arial, Segoe UI, sans-serif" font-size="{brand_size}" font-weight="800">{brand}</text>
+  <text x="28" y="150" fill="#111111" font-family="Arial, Segoe UI, sans-serif" font-size="13" font-weight="700">{TAGLINE}</text>
+</svg>
+'''
 
-    # Keep the PraaS visual mark: three vertical bars in black, red, and blue.
-    base_x = 28
+
+def draw_png(slug: str, brand: str):
+    image = Image.new("RGBA", (360, 170), (255, 255, 255, 0))
+    draw = ImageDraw.Draw(image)
     base_y = 110
-    bar_w = 27
-    gap = 8
-    heights = [48, 78, 108]
-    colors = ["#000000", "#FF3B30", "#2AA8FF"]
-    for i, (bar_h, color) in enumerate(zip(heights, colors)):
-        x = base_x + i * (bar_w + gap)
-        draw.rectangle([x, base_y - bar_h, x + bar_w, base_y], fill=color)
-
-    text_x = 132
-    top_font = font(58)
-    bottom_font = fit_font(bottom, 44, width - text_x - 18)
-    tagline_font = fit_font(tagline, 14, width - 32)
-
-    draw.text((text_x, 14), top, fill="#000000", font=top_font)
-    draw.text((text_x, 73), bottom, fill="#000000", font=bottom_font)
-
-    tagline_box = draw.textbbox((0, 0), tagline, font=tagline_font)
-    tagline_w = tagline_box[2] - tagline_box[0]
-    draw.text(((width - tagline_w) / 2, 138), tagline, fill="#111111", font=tagline_font)
-
-    img.save(OUT / f"{slug}.png")
+    for i, height in enumerate([48, 78, 108]):
+        x = 28 + i * 35
+        draw.rectangle([x, base_y - height, x + 27, base_y], fill=COLORS[i])
+    draw.text((132, 8), "BTP", fill="#000000", font=font(58))
+    draw.text((132, 68), brand, fill="#000000", font=fit(brand, 46, 218))
+    draw.text((28, 136), TAGLINE, fill="#111111", font=fit(TAGLINE, 14, 304))
+    image.save(OUT / f"{slug}.png")
 
 
-for slug, parts in BRANDS.items():
-    draw_logo(slug, *parts)
+for slug, brand in BRANDS.items():
+    draw_png(slug, brand)
+    (OUT / f"{slug}.svg").write_text(svg_text(slug, brand), encoding="utf-8")
 
-print(f"Generated {len(BRANDS)} logos in {OUT}")
+print(f"Generated {len(BRANDS)} transparent PNG and SVG logo pairs in {OUT}")

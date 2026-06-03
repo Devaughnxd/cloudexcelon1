@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://praas.cloudexcelon.com/sitemap.xml

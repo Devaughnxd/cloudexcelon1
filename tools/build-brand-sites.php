@@ -2,113 +2,128 @@
 declare(strict_types=1);
 
 $root = dirname(__DIR__);
-$outputRoot = $root . DIRECTORY_SEPARATOR . 'brand-sites';
+$outputRoot = $root . DIRECTORY_SEPARATOR . 'sites';
+$logoRoot = $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'brand-logos';
 
 $brands = [
     'praas' => [
         'name' => 'BTP PraaS',
+        'short' => 'PraaS',
         'domain' => 'praas.cloudexcelon.com',
-        'tagline' => 'Procurement and sourcing support that simplifies technology acquisition through one coordinated path.',
-        'headline' => 'Practical technology procurement and Resource-as-a-Service solutions for modern businesses.',
-        'summary' => 'BTP PraaS helps organizations access the technology products, services, and resources they need without adding unnecessary complexity to procurement, vendor management, or project execution.',
-        'about' => [
-            'As part of the BTP Innovations ecosystem, PraaS supports businesses that need a more efficient way to source technology, compare options, coordinate vendors, and connect the right resources to the right business priorities.',
-            'Many organizations lose time and money managing fragmented providers, unclear pricing, underused tools, and disconnected service relationships. BTP PraaS helps simplify that process by bringing advisory, sourcing, partner access, and execution support into a more coordinated model.',
-            'Whether an organization is purchasing software, evaluating infrastructure options, sourcing technical resources, or planning a broader technology initiative, PraaS helps create a clearer path from need to solution.',
-        ],
-        'services' => ['Technology Procurement', 'Vendor Sourcing', 'Resource-as-a-Service', 'SaaS and Licensing', 'IT Cost Optimization', 'Partner Ecosystem Access'],
-        'cta' => 'Connect with BTP PraaS to simplify technology sourcing and align the right resources with your business goals.',
         'accent' => '#2AA8FF',
+        'cta' => 'Schedule a Sourcing Consultation',
+        'tagline' => 'Procurement and sourcing support that simplifies technology acquisition through one coordinated path.',
+        'headline' => 'Technology procurement and sourcing support without vendor noise.',
+        'summary' => 'BTP PraaS helps organizations source technology products, services, licenses, vendors, and technical resources through one coordinated advisory-led path.',
+        'audience' => 'Operations, IT, finance, and business leaders who need better buying decisions, cleaner vendor coordination, and a practical path from need to solution.',
+        'problems' => ['Fragmented vendor conversations', 'Unclear software and infrastructure pricing', 'Disconnected procurement and delivery handoffs', 'Underused tools and overlapping services'],
+        'capabilities' => ['Technology procurement', 'Vendor sourcing', 'SaaS and licensing review', 'IT cost optimization', 'Partner ecosystem access', 'Resource-as-a-Service alignment'],
+        'deliverables' => ['Requirement and budget summary', 'Vendor and option comparison', 'Pricing and feature review', 'Recommended sourcing path', 'Implementation handoff notes'],
+        'process' => ['Define the need', 'Map viable providers', 'Compare price and fit', 'Coordinate selection', 'Support the handoff'],
+        'outcomes' => ['Faster technology acquisition', 'Better cost visibility', 'Reduced vendor management burden', 'Clearer accountability'],
+        'related' => ['techadvisors', 'cloudexcelon', 'managesp'],
     ],
     'techadvisors' => [
         'name' => 'BTP TechAdvisors',
+        'short' => 'TechAdvisors',
         'domain' => 'techadvisors.cloudexcelon.com',
+        'accent' => '#0067F0',
+        'cta' => 'Talk to an Advisor',
         'tagline' => 'Strategic advisory and client engagement for complex technology decisions.',
-        'headline' => 'Vendor-neutral technology advisory for smarter business decisions.',
-        'summary' => 'BTP TechAdvisors helps organizations make clearer, smarter, and more cost-effective technology decisions.',
-        'about' => [
-            'We work with businesses that need guidance across cloud, cybersecurity, connectivity, software, AI, managed IT, and broader digital transformation priorities.',
-            'Technology decisions are often complicated by too many vendors, overlapping tools, rising costs, and unclear implementation paths. BTP TechAdvisors brings structure to that process by combining practical advisory support with access to the broader BTP Innovations ecosystem.',
-            'We are advisory-first, but not advisory-only. Through BTP solution brands and partner networks, we help clients move from recommendations to execution.',
-        ],
-        'services' => ['Technology Strategy', 'Vendor-Neutral Advisory', 'Digital Transformation', 'IT Roadmapping', 'Solution Evaluation', 'Cost Optimization'],
-        'cta' => 'Connect with BTP TechAdvisors when your business needs clearer technology decisions and a practical path to execution.',
-        'accent' => '#2AA8FF',
+        'headline' => 'Vendor-neutral guidance for decisions that carry real business risk.',
+        'summary' => 'BTP TechAdvisors helps leaders evaluate technology options, clarify tradeoffs, prioritize roadmaps, and move from strategy to accountable execution.',
+        'audience' => 'Executives, IT leaders, operations teams, and finance stakeholders making decisions across cloud, cybersecurity, AI, managed IT, communications, and software platforms.',
+        'problems' => ['Too many competing vendor claims', 'Technology roadmaps without execution clarity', 'Rising spend across overlapping tools', 'Unclear implementation risk'],
+        'capabilities' => ['Technology strategy', 'Vendor-neutral advisory', 'Digital transformation planning', 'IT roadmap development', 'Solution evaluation', 'Cost optimization'],
+        'deliverables' => ['Discovery brief', 'Options and tradeoff analysis', 'Roadmap recommendations', 'Vendor-neutral scorecard', 'Execution alignment plan'],
+        'process' => ['Listen and discover', 'Identify the gaps', 'Evaluate options', 'Call in the right expert', 'Deliver together'],
+        'outcomes' => ['Clearer decisions', 'Reduced technology risk', 'Better executive alignment', 'Practical next steps'],
+        'related' => ['praas', 'securiscope', 'cloudexcelon'],
     ],
     'securiscope' => [
         'name' => 'BTP SecuriSCOPE',
+        'short' => 'SecuriSCOPE',
         'domain' => 'securiscope.cloudexcelon.com',
-        'tagline' => 'Cybersecurity strategy, protection, compliance, and resilience for enterprise environments.',
-        'headline' => 'Cybersecurity advisory, protection, and risk reduction for modern organizations.',
-        'summary' => 'BTP SecuriSCOPE helps organizations strengthen cybersecurity, reduce risk, and protect critical systems and data.',
-        'about' => [
-            'As part of the BTP Innovations ecosystem, SecuriSCOPE supports businesses across cybersecurity assessment, security strategy, managed security, threat visibility, compliance readiness, and security solution implementation.',
-            'Cybersecurity is no longer a single tool or one-time project. Organizations need practical guidance, reliable protection, and ongoing visibility across users, networks, cloud platforms, endpoints, and business-critical applications.',
-            'BTP SecuriSCOPE helps clients understand risk exposure, identify security gaps, prioritize improvements, and deploy the right solutions for their environment.',
-        ],
-        'services' => ['Cybersecurity Strategy', 'Risk Assessment', 'Managed Security', 'MDR and SIEM', 'Cloud Security', 'Vulnerability Management', 'Compliance Readiness'],
-        'cta' => 'Connect with BTP SecuriSCOPE to assess risk, strengthen protection, and build a more resilient security posture.',
         'accent' => '#FF3B30',
+        'cta' => 'Start Your Assessment',
+        'tagline' => 'Cybersecurity strategy, protection, compliance, and resilience for enterprise environments.',
+        'headline' => 'Security strategy, visibility, and risk reduction for modern environments.',
+        'summary' => 'BTP SecuriSCOPE helps organizations assess exposure, prioritize cybersecurity improvements, implement protection, and strengthen resilience across users, cloud, endpoints, and applications.',
+        'audience' => 'Organizations that need stronger security posture, compliance readiness, managed detection, vulnerability visibility, and practical guidance before buying more tools.',
+        'problems' => ['Limited visibility across cloud and endpoints', 'Compliance pressure without a clear roadmap', 'Security tools that are not fully operationalized', 'Unprioritized vulnerabilities and threat exposure'],
+        'capabilities' => ['Cybersecurity strategy', 'Risk assessment', 'Managed security', 'MDR and SIEM guidance', 'Cloud security', 'Vulnerability management', 'Compliance readiness'],
+        'deliverables' => ['Security posture summary', 'Risk and gap register', 'Prioritized remediation roadmap', 'Control and tooling recommendations', 'Managed security transition plan'],
+        'process' => ['Assess risk', 'Prioritize exposure', 'Select controls', 'Implement protection', 'Review resilience'],
+        'outcomes' => ['Reduced risk exposure', 'Clearer compliance readiness', 'Stronger monitoring posture', 'More resilient operations'],
+        'related' => ['cloudexcelon', 'managesp', 'datastaisis'],
     ],
     'managesp' => [
         'name' => 'BTP ManageSP',
+        'short' => 'ManageSP',
         'domain' => 'managesp.cloudexcelon.com',
-        'tagline' => 'Managed IT services that keep operations supported after deployment.',
-        'headline' => 'Managed IT services and operational support for stable, secure technology environments.',
-        'summary' => 'BTP ManageSP helps organizations keep their technology environments stable, secure, optimized, and ready to support the business.',
-        'about' => [
-            'As part of the BTP Innovations ecosystem, ManageSP provides managed services and operational support across IT infrastructure, cloud environments, endpoints, networks, systems, and business technology platforms.',
-            'Many organizations depend on technology every day but struggle with limited internal resources, inconsistent support, vendor fragmentation, and growing operational demands.',
-            'BTP ManageSP provides structured support, proactive management, and access to broader advisory and solution expertise.',
-        ],
-        'services' => ['Managed IT Services', 'IT Operations', 'Infrastructure Support', 'Cloud Operations', 'End-User Support', 'Vendor Coordination', 'Technology Management'],
-        'cta' => 'Connect with BTP ManageSP to improve technology operations and keep your business environment running with confidence.',
         'accent' => '#2AA8FF',
+        'cta' => 'Request Support',
+        'tagline' => 'Managed IT services that keep operations supported after deployment.',
+        'headline' => 'Managed IT support that keeps business technology stable after launch.',
+        'summary' => 'BTP ManageSP provides operational support, infrastructure management, cloud operations, end-user support, vendor coordination, and lifecycle management for business technology environments.',
+        'audience' => 'Organizations with limited internal IT capacity, fragmented support providers, growing cloud operations, or systems that need consistent management after deployment.',
+        'problems' => ['Inconsistent support coverage', 'Unclear ownership after projects go live', 'Too many vendors managing separate pieces', 'Reactive operations instead of proactive maintenance'],
+        'capabilities' => ['Managed IT services', 'IT operations', 'Infrastructure support', 'Cloud operations', 'End-user support', 'Vendor coordination', 'Technology management'],
+        'deliverables' => ['Support model definition', 'Operations coverage plan', 'Vendor coordination map', 'Escalation path', 'Lifecycle improvement backlog'],
+        'process' => ['Review environment', 'Define support needs', 'Stabilize operations', 'Coordinate vendors', 'Improve continuously'],
+        'outcomes' => ['More reliable operations', 'Faster issue routing', 'Clearer ownership', 'Less operational drag'],
+        'related' => ['cloudexcelon', 'securiscope', 'praas'],
     ],
     'cloudexcelon' => [
         'name' => 'BTP CloudEXCELON',
+        'short' => 'CloudEXCELON',
         'domain' => 'dev.cloudexcelon.com',
-        'tagline' => 'Cloud architecture and infrastructure built for scalable enterprise environments.',
-        'headline' => 'Cloud strategy, migration, optimization, and operations for scalable business growth.',
-        'summary' => 'BTP CloudEXCELON helps organizations plan, modernize, optimize, and manage cloud environments that support real business needs.',
-        'about' => [
-            'As part of the BTP Innovations ecosystem, CloudEXCELON supports businesses across cloud advisory, migration, infrastructure design, cost optimization, resilience planning, and ongoing cloud operations.',
-            'Cloud decisions can become complicated quickly. Organizations often face rising costs, unclear architecture, underused services, security concerns, and uncertainty about which platform or migration path is right for them.',
-            'BTP CloudEXCELON helps clients evaluate current environments, define the right cloud strategy, deploy scalable solutions, and optimize performance over time.',
-        ],
-        'services' => ['Cloud Strategy', 'Cloud Migration', 'Cloud Optimization', 'Cloud Infrastructure', 'Azure', 'AWS', 'Google Cloud', 'Cloud Operations'],
-        'cta' => 'Connect with BTP CloudEXCELON to plan, optimize, or modernize your cloud environment with a clearer path forward.',
         'accent' => '#2AA8FF',
+        'cta' => 'Discuss Your Cloud Roadmap',
+        'tagline' => 'Cloud architecture and infrastructure built for scalable enterprise environments.',
+        'headline' => 'Cloud architecture built for scale, resilience, and operational clarity.',
+        'summary' => 'BTP CloudEXCELON helps organizations plan, migrate, modernize, optimize, and manage cloud environments across Azure, AWS, Google Cloud, hybrid infrastructure, and operational platforms.',
+        'audience' => 'IT and business teams facing cloud cost pressure, migration uncertainty, architecture gaps, security concerns, or operational complexity across multi-cloud and hybrid environments.',
+        'problems' => ['Rising cloud costs', 'Unclear architecture decisions', 'Migration paths without operational planning', 'Performance, security, and resilience gaps'],
+        'capabilities' => ['Cloud strategy', 'Cloud migration', 'Cloud optimization', 'Cloud infrastructure', 'Azure advisory', 'AWS advisory', 'Google Cloud advisory', 'Cloud operations'],
+        'deliverables' => ['Cloud readiness review', 'Target architecture', 'Migration and modernization roadmap', 'Cost optimization recommendations', 'Operations transition plan'],
+        'process' => ['Assess the environment', 'Design the architecture', 'Plan the migration', 'Deploy and validate', 'Optimize operations'],
+        'outcomes' => ['Scalable cloud foundations', 'Better cost control', 'Improved resilience', 'Cleaner operations'],
+        'related' => ['securiscope', 'managesp', 'datastaisis'],
     ],
     'codeignite' => [
         'name' => 'BTP CodeIGNITE',
+        'short' => 'CodeIGNITE',
         'domain' => 'codeignite.cloudexcelon.com',
-        'tagline' => 'Software development and application engineering for platform innovation.',
-        'headline' => 'Software, platform, and application development built for scale and practical business value.',
-        'summary' => 'BTP CodeIGNITE helps organizations design, build, and modernize software solutions that support growth, efficiency, and long-term value.',
-        'about' => [
-            'As part of the BTP Innovations ecosystem, CodeIGNITE supports web, mobile, enterprise, automation, and platform development initiatives for businesses that need reliable technology execution.',
-            'Many organizations have ideas, workflows, or operational challenges that require more than off-the-shelf tools.',
-            'BTP CodeIGNITE supports clients from concept and architecture through build, integration, deployment, and ongoing improvement.',
-        ],
-        'services' => ['Software Development', 'Web Applications', 'Mobile Applications', 'Enterprise Platforms', 'API Integration', 'Automation', 'Blockchain-Enabled Solutions'],
-        'cta' => 'Connect with BTP CodeIGNITE to build or modernize software that moves your business forward.',
         'accent' => '#FF3B30',
+        'cta' => 'Discuss Your Project',
+        'tagline' => 'Software development and application engineering for platform innovation.',
+        'headline' => 'Software engineering for applications, platforms, workflows, and modernization.',
+        'summary' => 'BTP CodeIGNITE helps organizations design, build, modernize, integrate, and improve software that supports operations, customer experience, automation, and platform growth.',
+        'audience' => 'Businesses with workflows that outgrew spreadsheets, legacy platforms that slow teams down, integration gaps between systems, or product ideas that need disciplined engineering.',
+        'problems' => ['Manual workflows that slow operations', 'Legacy applications that are hard to change', 'Disconnected systems and APIs', 'Ideas without a practical build plan'],
+        'capabilities' => ['Software development', 'Web applications', 'Mobile applications', 'Enterprise platforms', 'API integration', 'Automation', 'Blockchain-enabled solutions'],
+        'deliverables' => ['Product discovery brief', 'Technical architecture', 'UX and workflow plan', 'Development roadmap', 'Deployment and improvement backlog'],
+        'process' => ['Clarify the workflow', 'Design the solution', 'Build the platform', 'Integrate systems', 'Improve after launch'],
+        'outcomes' => ['Useful business software', 'More efficient workflows', 'Stronger platform foundations', 'Faster iteration'],
+        'related' => ['datastaisis', 'cloudexcelon', 'techadvisors'],
     ],
     'datastaisis' => [
         'name' => 'BTP DatastAIsis',
+        'short' => 'DatastAIsis',
         'domain' => 'datastaisis.cloudexcelon.com',
-        'tagline' => 'AI, automation, analytics, and operational intelligence for business outcomes.',
-        'headline' => 'AI, data, and automation solutions for smarter decisions and more efficient operations.',
-        'summary' => 'BTP DatastAIsis helps organizations use data, AI, and automation to improve decisions, streamline workflows, and unlock more value from their technology environment.',
-        'about' => [
-            'As part of the BTP Innovations ecosystem, DatastAIsis supports businesses across data strategy, analytics, workflow automation, AI-enabled solutions, reporting, and operational intelligence.',
-            'Many organizations have valuable data but struggle to organize it, interpret it, or turn it into meaningful action.',
-            'BTP DatastAIsis helps clients move from scattered information and manual processes to clearer insights and more efficient operations.',
-        ],
-        'services' => ['AI Solutions', 'Data Analytics', 'Automation', 'Business Intelligence', 'Workflow Optimization', 'Data Strategy', 'Operational Insights'],
-        'cta' => 'Connect with BTP DatastAIsis to turn data, AI, and automation into practical business value.',
         'accent' => '#2AA8FF',
+        'cta' => 'Plan an AI and Data Session',
+        'tagline' => 'AI, automation, analytics, and operational intelligence for business outcomes.',
+        'headline' => 'AI, automation, and analytics that turn scattered work into operational intelligence.',
+        'summary' => 'BTP DatastAIsis helps organizations structure data, automate repetitive workflows, build analytics, and apply AI to improve decisions and business outcomes.',
+        'audience' => 'Teams with scattered reporting, manual processes, inconsistent data, limited visibility, or AI interest that needs practical use cases and controlled implementation.',
+        'problems' => ['Data spread across disconnected systems', 'Manual reporting and repetitive workflows', 'AI ideas without business alignment', 'Limited operational visibility'],
+        'capabilities' => ['AI solutions', 'Data analytics', 'Workflow automation', 'Business intelligence', 'Workflow optimization', 'Data strategy', 'Operational insights'],
+        'deliverables' => ['Data and automation opportunity map', 'Use-case prioritization', 'Dashboard or reporting plan', 'Automation workflow design', 'AI implementation roadmap'],
+        'process' => ['Identify use cases', 'Map data sources', 'Prioritize automation', 'Build insight workflows', 'Measure outcomes'],
+        'outcomes' => ['Better decisions', 'Less repetitive work', 'Clearer reporting', 'Practical AI adoption'],
+        'related' => ['codeignite', 'cloudexcelon', 'securiscope'],
     ],
 ];
 
@@ -126,231 +141,295 @@ function h(string $value): string
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
 }
 
-$logoSource = $root . DIRECTORY_SEPARATOR . 'btp-sitejet-build' . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'btp-logo.png';
-if (!is_file($logoSource)) {
-    $logoSource = 'C:\\Users\\DEVAU\\OneDrive\\Desktop\\BTP\\BTP Logo.png';
+function rrmdir(string $path): void
+{
+    if (!is_dir($path)) {
+        return;
+    }
+    $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
+    foreach ($it as $item) {
+        $item->isDir() ? rmdir($item->getPathname()) : unlink($item->getPathname());
+    }
 }
-$generatedLogoRoot = $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'brand-logos';
+
+rrmdir($outputRoot);
 
 foreach ($brands as $slug => $brand) {
-    $siteRoot = $outputRoot . DIRECTORY_SEPARATOR . $slug . DIRECTORY_SEPARATOR . 'public_html';
-    if (is_dir($siteRoot)) {
-        $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($siteRoot, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
-        foreach ($it as $file) {
-            if (!$file->isDir()) {
-                unlink($file->getPathname());
-            }
-        }
-    }
-
-    $brandPhp = var_export($brand, true);
-    write_file($siteRoot . '/includes/site.php', "<?php\nreturn $brandPhp;\n");
+    $siteRoot = $outputRoot . DIRECTORY_SEPARATOR . $slug;
+    write_file($siteRoot . '/includes/site.php', "<?php\nreturn " . var_export($brand, true) . ";\n");
+    write_file($siteRoot . '/includes/analytics.php', analyticsInclude());
+    write_file($siteRoot . '/includes/header.php', headerInclude());
+    write_file($siteRoot . '/includes/navigation.php', navigationInclude());
+    write_file($siteRoot . '/includes/footer.php', footerInclude());
     write_file($siteRoot . '/assets/css/style.css', css($brand));
     write_file($siteRoot . '/assets/js/main.js', js());
-    $brandLogoSource = $generatedLogoRoot . DIRECTORY_SEPARATOR . $slug . '.png';
-    if (!is_file($brandLogoSource)) {
-        $brandLogoSource = $slug === 'praas' ? 'C:\\Users\\DEVAU\\OneDrive\\Desktop\\BTP\\BTP_PraaS-WM29r4HBIJTLGZI4w3hFMw.png' : $logoSource;
-    }
-    if (is_file($brandLogoSource)) {
-        if (!is_dir($siteRoot . '/assets/images')) {
-            mkdir($siteRoot . '/assets/images', 0777, true);
+
+    foreach (['png', 'svg'] as $ext) {
+        $logo = $logoRoot . DIRECTORY_SEPARATOR . $slug . '.' . $ext;
+        if (is_file($logo)) {
+            if (!is_dir($siteRoot . '/assets/images')) {
+                mkdir($siteRoot . '/assets/images', 0777, true);
+            }
+            copy($logo, $siteRoot . '/assets/images/logo.' . $ext);
         }
-        copy($brandLogoSource, $siteRoot . '/assets/images/btp-logo.png');
     }
 
-    foreach (['index' => 'Home', 'about' => 'About Us', 'services' => 'Services', 'news' => 'News', 'contact' => 'Contact'] as $page => $label) {
-        write_file($siteRoot . '/' . ($page === 'index' ? 'index' : $page) . '.php', page($brand, $page));
+    foreach (['index' => 'Home', 'about' => 'About', 'services' => 'Services', 'contact' => 'Contact'] as $page => $label) {
+        $file = $page === 'index' ? 'index.php' : $page . '.php';
+        write_file($siteRoot . '/' . $file, page($slug, $brand, $page, $brands));
+        if ($page !== 'index') {
+            write_file($siteRoot . '/' . $page . '/index.php', "<?php\nrequire __DIR__ . '/../$file';\n");
+        }
     }
-    write_file($siteRoot . '/privacy-policy.php', legal($brand, 'Privacy Policy'));
-    write_file($siteRoot . '/legal-notice.php', legal($brand, 'Legal Notice'));
-    foreach (['about', 'services', 'news', 'contact', 'privacy-policy', 'legal-notice'] as $route) {
-        $target = $route . '.php';
-        write_file($siteRoot . '/' . $route . '/index.php', "<?php\nrequire __DIR__ . '/../$target';\n");
-    }
-    write_file($siteRoot . '/robots.txt', "User-agent: *\nAllow: /\n\nSitemap: https://{$brand['domain']}/sitemap.xml\n");
+
+    write_file($siteRoot . '/robots.txt', robots($brand));
     write_file($siteRoot . '/sitemap.xml', sitemap($brand));
     write_file($siteRoot . '/.htaccess', htaccess());
     write_file($siteRoot . '/web.config', webConfig());
-    write_file($outputRoot . DIRECTORY_SEPARATOR . $slug . DIRECTORY_SEPARATOR . 'README.md', readme($brand, $slug));
+    write_file($siteRoot . '/README.md', readme($slug, $brand));
+    write_file($siteRoot . '/DEPLOYMENT.md', deployment($slug, $brand));
 }
 
+write_file($outputRoot . DIRECTORY_SEPARATOR . 'DESIGN_SYSTEM.md', designSystem());
 write_file($outputRoot . DIRECTORY_SEPARATOR . 'README.md', masterReadme($brands));
 
-function layout(array $brand, string $title, string $description, string $body): string
+function page(string $slug, array $brand, string $page, array $brands): string
 {
-    $nav = '<a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a>';
-    $domain = h($brand['domain']);
-    return <<<PHP
-<?php \$brand = require __DIR__ . '/includes/site.php'; ?>
-<!doctype html>
+    $titles = [
+        'index' => $brand['name'] . ' | ' . $brand['headline'],
+        'about' => 'About ' . $brand['name'] . ' | BTP Innovations',
+        'services' => $brand['name'] . ' Services | ' . $brand['tagline'],
+        'contact' => 'Contact ' . $brand['name'] . ' | Start a Conversation',
+    ];
+    $descriptions = [
+        'index' => $brand['summary'],
+        'about' => $brand['name'] . ' is part of the BTP Innovations ecosystem, helping clients solve technology problems through advisory, execution, and lifecycle support.',
+        'services' => 'Explore ' . $brand['name'] . ' capabilities, deliverables, engagement process, and business outcomes.',
+        'contact' => 'Contact ' . $brand['name'] . ' to discuss business needs, service questions, assessments, sourcing, support, or project planning.',
+    ];
+    $body = match ($page) {
+        'index' => homePage($slug, $brand, $brands),
+        'about' => aboutPage($brand, $brands),
+        'services' => servicesPage($brand, $brands),
+        'contact' => contactPage($brand),
+        default => '',
+    };
+    return "<?php\n\$pageTitle = " . var_export($titles[$page], true) . ";\n\$metaDescription = " . var_export($descriptions[$page], true) . ";\n\$pagePath = " . var_export($page === 'index' ? '/' : '/' . $page, true) . ";\nrequire __DIR__ . '/includes/header.php';\n?>\n" . $body . "\n<?php require __DIR__ . '/includes/footer.php'; ?>\n";
+}
+
+function homePage(string $slug, array $brand, array $brands): string
+{
+    return hero($brand, $brand['cta'], '/contact') . '
+<section class="section intro-band"><div class="container two-column"><div><p class="eyebrow">BTP Innovations Ecosystem</p><h2>' . h($brand['tagline']) . '</h2></div><div><p>' . h($brand['summary']) . '</p><p>' . h($brand['audience']) . '</p></div></div></section>
+<section class="section services-preview"><div class="container split-intro"><div class="section-heading"><p class="eyebrow">Core Capabilities</p><h2>Practical service areas built around outcomes.</h2><p>Each capability is structured around discovery, recommendation, implementation support, and measurable business value.</p><a class="button button-secondary" href="/services">View Services <span aria-hidden="true">&rarr;</span></a></div><div class="card-grid">' . cardList($brand['capabilities']) . '</div></div></section>
+<section class="section process-band"><div class="container"><div class="section-heading centered"><p class="eyebrow">Engagement Process</p><h2>From first conversation to accountable next steps.</h2></div><div class="process-grid">' . processList($brand['process']) . '</div></div></section>
+<section class="section trust-band"><div class="container proof-grid">' . proofList($brand['outcomes']) . '</div></section>
+' . relatedSolutions($brand, $brands) . '
+<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Step</p><h2>Ready to make the technology path clearer?</h2><p>' . h($brand['summary']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . ' <span aria-hidden="true">&rarr;</span></a></div></section>';
+}
+
+function aboutPage(array $brand, array $brands): string
+{
+    return pageHero('About ' . $brand['name'], $brand['summary']) . '
+<section class="section"><div class="container two-column"><div><p class="eyebrow">Company Role</p><h2>Part of one BTP platform, focused on a specific customer problem.</h2></div><div><p>' . h($brand['name']) . ' operates inside the BTP Innovations ecosystem, where advisory, sourcing, engineering, implementation, managed services, and optimization connect through one coordinated delivery model.</p><p>' . h($brand['audience']) . '</p></div></div></section>
+<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Why Clients Choose BTP</p><h2>Advisory-led, execution-ready, and lifecycle aware.</h2></div><div class="card-grid">' . aboutCards() . '</div></div></section>
+' . relatedSolutions($brand, $brands) . '
+<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Talk With BTP</p><h2>Get clear guidance before the next decision becomes expensive.</h2><p>' . h($brand['tagline']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
+}
+
+function servicesPage(array $brand, array $brands): string
+{
+    return pageHero($brand['short'] . ' Services', $brand['tagline']) . '
+<section class="section"><div class="container two-column"><div><p class="eyebrow">What This Service Is</p><h2>' . h($brand['headline']) . '</h2></div><div><p>' . h($brand['summary']) . '</p><p><strong>Who it helps:</strong> ' . h($brand['audience']) . '</p></div></div></section>
+<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Problems Solved</p><h2>Common issues this brand is built to solve.</h2></div><div class="card-grid">' . cardList($brand['problems']) . '</div></div></section>
+<section class="section"><div class="container"><div class="section-heading centered"><p class="eyebrow">Core Capabilities</p><h2>Service areas with practical deliverables.</h2></div><div class="detail-grid">' . detailList($brand['capabilities'], $brand['deliverables']) . '</div></div></section>
+<section class="section process-band"><div class="container"><div class="section-heading centered"><p class="eyebrow">Engagement Process</p><h2>How BTP moves from need to next step.</h2></div><div class="process-grid">' . processList($brand['process']) . '</div></div></section>
+<section class="section trust-band"><div class="container proof-grid">' . proofList($brand['outcomes']) . '</div></section>
+' . relatedSolutions($brand, $brands) . '
+<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Steps</p><h2>Discuss the service path that fits your environment.</h2><p>Bring your current goals, constraints, vendors, systems, or project questions. BTP will help clarify the path forward.</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
+}
+
+function contactPage(array $brand): string
+{
+    return pageHero('Contact ' . $brand['name'], 'Start with one business inquiry. BTP will route the conversation to the right advisory, sourcing, engineering, or support path.') . '
+<section class="section contact-section"><div class="container contact-grid"><form id="btp-lead-form" class="contact-form" method="post" action="/contact.php"><input type="hidden" name="brand" value="' . h($brand['name']) . '"><label for="full_name">Name<input id="full_name" name="full_name" autocomplete="name" required></label><label for="company_name">Company<input id="company_name" name="company_name" autocomplete="organization"></label><label for="email">Email<input id="email" type="email" name="email" autocomplete="email" required></label><label for="phone">Phone<input id="phone" name="phone" autocomplete="tel"></label><label class="full" for="message">Message<textarea id="message" name="message" rows="6" required></textarea></label><!-- TODO: Connect this form to Microsoft Forms, Power Automate, Dynamics 365, HubSpot, Salesforce, or SMTP/PHP mail when production routing is selected. --><button class="button button-primary full" type="submit">' . h($brand['cta']) . '</button></form><aside class="contact-panel"><h2>Business Inquiries</h2><p>' . h($brand['tagline']) . '</p><p><strong>Email</strong><br>info@btpinnovations.com</p><p><strong>Phone</strong><br>(800) 781-6632</p><p><strong>Address</strong><br>276 5th Avenue Suite 704<br>New York, NY 10001</p></aside></div></section>';
+}
+
+function hero(array $brand, string $cta, string $href): string
+{
+    return '<section class="hero hero-home"><div class="hero-copy"><p class="eyebrow">' . h($brand['name']) . '</p><h1>' . h($brand['headline']) . '</h1><p>' . h($brand['summary']) . '</p><div class="actions"><a class="button button-primary" href="' . h($href) . '">' . h($cta) . ' <span aria-hidden="true">&rarr;</span></a><a class="button button-outline" href="/services">Explore Services <span aria-hidden="true">&rarr;</span></a></div></div><div class="hero-visual" aria-hidden="true"><div class="system-diagram"><span></span><span></span><span></span><span></span></div></div></section>';
+}
+
+function pageHero(string $title, string $copy): string
+{
+    return '<section class="page-hero"><div class="container"><p class="eyebrow">BTP Innovations</p><h1>' . h($title) . '</h1><p>' . h($copy) . '</p></div></section>';
+}
+
+function cardList(array $items): string
+{
+    return implode('', array_map(fn($x) => '<article class="service-card"><span class="service-icon">' . h(strtoupper(substr($x, 0, 3))) . '</span><h3>' . h($x) . '</h3><p>Designed to clarify requirements, reduce uncertainty, and move the business toward a practical next step.</p></article>', $items));
+}
+
+function detailList(array $capabilities, array $deliverables): string
+{
+    $out = '';
+    foreach ($capabilities as $i => $capability) {
+        $deliverable = $deliverables[$i % count($deliverables)];
+        $out .= '<article class="detail-card"><h3>' . h($capability) . '</h3><p>' . h($deliverable) . '</p><ul><li>Current-state review</li><li>Fit and risk evaluation</li><li>Recommended next steps</li></ul></article>';
+    }
+    return $out;
+}
+
+function processList(array $items): string
+{
+    $html = '';
+    foreach ($items as $i => $item) {
+        $html .= '<article><span>0' . ($i + 1) . '</span><h3>' . h($item) . '</h3><p>Each step keeps the business objective, technical requirement, and delivery path aligned.</p></article>';
+    }
+    return $html;
+}
+
+function proofList(array $items): string
+{
+    return implode('', array_map(fn($x) => '<article><strong>' . h($x) . '</strong><span>Outcome-focused support for business and technology leaders.</span></article>', $items));
+}
+
+function aboutCards(): string
+{
+    $items = [
+        ['Quarterback Model', 'One strategic relationship coordinates the right subject matter experts around each client need.'],
+        ['Engineering-First IPC', 'Cross-functional thinking reduces handoff gaps between security, cloud, infrastructure, software, and operations.'],
+        ['Vendor-Agnostic Fit', 'Recommendations are shaped around client requirements, not a single vendor agenda.'],
+        ['Lifecycle Support', 'BTP stays focused beyond the initial decision so execution, support, and optimization remain connected.'],
+    ];
+    return implode('', array_map(fn($x) => '<article class="service-card"><span class="service-icon">' . h(strtoupper(substr($x[0], 0, 3))) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
+}
+
+function relatedSolutions(array $brand, array $brands): string
+{
+    $cards = '';
+    foreach ($brand['related'] as $slug) {
+        $other = $brands[$slug];
+        $cards .= '<article class="related-card"><p class="eyebrow">' . h($other['short']) . '</p><h3>' . h($other['tagline']) . '</h3><a href="https://' . h($other['domain']) . '/">' . h($other['name']) . ' <span aria-hidden="true">&rarr;</span></a></article>';
+    }
+    return '<section class="section related-solutions"><div class="container"><div class="section-heading centered"><p class="eyebrow">Related BTP Solutions</p><h2>Keep the work inside one connected ecosystem.</h2></div><div class="related-grid">' . $cards . '</div></div></section>';
+}
+
+function headerInclude(): string
+{
+    return <<<'PHP'
+<?php
+$brand = require __DIR__ . '/site.php';
+function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
+$canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
+?><!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{$title}</title>
-  <meta name="description" content="{$description}">
-  <link rel="canonical" href="https://{$domain}/">
-  <meta property="og:title" content="{$title}">
-  <meta property="og:description" content="{$description}">
+  <title><?= e($pageTitle ?? $brand['name']) ?></title>
+  <meta name="description" content="<?= e($metaDescription ?? $brand['summary']) ?>">
+  <link rel="canonical" href="<?= e($canonical) ?>">
+  <meta property="og:title" content="<?= e($pageTitle ?? $brand['name']) ?>">
+  <meta property="og:description" content="<?= e($metaDescription ?? $brand['summary']) ?>">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://{$domain}/">
-  <meta property="og:image" content="https://{$domain}/assets/images/btp-logo.png">
+  <meta property="og:url" content="<?= e($canonical) ?>">
+  <meta property="og:image" content="https://<?= e($brand['domain']) ?>/assets/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
   <script src="/assets/js/main.js" defer></script>
+  <?php require __DIR__ . '/analytics.php'; ?>
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="header">
-  <a class="logo" href="/"><img src="/assets/images/btp-logo.png" alt="BTP Innovations"></a>
-  <button class="menu" type="button" aria-expanded="false">Menu</button>
-  <nav>{$nav}</nav>
-  <a class="top-cta" href="/contact">Start a Conversation</a>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="/assets/images/logo.svg" alt="<?= e($brand['name']) ?> logo"></a>
+    <?php require __DIR__ . '/navigation.php'; ?>
+    <a class="button button-primary header-cta" href="/contact"><?= e($brand['cta']) ?></a>
+    <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
 </header>
-<main id="main">{$body}</main>
-<footer>
-  <section class="footer-cta"><div><p class="eyebrow">BTP Innovations Ecosystem</p><h2>{$brand['cta']}</h2></div><a class="btn red" href="/contact">Contact {$brand['name']}</a></section>
-  <div class="footer-grid"><div><img src="/assets/images/btp-logo.png" alt="BTP Innovations"><p>{$brand['tagline']}</p></div><div><h3>Pages</h3>{$nav}</div><div><h3>Contact</h3><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><p>(800) 781-6632<br>info@{$domain}</p></div></div>
+<main id="main">
+PHP;
+}
+
+function navigationInclude(): string
+{
+    return <<<'PHP'
+<nav class="site-nav" aria-label="Primary navigation">
+  <ul class="nav-menu">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/services">Services</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+</nav>
+PHP;
+}
+
+function footerInclude(): string
+{
+    return <<<'PHP'
+</main>
+<footer class="site-footer">
+  <section class="footer-cta">
+    <div class="container cta-card">
+      <div>
+        <p class="eyebrow">BTP Innovations</p>
+        <h2><?= e($brand['tagline']) ?></h2>
+      </div>
+      <a class="button button-primary" href="/contact"><?= e($brand['cta']) ?></a>
+    </div>
+  </section>
+  <div class="container footer-grid">
+    <div><img src="/assets/images/logo.svg" alt="<?= e($brand['name']) ?> logo"><p><?= e($brand['summary']) ?></p></div>
+    <div><h3>Pages</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/contact">Contact</a></div>
+    <div><h3>Contact</h3><p>info@btpinnovations.com<br>(800) 781-6632</p><p>276 5th Avenue Suite 704<br>New York, NY 10001</p></div>
+  </div>
 </footer>
 </body>
 </html>
 PHP;
 }
 
-function page(array $brand, string $page): string
+function analyticsInclude(): string
 {
-    $title = h($brand['name'] . ' | ' . ($page === 'index' ? $brand['headline'] : ucfirst($page)));
-    $description = h($brand['summary']);
-    $name = h($brand['name']);
-    $headline = h($brand['headline']);
-    $summary = h($brand['summary']);
-    $tagline = h($brand['tagline']);
-    $cta = h($brand['cta']);
-    $services = $brand['services'];
-    $about = $brand['about'];
-
-    if ($page === 'index') {
-        $cards = cards($services);
-        $lifecycle = lifecycleCards();
-        $body = <<<HTML
-<section class="hero"><div><p class="eyebrow">{$name}</p><h1>{$headline}</h1><p>{$summary}</p><div class="actions"><a class="btn red" href="/contact">Start a Conversation</a><a class="btn outline" href="/services">Explore Services</a></div></div><aside><span>Strategic Focus</span><strong>{$tagline}</strong></aside></section>
-<section class="section split"><div><p class="eyebrow">What We Do</p><h2>One coordinated path from technology need to business outcome.</h2></div><div><p>{$about[0]}</p><p>{$about[1]}</p></div></section>
-<section class="section dark split"><div><p class="eyebrow">One Platform. Multiple Solutions.</p><h2>BTP connects advisory, sourcing, engineering, implementation, managed services, and optimization through one strategic ecosystem.</h2></div><div><p>BTP Innovations serves as the connective tissue between technology, people, infrastructure, operations, and business processes. Each solution brand plugs into a broader delivery model so clients do not have to manage disconnected vendors, siloed technical teams, or unclear handoffs.</p><p>That platform approach helps organizations move from decision-making to execution with one relationship and a clearer path to measurable outcomes.</p></div></section>
-<section class="section muted"><div class="section-head"><p class="eyebrow">Core Services</p><h2>Focused capabilities for modern business technology.</h2></div><div class="cards">{$cards}</div></section>
-<section class="section"><div class="section-head"><p class="eyebrow">Technology Lifecycle</p><h2>Support across the full lifecycle: build, source, deploy, manage, and optimize.</h2></div><div class="process">{$lifecycle}</div></section>
-<section class="section proof"><div><strong>Advisory-first</strong><span>Practical guidance before technology decisions.</span></div><div><strong>Execution-ready</strong><span>Support from planning through implementation.</span></div><div><strong>Lifecycle support</strong><span>Help after deployment, optimization, and growth.</span></div></section>
-HTML;
-        return layout($brand, $title, $description, $body);
-    }
-
-    if ($page === 'about') {
-        $paras = implode('', array_map(fn($p) => '<p>' . h($p) . '</p>', $about));
-        $models = modelCards($brand);
-        $body = <<<HTML
-<section class="page-hero"><p class="eyebrow">About {$name}</p><h1>{$headline}</h1><p>{$summary}</p></section>
-<section class="section split"><div><p class="eyebrow">BTP Innovations Ecosystem</p><h2>Built to reduce complexity and move decisions into execution.</h2></div><div>{$paras}</div></section>
-<section class="section muted"><div class="section-head"><p class="eyebrow">Delivery Model</p><h2>How BTP turns strategy into accountable execution.</h2></div><div class="cards">{$models}</div></section>
-<section class="section muted process"><article><span>01</span><h3>Assess</h3><p>Clarify goals, current environment, constraints, priorities, and business impact.</p></article><article><span>02</span><h3>Align</h3><p>Match the right strategy, resources, partners, and solution path.</p></article><article><span>03</span><h3>Execute</h3><p>Move from recommendation to implementation with practical support.</p></article></section>
-HTML;
-        return layout($brand, $title, $description, $body);
-    }
-
-    if ($page === 'services') {
-        $cards = detailCards($services);
-        $advisory = advisoryProcessCards();
-        $body = <<<HTML
-<section class="page-hero"><p class="eyebrow">Services</p><h1>{$tagline}</h1><p>{$summary}</p></section>
-<section class="section"><div class="section-head"><p class="eyebrow">Capabilities</p><h2>Services designed for practical business outcomes.</h2></div><div class="detail-cards">{$cards}</div></section>
-<section class="section muted"><div class="section-head"><p class="eyebrow">Advisory Process</p><h2>Objective analysis before recommendation and delivery.</h2></div><div class="process">{$advisory}</div></section>
-<section class="section dark split"><div><p class="eyebrow">Why It Matters</p><h2>Technology decisions are easier when advisory, sourcing, and execution work together.</h2></div><div><p>{$about[1]}</p><p>BTP applies a consistent discovery, market mapping, feature and pricing analysis, partner vetting, and delivery recommendation process across solution categories.</p><p>{$cta}</p><a class="btn red" href="/contact">Talk With {$name}</a></div></section>
-HTML;
-        return layout($brand, $title, $description, $body);
-    }
-
-    if ($page === 'news') {
-        $articles = newsCards($brand);
-        $body = <<<HTML
-<section class="page-hero"><p class="eyebrow">News</p><h1>Insights from {$name}.</h1><p>Practical updates on {$tagline}</p></section>
-<section class="section split"><div><p class="eyebrow">Featured Insight</p><h2>How coordinated technology decisions reduce cost, risk, and operational drag.</h2></div><div><p>{$about[1]}</p><p>BTP's Quarterback model orchestrates the right expertise around each client need, from discovery and gap identification to expert engagement and delivery accountability.</p><p>{$cta}</p><div class="actions"><a class="btn red" href="/contact">Discuss Your Priorities</a><a class="btn outline" href="/services">View Services</a></div></div></section>
-<section class="section muted"><div class="section-head"><p class="eyebrow">Articles</p><h2>Current focus areas for business leaders.</h2></div><div class="cards">{$articles}</div></section>
-<section class="section newsletter"><div><p class="eyebrow">Stay Connected</p><h2>Get practical technology guidance from the BTP Innovations ecosystem.</h2></div><div class="cta-panel"><p>For updates, sales conversations, discovery requests, and project support, use the contact page so BTP can route the request through one intake path.</p><a class="btn red" href="/contact">Contact {$name}</a></div></section>
-HTML;
-        return layout($brand, $title, $description, $body);
-    }
-
-    $body = <<<HTML
-<section class="page-hero"><p class="eyebrow">Contact</p><h1>Start a conversation with {$name}.</h1><p>{$cta}</p></section>
-<section class="section contact"><form method="post" action="/contact"><label>Name<input name="name" required></label><label>Company<input name="company"></label><label>Email<input type="email" name="email" required></label><label>Phone<input name="phone"></label><label class="full">Message<textarea name="message" rows="6" required></textarea></label><!-- TODO: Configure SMTP/PHP mail on hosting before production form delivery. --><button class="btn red" type="submit">Send Message</button></form><aside><h2>Contact Information</h2><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><p>(800) 781-6632<br>info@{$brand['domain']}</p><p>{$tagline}</p></aside></section>
-HTML;
-    return layout($brand, $title, $description, $body);
+    return <<<'PHP'
+<?php
+// TODO: Add production analytics here when approved:
+// Google Analytics, Microsoft Clarity, LinkedIn Insight Tag, or CRM attribution scripts.
+?>
+PHP;
 }
 
-function cards(array $items): string
+function js(): string
 {
-    return implode('', array_map(fn($x) => '<article><span>' . h(strtoupper(substr($x, 0, 2))) . '</span><h3>' . h($x) . '</h3><p>Practical support aligned to business goals, environment needs, and execution priorities.</p></article>', $items));
+    return <<<'JS'
+const toggle = document.querySelector('.nav-toggle');
+toggle?.addEventListener('click', () => {
+  const isOpen = document.body.classList.toggle('nav-open');
+  toggle.setAttribute('aria-expanded', String(isOpen));
+});
+JS;
 }
 
-function lifecycleCards(): string
+function css(array $brand): string
 {
-    $items = [
-        ['Build', 'Architecture and engineering for platforms, applications, and technical foundations.'],
-        ['Source', 'Procurement, vendor access, partner selection, and infrastructure distribution.'],
-        ['Deploy', 'Implementation, integration, migration, and rollout support.'],
-        ['Manage', 'Managed services, support, operational continuity, and vendor coordination.'],
-        ['Optimize', 'AI, automation, cost reduction, reporting, and lifecycle improvement.'],
-    ];
-    return implode('', array_map(fn($x) => '<article><span>' . h(substr($x[0], 0, 2)) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
+    $accent = $brand['accent'];
+    return <<<CSS
+:root{--black:#000;--white:#fff;--blue:#2aa8ff;--blue-deep:#0067f0;--red:#ff3b30;--ink:#111827;--muted:#5d6675;--line:#e7eaf0;--surface:#f6f9fd;--accent:$accent;--shadow:0 18px 45px rgba(15,23,42,.11);--radius:8px;--max:1200px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 40px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:24px;min-height:92px}.brand img{width:clamp(160px,16vw,230px)}.site-nav{justify-self:center}.nav-menu{display:flex;gap:30px;align-items:center;padding:0;margin:0;list-style:none}.nav-menu a{font-size:15px;font-weight:700}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:850}.button-primary{color:#fff;background:var(--red);box-shadow:0 12px 28px rgba(255,59,48,.22)}.button-secondary{color:#fff;background:var(--blue-deep)}.button-outline{border:1px solid #111;background:#fff}.nav-toggle{display:none}.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:44px;align-items:center;min-height:610px;padding:clamp(56px,7vw,92px) max(24px,calc((100vw - var(--max))/2));overflow:hidden;background:linear-gradient(115deg,#fff 0%,#fff 48%,#eaf6ff 100%)}.hero h1,.page-hero h1{max-width:880px;margin:0 0 18px;color:#000;font-size:clamp(40px,5.8vw,70px);line-height:1.04;letter-spacing:0}.hero h1 span{color:var(--blue-deep)}.hero p,.page-hero p{max-width:720px;margin:0;color:#1e293b;font-size:20px}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--red);font-size:13px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:48px;height:2px;background:var(--red)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-visual{min-height:360px}.system-diagram{position:relative;width:min(100%,380px);aspect-ratio:1;margin:auto;border:1px solid rgba(42,168,255,.28);border-radius:50%;background:radial-gradient(circle at 50% 50%,rgba(42,168,255,.22),rgba(42,168,255,.04) 45%,transparent 60%)}.system-diagram:before{content:"";position:absolute;inset:34%;border-radius:12px;background:#fff;box-shadow:var(--shadow)}.system-diagram span{position:absolute;width:72px;height:72px;border-radius:8px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)}.system-diagram span:nth-child(1){left:8%;top:18%;border-top:5px solid var(--blue)}.system-diagram span:nth-child(2){right:8%;top:18%;border-top:5px solid var(--red)}.system-diagram span:nth-child(3){left:14%;bottom:12%;border-top:5px solid #000}.system-diagram span:nth-child(4){right:14%;bottom:12%;border-top:5px solid var(--accent)}.section{padding:clamp(64px,7vw,96px) 0}.muted{background:var(--surface)}.page-hero{padding:clamp(70px,8vw,110px) 0;background:linear-gradient(110deg,#fff,#eaf6ff)}.two-column,.split-intro,.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:52px;align-items:start}.section h2{margin:0 0 16px;color:#000;font-size:clamp(30px,4vw,48px);line-height:1.1}.section p{color:var(--muted)}.section-heading{max-width:620px}.section-heading.centered{max-width:780px;margin:0 auto 28px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.card-grid,.detail-grid,.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}.service-card,.detail-card,.related-card,.contact-form,.contact-panel,.cta-card,.process-grid article,.proof-grid article{padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 12px 32px rgba(15,23,42,.07)}.service-icon,.process-grid span{display:inline-grid;place-items:center;min-width:44px;height:38px;margin-bottom:14px;color:#fff;background:var(--accent);border-radius:8px;font-size:13px;font-weight:900}.detail-card ul{padding-left:20px;color:var(--muted)}.process-band{background:#000;color:#fff}.process-band h2,.process-band p{color:#fff}.process-grid article{background:#050505;border-color:#222}.trust-band{background:var(--surface)}.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#000}.proof-grid article{border:0;border-radius:0;background:#050505;color:#fff}.proof-grid strong{display:block;font-size:22px;line-height:1.15}.proof-grid span{color:rgba(255,255,255,.72)}.related-solutions{background:#fff}.related-card a{display:inline-flex;margin-top:12px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card{display:flex;justify-content:space-between;align-items:center;gap:28px}.final-cta .cta-card,.footer-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#062b4c);border-color:#1f2937}.final-cta h2,.final-cta p,.footer-cta h2,.footer-cta p{color:#fff}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}.full{grid-column:1/-1}.site-footer{color:#fff;background:#050505}.footer-cta{padding:44px 0}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding:44px 0}.footer-grid img{width:180px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:980px){.header-inner{grid-template-columns:auto auto}.header-cta{display:none}.nav-toggle{display:inline-grid;gap:4px;justify-self:end;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;padding:16px 0}.hero,.two-column,.split-intro,.contact-grid,.cta-card,.footer-grid{grid-template-columns:1fr}.hero{min-height:auto}.hero-visual{display:none}.card-grid,.detail-grid,.related-grid,.process-grid,.proof-grid{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(36px,10vw,54px)}}
+CSS;
 }
 
-function advisoryProcessCards(): string
+function robots(array $brand): string
 {
-    $items = [
-        ['Discovery & Scoping', 'Document requirements, constraints, budget, risks, and success criteria before any vendor or solution is considered.'],
-        ['Market Mapping', 'Map the solution landscape across providers, partners, competitors, and implementation options for the specific use case.'],
-        ['Feature & Pricing Analysis', 'Compare service features, SLAs, capability gaps, monthly and non-recurring costs, and strategic differentiators.'],
-        ['Partner Vetting', 'Layer in real customer satisfaction signals, delivery experience, support quality, and partner fit.'],
-        ['Recommendation & Delivery', 'Provide a clear recommendation, roadmap, quotes where applicable, and BTP as the accountable delivery relationship.'],
-    ];
-    return implode('', array_map(fn($x) => '<article><span>' . h(substr($x[0], 0, 2)) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
-}
-
-function modelCards(array $brand): string
-{
-    $items = [
-        ['Engineering-First IPC Model', 'Cross-functional engineering teams work together from day one so security, infrastructure, cloud, application, and operations decisions are not handled in silos.'],
-        ['BTP Quarterback Model', 'A dedicated strategic advisor orchestrates the right subject matter experts around the client need, then keeps the engagement aligned through delivery.'],
-        ['Strategic Partnership Model', 'Executive alignment, account management, partner selection, and feedback loops keep recommendations tied to business outcomes instead of vendor pressure.'],
-        ['Enablement & Knowledge Base', $brand['name'] . ' benefits from BTP-approved messaging, reusable delivery playbooks, technical runbooks, and reference architectures.'],
-    ];
-    return implode('', array_map(fn($x) => '<article><span>' . h(substr($x[0], 0, 2)) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
-}
-
-function detailCards(array $items): string
-{
-    return implode('', array_map(fn($x) => '<article><h3>' . h($x) . '</h3><p>Structured planning, selection, implementation support, and lifecycle guidance for organizations that need practical technology outcomes without adding vendor noise or operational confusion.</p><ul><li>Current-state review and priority mapping</li><li>Option evaluation against budget, risk, and fit</li><li>Implementation coordination and follow-through</li></ul></article>', $items));
-}
-
-function newsCards(array $brand): string
-{
-    $items = [
-        ['Strategy', 'Making technology decisions with fewer blind spots', $brand['summary']],
-        ['Operations', 'Why execution support matters after recommendations', $brand['about'][2] ?? $brand['cta']],
-        ['Ecosystem', 'Using one coordinated path across advisory, partners, and delivery', $brand['about'][0]],
-    ];
-    return implode('', array_map(fn($x) => '<article><span>' . h(strtoupper(substr($x[0], 0, 2))) . '</span><h3>' . h($x[1]) . '</h3><p>' . h($x[2]) . '</p><a class="text-link" href="/contact">Talk about this</a></article>', $items));
-}
-
-function legal(array $brand, string $type): string
-{
-    $title = h($type . ' | ' . $brand['name']);
-    $name = h($brand['name']);
-    $body = '<section class="page-hero"><p class="eyebrow">Legal</p><h1>' . h($type) . '</h1><p>Effective date: 2026</p></section><section class="section legal"><p>' . $name . ' is part of the BTP Innovations ecosystem. This page provides general website information and does not modify any written service agreement.</p><p>For questions, contact info@' . h($brand['domain']) . '.</p></section>';
-    return layout($brand, $title, h($type . ' for ' . $brand['name']), $body);
+    return "User-agent: *\nAllow: /\n\nSitemap: https://{$brand['domain']}/sitemap.xml\n";
 }
 
 function sitemap(array $brand): string
 {
     $d = 'https://' . $brand['domain'];
-    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>$d/</loc></url>\n  <url><loc>$d/about</loc></url>\n  <url><loc>$d/services</loc></url>\n  <url><loc>$d/news</loc></url>\n  <url><loc>$d/contact</loc></url>\n  <url><loc>$d/privacy-policy</loc></url>\n  <url><loc>$d/legal-notice</loc></url>\n</urlset>\n";
+    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>$d/</loc></url>\n  <url><loc>$d/about</loc></url>\n  <url><loc>$d/services</loc></url>\n  <url><loc>$d/contact</loc></url>\n</urlset>\n";
 }
 
 function htaccess(): string
@@ -360,48 +439,31 @@ function htaccess(): string
 
 function webConfig(): string
 {
-    return <<<'XML'
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-  <system.webServer>
-    <defaultDocument enabled="true">
-      <files>
-        <clear />
-        <add value="index.php" />
-        <add value="index.html" />
-      </files>
-    </defaultDocument>
-    <directoryBrowse enabled="false" />
-  </system.webServer>
-</configuration>
-XML;
+    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<configuration><system.webServer><defaultDocument enabled=\"true\"><files><clear /><add value=\"index.php\" /><add value=\"index.html\" /></files></defaultDocument><directoryBrowse enabled=\"false\" /></system.webServer></configuration>\n";
 }
 
-function readme(array $brand, string $slug): string
+function readme(string $slug, array $brand): string
 {
-    return "# {$brand['name']}\n\nDeployable PHP 8.3 website for {$brand['domain']}.\n\nUpload the contents of `public_html` to the domain document root or deploy from the matching Git branch `deploy-$slug`.\n\nFor Plesk, set the deployment path to the website document root so `index.php` lands directly in the served folder.\n";
+    return "# {$brand['name']}\n\nProduction-ready lightweight PHP 8.3 website for {$brand['domain']}.\n\nDeploy the repository root directly to the Plesk domain folder. `index.php` must be in the domain root.\n\nPages: Home, About, Services, Contact.\n";
+}
+
+function deployment(string $slug, array $brand): string
+{
+    return "# Deployment - {$brand['name']}\n\n## GitHub Push\n\n```powershell\ngit add .\ngit commit -m \"Update {$brand['short']} website\"\ngit push origin deploy-$slug\n```\n\n## Plesk Git Deployment\n\n1. Open Plesk > Websites & Domains.\n2. Open Git for the target domain.\n3. Use the repository branch for this site.\n4. Set deployment path to the domain root.\n5. Deploy repository.\n6. Confirm `index.php` exists directly in the domain folder.\n7. Test `/`, `/about`, `/services`, and `/contact`.\n\n## Updates\n\nUse **Update from Remote**, then **Deploy HEAD Commit**.\n\n## Troubleshooting\n\n- 403.14 means `index.php` is missing from the served folder.\n- 404 on `/services` means the deploy did not include `services/index.php` or the wrong folder was deployed.\n- Check Plesk Logs for PHP warnings and IIS errors.\n- Verify asset paths start with `/assets/` and the domain root contains `assets`, `includes`, and the page files.\n";
+}
+
+function designSystem(): string
+{
+    return "# BTP Design System\n\nTypography: Segoe UI/Inter-style system font, strong enterprise headlines, readable body copy.\n\nPalette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus brand accent tokens.\n\nButtons: primary red CTA, secondary blue action, outline discovery action.\n\nCards: 8px radius, light border, subtle shadow, compact enterprise spacing.\n\nSpacing: mobile-first sections using responsive clamp spacing and a 1200px max container.\n\nIcons: clean text-based service markers and consistent BTP bar-logo system.\n\nForms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n";
 }
 
 function masterReadme(array $brands): string
 {
-    $lines = ["# BTP Brand Websites", "", "Generated deployable websites for the BTP Innovations brand ecosystem.", ""];
+    $lines = ["# BTP Brand Websites", "", "Separate deploy-root PHP websites generated from one BTP design system.", ""];
     foreach ($brands as $slug => $brand) {
-        $lines[] = "- `$slug`: {$brand['name']} ({$brand['domain']})";
+        $lines[] = "- `sites/$slug`: {$brand['name']} ({$brand['domain']})";
     }
     return implode("\n", $lines) . "\n";
 }
 
-function js(): string
-{
-    return "document.querySelector('.menu')?.addEventListener('click',()=>{document.body.classList.toggle('nav-open');});\n";
-}
-
-function css(array $brand): string
-{
-    $accent = $brand['accent'];
-    return <<<CSS
-:root{--black:#000;--white:#fff;--blue:#2AA8FF;--red:#FF3B30;--ink:#111827;--muted:#5b6472;--line:#e5e9f0;--surface:#f6f9fc;--accent:$accent;--max:1180px;--shadow:0 20px 55px rgba(15,23,42,.12)}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);line-height:1.55;background:#fff}a{text-decoration:none;color:inherit}.skip{position:absolute;left:-999px}.header{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;min-height:92px;padding:12px max(24px,calc((100vw - var(--max))/2));background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.logo img{width:190px;max-width:34vw}nav{display:flex;justify-content:center;gap:28px;font-weight:750}.top-cta,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:800}.top-cta,.btn.red{color:#fff;background:var(--red);box-shadow:0 14px 26px rgba(255,59,48,.2)}.btn.outline{border:1px solid #111;background:#fff}.text-link{display:inline-flex;margin-top:10px;color:#005bd8;font-weight:850}.menu{display:none}.hero,.page-hero{padding:clamp(70px,8vw,120px) max(24px,calc((100vw - var(--max))/2));background:linear-gradient(105deg,#fff 0%,#fff 50%,#eaf6ff 100%)}.hero{display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:center}.hero h1,.page-hero h1{max-width:850px;margin:0 0 18px;font-size:clamp(42px,6vw,72px);line-height:1.04;letter-spacing:0}.hero p,.page-hero p{max-width:700px;font-size:20px;color:#202938}.hero aside{padding:30px;border:1px solid rgba(42,168,255,.25);border-top:5px solid var(--accent);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.hero aside span,.eyebrow{display:inline-flex;gap:12px;align-items:center;margin:0 0 12px;color:var(--red);font-size:13px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:44px;height:2px;background:var(--red)}.hero aside strong{display:block;font-size:28px;line-height:1.14}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.section{padding:clamp(64px,7vw,100px) max(24px,calc((100vw - var(--max))/2))}.muted{background:var(--surface)}.dark{color:#fff;background:#000}.dark h2,.dark p{color:#fff}.split,.newsletter{display:grid;grid-template-columns:.8fr 1.2fr;gap:54px;align-items:start}.section h2{margin:0 0 16px;font-size:clamp(30px,4vw,48px);line-height:1.08}.section p{color:var(--muted)}.dark p{color:rgba(255,255,255,.78)}.cards,.detail-cards,.process{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.cards article,.detail-cards article,.process article,form,aside,.cta-panel{padding:26px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 32px rgba(15,23,42,.07)}.cards span,.process span{display:inline-grid;place-items:center;min-width:42px;height:38px;margin-bottom:14px;color:#fff;background:var(--accent);border-radius:8px;font-weight:900}.detail-cards ul{padding-left:20px;color:var(--muted)}.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#000;color:#fff}.proof div{padding:32px;background:#050505}.proof strong{display:block;font-size:28px}.proof span{color:rgba(255,255,255,.75)}.contact{display:grid;grid-template-columns:1fr 360px;gap:28px}form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}.full,form button{grid-column:1/-1}footer{color:#fff;background:#050505}.footer-cta{display:flex;justify-content:space-between;gap:28px;align-items:center;padding:46px max(24px,calc((100vw - var(--max))/2));background:linear-gradient(100deg,#000,#062b4c)}.footer-cta h2{max-width:850px;margin:0;font-size:clamp(26px,4vw,42px);line-height:1.1}.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px;padding:48px max(24px,calc((100vw - var(--max))/2))}.footer-grid img{width:170px;background:#fff;border-radius:6px;padding:8px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:880px){.header{grid-template-columns:auto auto}.top-cta{display:none}.menu{display:inline-flex;justify-content:center;min-height:42px;padding:9px 13px;border:1px solid var(--line);background:#fff;border-radius:6px}nav{display:none;grid-column:1/-1;justify-content:start;flex-direction:column}.nav-open nav{display:flex}.hero,.split,.newsletter,.cards,.detail-cards,.process,.proof,.contact,.footer-cta,.footer-grid{grid-template-columns:1fr;display:grid}form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(36px,10vw,54px)}}
-CSS;
-}
-
-echo "Generated " . count($brands) . " brand websites in $outputRoot\n";
+echo "Generated " . count($brands) . " production websites in $outputRoot\n";
