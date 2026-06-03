@@ -1,26 +1,58 @@
 <?php
 return array (
   'name' => 'BTP ManageSP',
+  'short' => 'ManageSP',
   'domain' => 'managesp.cloudexcelon.com',
-  'tagline' => 'Managed IT services that keep operations supported after deployment.',
-  'headline' => 'Managed IT services and operational support for stable, secure technology environments.',
-  'summary' => 'BTP ManageSP helps organizations keep their technology environments stable, secure, optimized, and ready to support the business.',
-  'about' => 
-  array (
-    0 => 'As part of the BTP Innovations ecosystem, ManageSP provides managed services and operational support across IT infrastructure, cloud environments, endpoints, networks, systems, and business technology platforms.',
-    1 => 'Many organizations depend on technology every day but struggle with limited internal resources, inconsistent support, vendor fragmentation, and growing operational demands.',
-    2 => 'BTP ManageSP provides structured support, proactive management, and access to broader advisory and solution expertise.',
-  ),
-  'services' => 
-  array (
-    0 => 'Managed IT Services',
-    1 => 'IT Operations',
-    2 => 'Infrastructure Support',
-    3 => 'Cloud Operations',
-    4 => 'End-User Support',
-    5 => 'Vendor Coordination',
-    6 => 'Technology Management',
-  ),
-  'cta' => 'Connect with BTP ManageSP to improve technology operations and keep your business environment running with confidence.',
   'accent' => '#2AA8FF',
+  'cta' => 'Request Support',
+  'tagline' => 'Managed IT services that keep operations supported after deployment.',
+  'headline' => 'Managed IT support that keeps business technology stable after launch.',
+  'summary' => 'BTP ManageSP provides operational support, infrastructure management, cloud operations, end-user support, vendor coordination, and lifecycle management for business technology environments.',
+  'audience' => 'Organizations with limited internal IT capacity, fragmented support providers, growing cloud operations, or systems that need consistent management after deployment.',
+  'problems' => 
+  array (
+    0 => 'Inconsistent support coverage',
+    1 => 'Unclear ownership after projects go live',
+    2 => 'Too many vendors managing separate pieces',
+    3 => 'Reactive operations instead of proactive maintenance',
+  ),
+  'capabilities' => 
+  array (
+    0 => 'Managed IT services',
+    1 => 'IT operations',
+    2 => 'Infrastructure support',
+    3 => 'Cloud operations',
+    4 => 'End-user support',
+    5 => 'Vendor coordination',
+    6 => 'Technology management',
+  ),
+  'deliverables' => 
+  array (
+    0 => 'Support model definition',
+    1 => 'Operations coverage plan',
+    2 => 'Vendor coordination map',
+    3 => 'Escalation path',
+    4 => 'Lifecycle improvement backlog',
+  ),
+  'process' => 
+  array (
+    0 => 'Review environment',
+    1 => 'Define support needs',
+    2 => 'Stabilize operations',
+    3 => 'Coordinate vendors',
+    4 => 'Improve continuously',
+  ),
+  'outcomes' => 
+  array (
+    0 => 'More reliable operations',
+    1 => 'Faster issue routing',
+    2 => 'Clearer ownership',
+    3 => 'Less operational drag',
+  ),
+  'related' => 
+  array (
+    0 => 'cloudexcelon',
+    1 => 'securiscope',
+    2 => 'praas',
+  ),
 );
