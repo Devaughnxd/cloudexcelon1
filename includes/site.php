@@ -1,27 +1,59 @@
 <?php
 return array (
   'name' => 'BTP CloudEXCELON',
+  'short' => 'CloudEXCELON',
   'domain' => 'dev.cloudexcelon.com',
-  'tagline' => 'Cloud architecture and infrastructure built for scalable enterprise environments.',
-  'headline' => 'Cloud strategy, migration, optimization, and operations for scalable business growth.',
-  'summary' => 'BTP CloudEXCELON helps organizations plan, modernize, optimize, and manage cloud environments that support real business needs.',
-  'about' => 
-  array (
-    0 => 'As part of the BTP Innovations ecosystem, CloudEXCELON supports businesses across cloud advisory, migration, infrastructure design, cost optimization, resilience planning, and ongoing cloud operations.',
-    1 => 'Cloud decisions can become complicated quickly. Organizations often face rising costs, unclear architecture, underused services, security concerns, and uncertainty about which platform or migration path is right for them.',
-    2 => 'BTP CloudEXCELON helps clients evaluate current environments, define the right cloud strategy, deploy scalable solutions, and optimize performance over time.',
-  ),
-  'services' => 
-  array (
-    0 => 'Cloud Strategy',
-    1 => 'Cloud Migration',
-    2 => 'Cloud Optimization',
-    3 => 'Cloud Infrastructure',
-    4 => 'Azure',
-    5 => 'AWS',
-    6 => 'Google Cloud',
-    7 => 'Cloud Operations',
-  ),
-  'cta' => 'Connect with BTP CloudEXCELON to plan, optimize, or modernize your cloud environment with a clearer path forward.',
   'accent' => '#2AA8FF',
+  'cta' => 'Discuss Your Cloud Roadmap',
+  'tagline' => 'Cloud architecture and infrastructure built for scalable enterprise environments.',
+  'headline' => 'Cloud architecture built for scale, resilience, and operational clarity.',
+  'summary' => 'BTP CloudEXCELON helps organizations plan, migrate, modernize, optimize, and manage cloud environments across Azure, AWS, Google Cloud, hybrid infrastructure, and operational platforms.',
+  'audience' => 'IT and business teams facing cloud cost pressure, migration uncertainty, architecture gaps, security concerns, or operational complexity across multi-cloud and hybrid environments.',
+  'problems' => 
+  array (
+    0 => 'Rising cloud costs',
+    1 => 'Unclear architecture decisions',
+    2 => 'Migration paths without operational planning',
+    3 => 'Performance, security, and resilience gaps',
+  ),
+  'capabilities' => 
+  array (
+    0 => 'Cloud strategy',
+    1 => 'Cloud migration',
+    2 => 'Cloud optimization',
+    3 => 'Cloud infrastructure',
+    4 => 'Azure advisory',
+    5 => 'AWS advisory',
+    6 => 'Google Cloud advisory',
+    7 => 'Cloud operations',
+  ),
+  'deliverables' => 
+  array (
+    0 => 'Cloud readiness review',
+    1 => 'Target architecture',
+    2 => 'Migration and modernization roadmap',
+    3 => 'Cost optimization recommendations',
+    4 => 'Operations transition plan',
+  ),
+  'process' => 
+  array (
+    0 => 'Assess the environment',
+    1 => 'Design the architecture',
+    2 => 'Plan the migration',
+    3 => 'Deploy and validate',
+    4 => 'Optimize operations',
+  ),
+  'outcomes' => 
+  array (
+    0 => 'Scalable cloud foundations',
+    1 => 'Better cost control',
+    2 => 'Improved resilience',
+    3 => 'Cleaner operations',
+  ),
+  'related' => 
+  array (
+    0 => 'securiscope',
+    1 => 'managesp',
+    2 => 'datastaisis',
+  ),
 );

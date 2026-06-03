@@ -1,33 +1,9 @@
-<?php $brand = require __DIR__ . '/includes/site.php'; ?>
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BTP CloudEXCELON | Contact</title>
-  <meta name="description" content="BTP CloudEXCELON helps organizations plan, modernize, optimize, and manage cloud environments that support real business needs.">
-  <link rel="canonical" href="https://dev.cloudexcelon.com/">
-  <meta property="og:title" content="BTP CloudEXCELON | Contact">
-  <meta property="og:description" content="BTP CloudEXCELON helps organizations plan, modernize, optimize, and manage cloud environments that support real business needs.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dev.cloudexcelon.com/">
-  <meta property="og:image" content="https://dev.cloudexcelon.com/assets/images/btp-logo.png">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script src="/assets/js/main.js" defer></script>
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="header">
-  <a class="logo" href="/"><img src="/assets/images/btp-logo.png" alt="BTP Innovations"></a>
-  <button class="menu" type="button" aria-expanded="false">Menu</button>
-  <nav><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></nav>
-  <a class="top-cta" href="/contact">Start a Conversation</a>
-</header>
-<main id="main"><section class="page-hero"><p class="eyebrow">Contact</p><h1>Start a conversation with BTP CloudEXCELON.</h1><p>Connect with BTP CloudEXCELON to plan, optimize, or modernize your cloud environment with a clearer path forward.</p></section>
-<section class="section contact"><form method="post" action="/contact"><label>Name<input name="name" required></label><label>Company<input name="company"></label><label>Email<input type="email" name="email" required></label><label>Phone<input name="phone"></label><label class="full">Message<textarea name="message" rows="6" required></textarea></label><!-- TODO: Configure SMTP/PHP mail on hosting before production form delivery. --><button class="btn red" type="submit">Send Message</button></form><aside><h2>Contact Information</h2><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><p>(800) 781-6632<br>info@dev.cloudexcelon.com</p><p>Cloud architecture and infrastructure built for scalable enterprise environments.</p></aside></section></main>
-<footer>
-  <section class="footer-cta"><div><p class="eyebrow">BTP Innovations Ecosystem</p><h2>Connect with BTP CloudEXCELON to plan, optimize, or modernize your cloud environment with a clearer path forward.</h2></div><a class="btn red" href="/contact">Contact BTP CloudEXCELON</a></section>
-  <div class="footer-grid"><div><img src="/assets/images/btp-logo.png" alt="BTP Innovations"><p>Cloud architecture and infrastructure built for scalable enterprise environments.</p></div><div><h3>Pages</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></div><div><h3>Contact</h3><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><p>(800) 781-6632<br>info@dev.cloudexcelon.com</p></div></div>
-</footer>
-</body>
-</html>
+<?php
+$pageTitle = 'Contact BTP CloudEXCELON | Start a Conversation';
+$metaDescription = 'Contact BTP CloudEXCELON to discuss business needs, service questions, assessments, sourcing, support, or project planning.';
+$pagePath = '/contact';
+require __DIR__ . '/includes/header.php';
+?>
+<section class="page-hero"><div class="container"><p class="eyebrow">BTP Innovations</p><h1>Contact BTP CloudEXCELON</h1><p>Start with one business inquiry. BTP will route the conversation to the right advisory, sourcing, engineering, or support path.</p></div></section>
+<section class="section contact-section"><div class="container contact-grid"><form id="btp-lead-form" class="contact-form" method="post" action="/contact.php"><input type="hidden" name="brand" value="BTP CloudEXCELON"><label for="full_name">Name<input id="full_name" name="full_name" autocomplete="name" required></label><label for="company_name">Company<input id="company_name" name="company_name" autocomplete="organization"></label><label for="email">Email<input id="email" type="email" name="email" autocomplete="email" required></label><label for="phone">Phone<input id="phone" name="phone" autocomplete="tel"></label><label class="full" for="message">Message<textarea id="message" name="message" rows="6" required></textarea></label><!-- TODO: Connect this form to Microsoft Forms, Power Automate, Dynamics 365, HubSpot, Salesforce, or SMTP/PHP mail when production routing is selected. --><button class="button button-primary full" type="submit">Discuss Your Cloud Roadmap</button></form><aside class="contact-panel"><h2>Business Inquiries</h2><p>Cloud architecture and infrastructure built for scalable enterprise environments.</p><p><strong>Email</strong><br>info@btpinnovations.com</p><p><strong>Phone</strong><br>(800) 781-6632</p><p><strong>Address</strong><br>276 5th Avenue Suite 704<br>New York, NY 10001</p></aside></div></section>
+<?php require __DIR__ . '/includes/footer.php'; ?>
