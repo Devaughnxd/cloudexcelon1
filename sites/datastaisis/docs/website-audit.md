@@ -75,3 +75,19 @@ This file is the running improvement log for BTP DatastAIsis. Before future webs
 - Fix applied: Added preview-safe routing helpers, updated shared header/navigation/footer links, converted generated body links, and added reload scroll restoration handling in `assets/js/main.js`.
 - Verification: Regenerate sites, confirm active HTML/PHP contains no hardcoded root internal links, lint PHP, and smoke-test all routes/assets.
 
+### 2026-06-03 - Plesk preview layout needed stabilization before deployment
+- Severity: High
+- Affected area: CSS spacing, SVG visuals, footer include, generated page sections, and preview documentation
+- Finding: The preview could appear over-spaced, footer-heavy, or visually broken. Some SVG visuals used a browser/mockup-style shell that could be misread as an embedded screenshot of the website.
+- Planned correction: Reduce header/hero/section spacing, remove screenshot-like SVG framing, tighten service grids, compact the footer, remove footer social icon row, and document preview findings in `docs/plesk-preview-audit.md`.
+- Fix applied: Updated the shared design CSS, rebuilt the visual SVG shell as diagram nodes, simplified the footer to approved content only, added copyright, and generated the dedicated Plesk preview audit document.
+- Verification: Regenerate sites, run QOS, search for fake claims/root links, and smoke-test all pages and assets.
+
+### 2026-06-03 - Lazy SVG visuals caused reload-time layout shifts
+- Severity: High
+- Affected area: Generated image markup, SVG assets, and `.visual-card` CSS
+- Finding: Browser testing showed lazy visual SVGs could temporarily collapse before decode, and SVG opacity needed XML-safe attributes for reliable Chromium rendering.
+- Planned correction: Reserve visual space before lazy image load, add explicit image dimensions, load footer logo eagerly, and avoid CSS `rgba()` notation inside SVG attributes.
+- Fix applied: Added `width`, `height`, and `decoding` attributes to generated visual images, added `.visual-card` aspect-ratio handling, updated footer logo markup, and regenerated XML-safe SVG visuals.
+- Verification: Browser render matrix passed for CloudEXCELON `/`, `/about/`, `/services/`, `/news/`, `/contact/` at 1440, 1024, 768, 390, and 360 widths, with repeated reload checks on `/` and `/services/`.
+

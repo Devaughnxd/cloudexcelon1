@@ -15,7 +15,7 @@ The verification gate checks PHP linting, route availability, asset availability
 ## Route And Asset Health
 
 - `/`, `/about`, `/services`, `/news`, and `/contact` load without 404s.
-- `/docs/website-audit.md`, `/docs/competitive-benchmark.md`, `/docs/qos-checklist.md`, and `/docs/content-source-policy.md` exist in the generated site root.
+- `/docs/website-audit.md`, `/docs/plesk-preview-audit.md`, `/docs/competitive-benchmark.md`, `/docs/qos-checklist.md`, and `/docs/content-source-policy.md` exist in the generated site root.
 - `/assets/css/style.css` loads.
 - `/assets/js/main.js` loads.
 - `/assets/images/logo.svg` loads and remains readable in header and footer.

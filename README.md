@@ -31,6 +31,7 @@ Use `deploy-cloudexcelon` for CloudEXCELON.
 Each deploy branch also includes:
 
 - `docs/website-audit.md` - log discovered issues before fixing them.
+- `docs/plesk-preview-audit.md` - track Plesk preview rendering, spacing, path, and deployment-readiness fixes.
 - `docs/competitive-benchmark.md` - compare visual quality, UX flow, service-page structure, and CTA clarity against enterprise peers.
 - `docs/content-source-policy.md` - keep factual copy limited to BTP-owned websites, documents, and folders.
 - `docs/qos-checklist.md` - route, asset, content, accessibility, and Plesk readiness checks.

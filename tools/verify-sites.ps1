@@ -84,6 +84,7 @@ try {
             "/news",
             "/contact",
             "/docs/website-audit.md",
+            "/docs/plesk-preview-audit.md",
             "/docs/competitive-benchmark.md",
             "/docs/qos-checklist.md",
             "/docs/content-source-policy.md"

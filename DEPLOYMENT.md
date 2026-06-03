@@ -28,7 +28,7 @@ For `dev.cloudexcelon.com`, use `deploy-cloudexcelon`.
 
 ## Website Audit Log
 
-Each site root includes `docs/website-audit.md`. Before fixing a discovered issue, log it there with the affected area, severity, planned correction, and verification step. After the fix, update the same entry with what changed.
+Each site root includes `docs/website-audit.md` and `docs/plesk-preview-audit.md`. Before fixing a discovered issue, log it there with the affected area, severity, planned correction, and verification step. After the fix, update the same entry with what changed.
 
 ## Competitive Benchmark And Content Policy
 
