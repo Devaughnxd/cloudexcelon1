@@ -1,26 +1,58 @@
 <?php
 return array (
   'name' => 'BTP SecuriSCOPE',
+  'short' => 'SecuriSCOPE',
   'domain' => 'securiscope.cloudexcelon.com',
-  'tagline' => 'Cybersecurity strategy, protection, compliance, and resilience for enterprise environments.',
-  'headline' => 'Cybersecurity advisory, protection, and risk reduction for modern organizations.',
-  'summary' => 'BTP SecuriSCOPE helps organizations strengthen cybersecurity, reduce risk, and protect critical systems and data.',
-  'about' => 
-  array (
-    0 => 'As part of the BTP Innovations ecosystem, SecuriSCOPE supports businesses across cybersecurity assessment, security strategy, managed security, threat visibility, compliance readiness, and security solution implementation.',
-    1 => 'Cybersecurity is no longer a single tool or one-time project. Organizations need practical guidance, reliable protection, and ongoing visibility across users, networks, cloud platforms, endpoints, and business-critical applications.',
-    2 => 'BTP SecuriSCOPE helps clients understand risk exposure, identify security gaps, prioritize improvements, and deploy the right solutions for their environment.',
-  ),
-  'services' => 
-  array (
-    0 => 'Cybersecurity Strategy',
-    1 => 'Risk Assessment',
-    2 => 'Managed Security',
-    3 => 'MDR and SIEM',
-    4 => 'Cloud Security',
-    5 => 'Vulnerability Management',
-    6 => 'Compliance Readiness',
-  ),
-  'cta' => 'Connect with BTP SecuriSCOPE to assess risk, strengthen protection, and build a more resilient security posture.',
   'accent' => '#FF3B30',
+  'cta' => 'Start Your Assessment',
+  'tagline' => 'Cybersecurity strategy, protection, compliance, and resilience for enterprise environments.',
+  'headline' => 'Security strategy, visibility, and risk reduction for modern environments.',
+  'summary' => 'BTP SecuriSCOPE helps organizations assess exposure, prioritize cybersecurity improvements, implement protection, and strengthen resilience across users, cloud, endpoints, and applications.',
+  'audience' => 'Organizations that need stronger security posture, compliance readiness, managed detection, vulnerability visibility, and practical guidance before buying more tools.',
+  'problems' => 
+  array (
+    0 => 'Limited visibility across cloud and endpoints',
+    1 => 'Compliance pressure without a clear roadmap',
+    2 => 'Security tools that are not fully operationalized',
+    3 => 'Unprioritized vulnerabilities and threat exposure',
+  ),
+  'capabilities' => 
+  array (
+    0 => 'Cybersecurity strategy',
+    1 => 'Risk assessment',
+    2 => 'Managed security',
+    3 => 'MDR and SIEM guidance',
+    4 => 'Cloud security',
+    5 => 'Vulnerability management',
+    6 => 'Compliance readiness',
+  ),
+  'deliverables' => 
+  array (
+    0 => 'Security posture summary',
+    1 => 'Risk and gap register',
+    2 => 'Prioritized remediation roadmap',
+    3 => 'Control and tooling recommendations',
+    4 => 'Managed security transition plan',
+  ),
+  'process' => 
+  array (
+    0 => 'Assess risk',
+    1 => 'Prioritize exposure',
+    2 => 'Select controls',
+    3 => 'Implement protection',
+    4 => 'Review resilience',
+  ),
+  'outcomes' => 
+  array (
+    0 => 'Reduced risk exposure',
+    1 => 'Clearer compliance readiness',
+    2 => 'Stronger monitoring posture',
+    3 => 'More resilient operations',
+  ),
+  'related' => 
+  array (
+    0 => 'cloudexcelon',
+    1 => 'managesp',
+    2 => 'datastaisis',
+  ),
 );
