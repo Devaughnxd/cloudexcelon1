@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="170" viewBox="0 0 360 170" role="img" aria-label="BTP CodeIGNITE logo">
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="170" viewBox="0 0 460 170" role="img" aria-label="BTP CodeIGNITE logo">
   <rect x="28" y="62" width="27" height="48" fill="#000000"/>
   <rect x="63" y="32" width="27" height="78" fill="#FF3B30"/>
   <rect x="98" y="2" width="27" height="108" fill="#2AA8FF"/>
   <text x="132" y="61" fill="#000000" font-family="Arial, Segoe UI, sans-serif" font-size="58" font-weight="800">BTP</text>
-  <text x="132" y="108" fill="#000000" font-family="Arial, Segoe UI, sans-serif" font-size="34" font-weight="800">CodeIGNITE</text>
+  <text x="132" y="108" fill="#000000" font-family="Arial, Segoe UI, sans-serif" font-size="32" font-weight="800">CodeIGNITE</text>
   <text x="28" y="150" fill="#111111" font-family="Arial, Segoe UI, sans-serif" font-size="13" font-weight="700">A BTP Innovations Technology Brand</text>
 </svg>

@@ -16,7 +16,7 @@ git push origin deploy-techadvisors
 4. Set deployment path to the domain root, not a nested `public_html` folder.
 5. Deploy repository.
 6. Confirm `index.php` exists directly in the domain folder.
-7. Test `/`, `/about`, `/services`, and `/contact`.
+7. Test `/`, `/about`, `/services`, `/news`, and `/contact`.
 
 ## Updates
 
@@ -27,4 +27,4 @@ Use **Update from Remote**, then **Deploy HEAD Commit**.
 - 403.14 means `index.php` is missing from the served folder or the wrong deployment path is selected.
 - 404 on `/services` means the deploy did not include `services/index.php` or the wrong folder was deployed.
 - Check Plesk Logs for PHP warnings and IIS errors.
-- Verify asset paths start with `/assets/` and the domain root contains `assets`, `includes`, and the page files.
+- Verify asset paths resolve through the `asset()` helper and the domain root contains `assets`, `includes`, and the page files.

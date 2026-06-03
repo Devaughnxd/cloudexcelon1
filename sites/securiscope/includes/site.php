@@ -4,6 +4,14 @@ return array (
   'short' => 'SecuriSCOPE',
   'domain' => 'securiscope.cloudexcelon.com',
   'accent' => '#FF3B30',
+  'accent2' => '#7C3AED',
+  'visual' => 
+  array (
+    0 => 'Risk exposure',
+    1 => 'Controls',
+    2 => 'Compliance',
+    3 => 'Resilience',
+  ),
   'cta' => 'Start Your Assessment',
   'tagline' => 'Cybersecurity strategy, protection, compliance, and resilience for enterprise environments.',
   'headline' => 'Security strategy, visibility, and risk reduction for modern environments.',

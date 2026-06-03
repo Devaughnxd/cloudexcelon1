@@ -4,6 +4,14 @@ return array (
   'short' => 'DatastAIsis',
   'domain' => 'datastaisis.cloudexcelon.com',
   'accent' => '#2AA8FF',
+  'accent2' => '#8B5CF6',
+  'visual' => 
+  array (
+    0 => 'Data sources',
+    1 => 'Automation',
+    2 => 'Dashboards',
+    3 => 'AI roadmap',
+  ),
   'cta' => 'Plan an AI and Data Session',
   'tagline' => 'AI, automation, analytics, and operational intelligence for business outcomes.',
   'headline' => 'AI, automation, and analytics that turn scattered work into operational intelligence.',

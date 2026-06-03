@@ -1,0 +1,10 @@
+<?php
+$pageTitle = 'BTP PraaS Insights | BTP Innovations';
+$metaDescription = 'Read practical PraaS insights for business and technology leaders evaluating service decisions.';
+$pagePath = '/news';
+require __DIR__ . '/includes/header.php';
+?>
+<section class="page-hero"><div class="container"><p class="eyebrow">BTP Innovations</p><h1>PraaS Insights</h1><p>Short updates and decision guides for leaders evaluating procurement and sourcing support that simplifies technology acquisition through one coordinated path.</p></div></section>
+<section class="section"><div class="container"><div class="news-grid"><article class="news-card"><p class="eyebrow">Insight</p><h2>How to evaluate PraaS readiness</h2><p>A concise guide for leaders deciding whether the current environment, team, or vendor model is ready for change.</p><a href="/contact">Discuss this topic <span aria-hidden="true">&rarr;</span></a></article><article class="news-card"><p class="eyebrow">Insight</p><h2>Reducing risk before the proposal stage</h2><p>Why clearer requirements, ownership, and sequencing make enterprise technology decisions easier to approve.</p><a href="/contact">Discuss this topic <span aria-hidden="true">&rarr;</span></a></article><article class="news-card"><p class="eyebrow">Insight</p><h2>When to bring BTP into the conversation</h2><p>Signals that a project, sourcing need, support gap, or strategy question needs coordinated advisory support.</p><a href="/contact">Discuss this topic <span aria-hidden="true">&rarr;</span></a></article></div></div></section>
+<section class="section color-band"><div class="container visual-split"><div><p class="eyebrow">Briefing</p><h2>Prefer a direct conversation?</h2><p>Use the contact form to request a focused discussion around your current objective, timeline, and decision path.</p><a class="button button-primary" href="/contact">Schedule a Sourcing Consultation</a></div><figure class="visual-card"><img src="<?= e(asset('images/trust-visual.svg')) ?>" alt="PraaS insight visual" loading="lazy"></figure></div></section>
+<?php require __DIR__ . '/includes/footer.php'; ?>

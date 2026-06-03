@@ -14,7 +14,7 @@ This repository contains lightweight PHP 8.3 websites for the BTP brand ecosyste
 
 ## Design System
 
-The sites share one BTP design system: BTP bar-logo identity, black/white/blue/red palette, Fluent-inspired cards, executive-grade hero layouts, revenue-model sections, customer journey sections, FAQ content for AI search, related BTP solution cross-sells, and one lead-generation contact form.
+The sites share one BTP design system: BTP bar-logo identity, black/white/blue/red palette, brand accent colors, centralized asset helpers, Fluent-inspired cards, executive-grade hero layouts, compact service sections, visual process graphics, related BTP solution cross-sells, News cards, and one lead-generation contact form.
 
 ## Deployment Branches
 
@@ -34,7 +34,7 @@ There is no `deploy-cloudexcelon` branch. Use `plesk-deploy` for CloudEXCELON.
 php -S 127.0.0.1:8094 -t sites/cloudexcelon
 ```
 
-Then open `http://127.0.0.1:8094/`.
+Then open `http://127.0.0.1:8094/` and test `/about`, `/services`, `/news`, and `/contact`.
 
 ## Regenerate Sites
 

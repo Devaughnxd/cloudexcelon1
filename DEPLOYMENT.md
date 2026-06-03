@@ -1,6 +1,6 @@
 # BTP Plesk Git Deployment
 
-Each BTP website is deployed from its own branch. The branch root contains `index.php`, `about.php`, `services.php`, `contact.php`, `assets`, and `includes` directly. Do not deploy a nested folder.
+Each BTP website is deployed from its own branch. The branch root contains `index.php`, `about.php`, `services.php`, `news.php`, `contact.php`, `assets`, and `includes` directly. Do not deploy a nested folder.
 
 ## Branch Map
 
@@ -22,7 +22,7 @@ Each BTP website is deployed from its own branch. The branch root contains `inde
 6. Set the deployment path to the domain root shown by Plesk.
 7. Deploy the repository.
 8. Confirm `index.php` exists directly in the domain root.
-9. Test `/`, `/about`, `/services`, and `/contact`.
+9. Test `/`, `/about`, `/services`, `/news`, and `/contact`.
 
 For `dev.cloudexcelon.com`, use `plesk-deploy`.
 
@@ -47,5 +47,6 @@ Then refresh the deploy branch for the specific website and push it. In Plesk, u
 - `403.14` usually means Plesk is serving an empty folder or `index.php` is not directly in the domain root.
 - `404` on `/services` usually means the route wrapper `services/index.php` was not deployed or the wrong folder was selected.
 - If CSS does not load, confirm `/assets/css/style.css` exists in the domain root.
+- If images do not load, confirm `/assets/images/logo.svg`, `/assets/images/hero-visual.svg`, `/assets/images/process-visual.svg`, and `/assets/images/trust-visual.svg` exist.
 - Check Plesk Logs for PHP warnings, missing file paths, and IIS/static-file errors.
 - Do not deploy old `public_html` wrapper folders.

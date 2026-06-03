@@ -11,6 +11,8 @@ $brands = [
         'short' => 'PraaS',
         'domain' => 'praas.cloudexcelon.com',
         'accent' => '#2AA8FF',
+        'accent2' => '#7C3AED',
+        'visual' => ['Procurement map', 'Vendor fit', 'License clarity', 'Sourcing path'],
         'cta' => 'Schedule a Sourcing Consultation',
         'tagline' => 'Procurement and sourcing support that simplifies technology acquisition through one coordinated path.',
         'headline' => 'Technology procurement and sourcing support without vendor noise.',
@@ -28,6 +30,8 @@ $brands = [
         'short' => 'TechAdvisors',
         'domain' => 'techadvisors.cloudexcelon.com',
         'accent' => '#0067F0',
+        'accent2' => '#14B8A6',
+        'visual' => ['Decision brief', 'Roadmap', 'Vendor scorecard', 'Executive alignment'],
         'cta' => 'Talk to an Advisor',
         'tagline' => 'Strategic advisory and client engagement for complex technology decisions.',
         'headline' => 'Vendor-neutral guidance for decisions that carry real business risk.',
@@ -45,6 +49,8 @@ $brands = [
         'short' => 'SecuriSCOPE',
         'domain' => 'securiscope.cloudexcelon.com',
         'accent' => '#FF3B30',
+        'accent2' => '#7C3AED',
+        'visual' => ['Risk exposure', 'Controls', 'Compliance', 'Resilience'],
         'cta' => 'Start Your Assessment',
         'tagline' => 'Cybersecurity strategy, protection, compliance, and resilience for enterprise environments.',
         'headline' => 'Security strategy, visibility, and risk reduction for modern environments.',
@@ -62,6 +68,8 @@ $brands = [
         'short' => 'ManageSP',
         'domain' => 'managesp.cloudexcelon.com',
         'accent' => '#2AA8FF',
+        'accent2' => '#10B981',
+        'visual' => ['Support queue', 'Operations', 'Escalation', 'Lifecycle'],
         'cta' => 'Request Support',
         'tagline' => 'Managed IT services that keep operations supported after deployment.',
         'headline' => 'Managed IT support that keeps business technology stable after launch.',
@@ -79,6 +87,8 @@ $brands = [
         'short' => 'CloudEXCELON',
         'domain' => 'dev.cloudexcelon.com',
         'accent' => '#2AA8FF',
+        'accent2' => '#0067F0',
+        'visual' => ['Architecture', 'Migration', 'Optimization', 'CloudOps'],
         'cta' => 'Discuss Your Cloud Roadmap',
         'tagline' => 'Cloud architecture and infrastructure built for scalable enterprise environments.',
         'headline' => 'Cloud architecture built for scale, resilience, and operational clarity.',
@@ -96,6 +106,8 @@ $brands = [
         'short' => 'CodeIGNITE',
         'domain' => 'codeignite.cloudexcelon.com',
         'accent' => '#FF3B30',
+        'accent2' => '#F59E0B',
+        'visual' => ['Product scope', 'APIs', 'Platform build', 'Release path'],
         'cta' => 'Discuss Your Project',
         'tagline' => 'Software development and application engineering for platform innovation.',
         'headline' => 'Software engineering for applications, platforms, workflows, and modernization.',
@@ -113,6 +125,8 @@ $brands = [
         'short' => 'DatastAIsis',
         'domain' => 'datastaisis.cloudexcelon.com',
         'accent' => '#2AA8FF',
+        'accent2' => '#8B5CF6',
+        'visual' => ['Data sources', 'Automation', 'Dashboards', 'AI roadmap'],
         'cta' => 'Plan an AI and Data Session',
         'tagline' => 'AI, automation, analytics, and operational intelligence for business outcomes.',
         'headline' => 'AI, automation, and analytics that turn scattered work into operational intelligence.',
@@ -148,8 +162,9 @@ function rrmdir(string $path): void
     }
     $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
     foreach ($it as $item) {
-        $item->isDir() ? rmdir($item->getPathname()) : unlink($item->getPathname());
+        $item->isDir() ? @rmdir($item->getPathname()) : @unlink($item->getPathname());
     }
+    @rmdir($path);
 }
 
 rrmdir($outputRoot);
@@ -163,6 +178,9 @@ foreach ($brands as $slug => $brand) {
     write_file($siteRoot . '/includes/footer.php', footerInclude());
     write_file($siteRoot . '/assets/css/style.css', css($brand));
     write_file($siteRoot . '/assets/js/main.js', js());
+    write_file($siteRoot . '/assets/images/hero-visual.svg', visualSvg($brand, 'hero'));
+    write_file($siteRoot . '/assets/images/process-visual.svg', visualSvg($brand, 'process'));
+    write_file($siteRoot . '/assets/images/trust-visual.svg', visualSvg($brand, 'trust'));
 
     foreach (['png', 'svg'] as $ext) {
         $logo = $logoRoot . DIRECTORY_SEPARATOR . $slug . '.' . $ext;
@@ -174,7 +192,7 @@ foreach ($brands as $slug => $brand) {
         }
     }
 
-    foreach (['index' => 'Home', 'about' => 'About', 'services' => 'Services', 'contact' => 'Contact'] as $page => $label) {
+    foreach (['index' => 'Home', 'about' => 'About', 'services' => 'Services', 'news' => 'News', 'contact' => 'Contact'] as $page => $label) {
         $file = $page === 'index' ? 'index.php' : $page . '.php';
         write_file($siteRoot . '/' . $file, page($slug, $brand, $page, $brands));
         if ($page !== 'index') {
@@ -199,18 +217,21 @@ function page(string $slug, array $brand, string $page, array $brands): string
         'index' => $brand['name'] . ' | ' . $brand['headline'],
         'about' => 'About ' . $brand['name'] . ' | BTP Innovations',
         'services' => $brand['name'] . ' Services | ' . $brand['tagline'],
+        'news' => $brand['name'] . ' Insights | BTP Innovations',
         'contact' => 'Contact ' . $brand['name'] . ' | Start a Conversation',
     ];
     $descriptions = [
         'index' => $brand['summary'],
         'about' => $brand['name'] . ' is part of the BTP Innovations ecosystem, helping clients solve technology problems through advisory, execution, and lifecycle support.',
         'services' => 'Explore ' . $brand['name'] . ' capabilities, deliverables, engagement process, and business outcomes.',
+        'news' => 'Read practical ' . $brand['short'] . ' insights for business and technology leaders evaluating service decisions.',
         'contact' => 'Contact ' . $brand['name'] . ' to discuss business needs, service questions, assessments, sourcing, support, or project planning.',
     ];
     $body = match ($page) {
         'index' => homePage($slug, $brand, $brands),
         'about' => aboutPage($brand, $brands),
         'services' => servicesPage($brand, $brands),
+        'news' => newsPage($brand),
         'contact' => contactPage($brand),
         default => '',
     };
@@ -220,54 +241,60 @@ function page(string $slug, array $brand, string $page, array $brands): string
 function homePage(string $slug, array $brand, array $brands): string
 {
     return hero($brand, $brand['cta'], '/contact') . '
-<section class="section intro-band"><div class="container executive-grid"><div><p class="eyebrow">Business Model</p><h2>' . h(revenueHeadline($brand)) . '</h2><p>' . h($brand['audience']) . '</p></div>' . revenueCards($brand) . '</div></section>
-<section class="section services-preview"><div class="container split-intro"><div class="section-heading sticky-heading"><p class="eyebrow">Core Capabilities</p><h2>Specific service areas built around measurable outcomes.</h2><p>' . h($brand['name']) . ' is structured to reduce uncertainty, control handoffs, and turn technology needs into decisions, deliverables, and accountable next steps.</p><a class="button button-secondary" href="/services">View Services <span aria-hidden="true">&rarr;</span></a></div><div class="card-grid">' . cardList($brand['capabilities'], $brand) . '</div></div></section>
-<section class="section journey-band"><div class="container"><div class="section-heading centered"><p class="eyebrow">Customer Journey</p><h2>Built for buyers who need clarity before commitment.</h2><p>Most enterprise decisions are not instant purchases. The site flow supports learning, trust, discovery, proposal alignment, and then a practical sale.</p></div><div class="journey-grid">' . journeyList() . '</div></div></section>
-<section class="section process-band"><div class="container"><div class="section-heading centered"><p class="eyebrow">Engagement Process</p><h2>From first conversation to accountable next steps.</h2></div><div class="process-grid">' . processList($brand['process'], $brand) . '</div></div></section>
-<section class="section trust-band"><div class="container proof-grid">' . proofList($brand['outcomes']) . '</div></section>
-' . relatedSolutions($brand, $brands) . '
+<section class="section services-preview"><div class="container"><div class="section-heading centered"><p class="eyebrow">Services</p><h2>Clear service paths without a long discovery maze.</h2></div><div class="card-grid compact">' . cardList(array_slice($brand['capabilities'], 0, 6), $brand) . '</div></div></section>
+<section class="section color-band"><div class="container visual-split"><div><p class="eyebrow">Why Choose Us</p><h2>' . h(revenueHeadline($brand)) . '</h2><p>' . h($brand['audience']) . '</p><div class="mini-proof">' . proofList(array_slice($brand['outcomes'], 0, 3)) . '</div></div>' . imageBlock('trust-visual.svg', $brand['short'] . ' trust visual', true) . '</div></section>
+<section class="section process-band"><div class="container visual-split reverse">' . imageBlock('process-visual.svg', $brand['short'] . ' process visual', true) . '<div><p class="eyebrow">Process</p><h2>Simple enough to start, structured enough to scale.</h2><div class="process-grid compact">' . processList(array_slice($brand['process'], 0, 4), $brand) . '</div></div></div></section>
+' . relatedSolutions($brand, $brands, true) . '
 <section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Step</p><h2>Ready to make the technology path clearer?</h2><p>' . h($brand['summary']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . ' <span aria-hidden="true">&rarr;</span></a></div></section>';
 }
 
 function aboutPage(array $brand, array $brands): string
 {
     return pageHero('About ' . $brand['name'], $brand['summary']) . '
-<section class="section"><div class="container two-column"><div><p class="eyebrow">Company Role</p><h2>Part of one BTP platform, focused on a specific customer problem.</h2></div><div><p>' . h($brand['name']) . ' operates inside the BTP Innovations ecosystem, where advisory, sourcing, engineering, implementation, managed services, and optimization connect through one coordinated delivery model.</p><p>' . h($brand['audience']) . '</p><p>The advantage is not just access to a service. It is access to a coordinated BTP model that can evaluate the need, bring in the right specialists, connect partner options, and support the lifecycle after the first decision is made.</p></div></div></section>
-<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Why Clients Choose BTP</p><h2>Advisory-led, execution-ready, and lifecycle aware.</h2></div><div class="card-grid">' . aboutCards() . '</div></div></section>
-<section class="section"><div class="container two-column"><div><p class="eyebrow">Market Position</p><h2>Smaller than the global integrators, more coordinated than a one-off vendor.</h2></div><div><p>Large providers often bring scale, product depth, and broad catalogs. BTP is positioned for organizations that need a practical advisor to clarify requirements, compare options, coordinate specialists, and keep ownership visible from decision through delivery.</p><p>' . h($brand['name']) . ' fits that model by focusing on ' . h(strtolower($brand['tagline'])) . '</p></div></div></section>
-' . relatedSolutions($brand, $brands) . '
+<section class="section"><div class="container visual-split"><div><p class="eyebrow">Who We Are</p><h2>Part of one BTP platform, focused on a specific customer problem.</h2><p>' . h($brand['name']) . ' operates inside the BTP Innovations ecosystem, where advisory, sourcing, engineering, implementation, managed services, and optimization connect through one coordinated delivery model.</p><p>' . h($brand['audience']) . '</p></div>' . imageBlock('trust-visual.svg', $brand['short'] . ' ecosystem visual', true) . '</div></section>
+<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Differentiators</p><h2>Advisory-led, execution-ready, and lifecycle aware.</h2></div><div class="card-grid compact">' . aboutCards() . '</div></div></section>
+' . relatedSolutions($brand, $brands, true) . '
 <section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Talk With BTP</p><h2>Get clear guidance before the next decision becomes expensive.</h2><p>' . h($brand['tagline']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
 }
 
 function servicesPage(array $brand, array $brands): string
 {
     return pageHero($brand['short'] . ' Services', $brand['tagline']) . '
-<section class="section"><div class="container two-column"><div><p class="eyebrow">What This Service Is</p><h2>' . h($brand['headline']) . '</h2></div><div><p>' . h($brand['summary']) . '</p><p><strong>Who it helps:</strong> ' . h($brand['audience']) . '</p></div></div></section>
-<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Problems Solved</p><h2>Issues that create cost, risk, delay, or decision fatigue.</h2></div><div class="card-grid">' . cardList($brand['problems'], $brand, 'problem') . '</div></div></section>
-<section class="section"><div class="container"><div class="section-heading centered"><p class="eyebrow">Core Capabilities</p><h2>Service areas with practical deliverables.</h2></div><div class="detail-grid">' . detailList($brand['capabilities'], $brand['deliverables'], $brand) . '</div></div></section>
-<section class="section outcome-section"><div class="container executive-grid"><div><p class="eyebrow">How Revenue Is Created</p><h2>' . h(revenueHeadline($brand)) . '</h2><p>The commercial path is clear: advisory, delivery, support, sourcing, assessment, or implementation work that solves a defined business need.</p></div>' . revenueCards($brand) . '</div></section>
-<section class="section process-band"><div class="container"><div class="section-heading centered"><p class="eyebrow">Engagement Process</p><h2>How BTP moves from need to next step.</h2></div><div class="process-grid">' . processList($brand['process'], $brand) . '</div></div></section>
+<section class="section"><div class="container visual-split"><div><p class="eyebrow">Overview</p><h2>' . h($brand['headline']) . '</h2><p>' . h($brand['summary']) . '</p><p><strong>Who it helps:</strong> ' . h($brand['audience']) . '</p></div>' . imageBlock('hero-visual.svg', $brand['short'] . ' service visual', true) . '</div></section>
+<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Services</p><h2>Summarized clearly for faster evaluation.</h2></div><div class="detail-grid compact">' . detailList(array_slice($brand['capabilities'], 0, 6), $brand['deliverables'], $brand) . '</div></div></section>
+<section class="section process-band"><div class="container visual-split reverse">' . imageBlock('process-visual.svg', $brand['short'] . ' engagement visual', true) . '<div><p class="eyebrow">Engagement Process</p><h2>How BTP moves from need to next step.</h2><div class="process-grid compact">' . processList(array_slice($brand['process'], 0, 4), $brand) . '</div></div></div></section>
 <section class="section trust-band"><div class="container proof-grid">' . proofList($brand['outcomes']) . '</div></section>
-' . faqSection($brand) . '
-' . relatedSolutions($brand, $brands) . '
 <section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Steps</p><h2>Discuss the service path that fits your environment.</h2><p>Bring your current goals, constraints, vendors, systems, or project questions. BTP will help clarify the path forward.</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
+}
+
+function newsPage(array $brand): string
+{
+    return pageHero($brand['short'] . ' Insights', 'Short updates and decision guides for leaders evaluating ' . strtolower($brand['tagline'])) . '
+<section class="section"><div class="container"><div class="news-grid">' . newsCards($brand) . '</div></div></section>
+<section class="section color-band"><div class="container visual-split"><div><p class="eyebrow">Briefing</p><h2>Prefer a direct conversation?</h2><p>Use the contact form to request a focused discussion around your current objective, timeline, and decision path.</p><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div>' . imageBlock('trust-visual.svg', $brand['short'] . ' insight visual', true) . '</div></section>';
 }
 
 function contactPage(array $brand): string
 {
     return pageHero('Contact ' . $brand['name'], 'Start with one business inquiry. BTP will route the conversation to the right advisory, sourcing, engineering, or support path.') . '
-<section class="section contact-section"><div class="container contact-grid"><form id="btp-lead-form" class="contact-form" method="post" action="/contact.php"><input type="hidden" name="brand" value="' . h($brand['name']) . '"><label for="full_name">Name<input id="full_name" name="full_name" autocomplete="name" required></label><label for="company_name">Company<input id="company_name" name="company_name" autocomplete="organization"></label><label for="email">Email<input id="email" type="email" name="email" autocomplete="email" required></label><label for="phone">Phone<input id="phone" name="phone" autocomplete="tel"></label><label class="full" for="message">Message<textarea id="message" name="message" rows="6" required></textarea></label><!-- TODO: Connect this form to Microsoft Forms, Power Automate, Dynamics 365, HubSpot, Salesforce, or SMTP/PHP mail when production routing is selected. --><button class="button button-primary full" type="submit">' . h($brand['cta']) . '</button></form><aside class="contact-panel"><h2>Business Inquiries</h2><p>' . h($brand['tagline']) . '</p><p><strong>Email</strong><br>info@btpinnovations.com</p><p><strong>Phone</strong><br>(800) 781-6632</p><p><strong>Address</strong><br>276 5th Avenue Suite 704<br>New York, NY 10001</p></aside></div></section>';
+<section class="section contact-section"><div class="container contact-grid"><form id="btp-lead-form" class="contact-form" method="post" action="/contact.php"><input type="hidden" name="brand" value="' . h($brand['name']) . '"><label for="full_name">Name<input id="full_name" name="full_name" autocomplete="name" required></label><label for="company_name">Company<input id="company_name" name="company_name" autocomplete="organization"></label><label for="email">Email<input id="email" type="email" name="email" autocomplete="email" required></label><label for="phone">Phone<input id="phone" name="phone" autocomplete="tel"></label><label class="full" for="message">Message<textarea id="message" name="message" rows="5" required></textarea></label><!-- TODO: Connect this form to Microsoft Forms, Power Automate, Dynamics 365, HubSpot, Salesforce, or SMTP/PHP mail when production routing is selected. --><button class="button button-primary full" type="submit">' . h($brand['cta']) . '</button></form><aside class="contact-panel"><h2>Business Inquiries</h2><p>' . h($brand['tagline']) . '</p><p><strong>Email</strong><br>info@btpinnovations.com</p><p><strong>Phone</strong><br>(800) 781-6632</p><p><strong>Address</strong><br>276 5th Avenue Suite 704<br>New York, NY 10001</p>' . imageBlock('trust-visual.svg', $brand['short'] . ' contact visual', true) . '</aside></div></section>
+<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Step</p><h2>Send the inquiry and BTP will route it to the right path.</h2><p>Use the form for service questions, assessments, sourcing, projects, or operational support needs.</p></div><a class="button button-primary" href="mailto:info@btpinnovations.com">Email BTP</a></div></section>';
 }
 
 function hero(array $brand, string $cta, string $href): string
 {
-    $visual = array_slice($brand['capabilities'], 0, 4);
-    return '<section class="hero hero-home"><div class="hero-copy"><p class="eyebrow">' . h($brand['name']) . '</p><h1>' . h($brand['headline']) . '</h1><p>' . h($brand['summary']) . '</p><div class="actions"><a class="button button-primary" href="' . h($href) . '">' . h($cta) . ' <span aria-hidden="true">&rarr;</span></a><a class="button button-outline" href="/services">Explore Services <span aria-hidden="true">&rarr;</span></a></div><div class="hero-proof"><span>Advisory-first</span><span>Vendor-aware</span><span>Execution-ready</span></div></div><div class="hero-visual" aria-hidden="true"><div class="visual-panel"><div class="visual-header"><span></span><span></span><span></span></div><div class="visual-map"><strong>' . h($brand['short']) . '</strong>' . implode('', array_map(fn($x) => '<em>' . h($x) . '</em>', $visual)) . '</div><div class="visual-footer"><span>Discover</span><span>Decide</span><span>Deliver</span></div></div></div></section>';
+    return '<section class="hero hero-home"><div class="hero-copy"><p class="eyebrow">' . h($brand['name']) . '</p><h1>' . h($brand['headline']) . '</h1><p>' . h($brand['summary']) . '</p><div class="actions"><a class="button button-primary" href="' . h($href) . '">' . h($cta) . ' <span aria-hidden="true">&rarr;</span></a><a class="button button-outline" href="/services">Explore Services <span aria-hidden="true">&rarr;</span></a></div><div class="hero-proof"><span>Advisory-first</span><span>Vendor-aware</span><span>Execution-ready</span></div></div><div class="hero-visual">' . imageBlock('hero-visual.svg', $brand['short'] . ' enterprise service visual') . '</div></section>';
 }
 
 function pageHero(string $title, string $copy): string
 {
     return '<section class="page-hero"><div class="container"><p class="eyebrow">BTP Innovations</p><h1>' . h($title) . '</h1><p>' . h($copy) . '</p></div></section>';
+}
+
+function imageBlock(string $file, string $alt, bool $lazy = false): string
+{
+    $loading = $lazy ? ' loading="lazy"' : '';
+    return '<figure class="visual-card"><img src="<?= e(asset(\'images/' . h($file) . '\')) ?>" alt="' . h($alt) . '"' . $loading . '></figure>';
 }
 
 function cardList(array $items, array $brand, string $kind = 'capability'): string
@@ -280,7 +307,7 @@ function detailList(array $capabilities, array $deliverables, array $brand): str
     $out = '';
     foreach ($capabilities as $i => $capability) {
         $deliverable = $deliverables[$i % count($deliverables)];
-        $out .= '<article class="detail-card"><h3>' . h($capability) . '</h3><p>' . h(itemDescription($brand, $capability, 'capability')) . '</p><ul><li>' . h($deliverable) . '</li><li>Ownership, risk, and dependency notes</li><li>Recommended next step for decision makers</li></ul></article>';
+        $out .= '<article class="detail-card"><span class="service-icon">' . h(iconCode($capability)) . '</span><h3>' . h($capability) . '</h3><p>' . h($deliverable) . '</p></article>';
     }
     return $out;
 }
@@ -289,14 +316,14 @@ function processList(array $items, array $brand): string
 {
     $html = '';
     foreach ($items as $i => $item) {
-        $html .= '<article><span>0' . ($i + 1) . '</span><h3>' . h($item) . '</h3><p>' . h(processDescription($brand, $item)) . '</p></article>';
+        $html .= '<article><span>0' . ($i + 1) . '</span><h3>' . h($item) . '</h3><p>' . h(shortProcessDescription($item)) . '</p></article>';
     }
     return $html;
 }
 
 function proofList(array $items): string
 {
-    return implode('', array_map(fn($x) => '<article><strong>' . h($x) . '</strong><span>Outcome-focused support for business and technology leaders.</span></article>', $items));
+    return implode('', array_map(fn($x) => '<article><strong>' . h($x) . '</strong><span>Outcome-focused support.</span></article>', $items));
 }
 
 function iconCode(string $label): string
@@ -342,12 +369,33 @@ function itemDescription(array $brand, string $item, string $kind): string
     if ($kind === 'revenue') {
         return "A practical engagement area for organizations that need measurable progress, not another disconnected vendor conversation.";
     }
-    return "$short turns $item into a structured engagement with discovery, fit analysis, deliverables, and a recommended path forward.";
+    $lower = strtolower($item);
+    if (str_contains($lower, 'strategy') || str_contains($lower, 'advisory')) {
+        return "Clarifies options, tradeoffs, and executive next steps before teams commit time or budget.";
+    }
+    if (str_contains($lower, 'migration') || str_contains($lower, 'implementation') || str_contains($lower, 'development')) {
+        return "Turns the plan into sequenced work with clearer ownership, dependencies, and delivery checkpoints.";
+    }
+    if (str_contains($lower, 'security') || str_contains($lower, 'risk') || str_contains($lower, 'compliance')) {
+        return "Surfaces exposure, control gaps, and practical remediation priorities for business leaders.";
+    }
+    if (str_contains($lower, 'support') || str_contains($lower, 'operations') || str_contains($lower, 'managed')) {
+        return "Creates a more reliable operating model with routing, coverage, and escalation clarity.";
+    }
+    if (str_contains($lower, 'automation') || str_contains($lower, 'analytics') || str_contains($lower, 'ai')) {
+        return "Connects data, workflows, and decision points so teams can act with better visibility.";
+    }
+    return "Defines scope, fit, risks, and next actions so the service can move from idea to execution.";
 }
 
 function processDescription(array $brand, string $item): string
 {
     return $brand['short'] . ' uses this step to keep stakeholders, requirements, vendors, technical dependencies, and business outcomes aligned.';
+}
+
+function shortProcessDescription(string $item): string
+{
+    return 'A focused step that keeps decisions, owners, and next actions visible.';
 }
 
 function journeyList(): string
@@ -388,14 +436,25 @@ function aboutCards(): string
     return implode('', array_map(fn($x) => '<article class="service-card"><span class="service-icon">' . h(strtoupper(substr($x[0], 0, 3))) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
 }
 
-function relatedSolutions(array $brand, array $brands): string
+function newsCards(array $brand): string
+{
+    $items = [
+        ['How to evaluate ' . $brand['short'] . ' readiness', 'A concise guide for leaders deciding whether the current environment, team, or vendor model is ready for change.'],
+        ['Reducing risk before the proposal stage', 'Why clearer requirements, ownership, and sequencing make enterprise technology decisions easier to approve.'],
+        ['When to bring BTP into the conversation', 'Signals that a project, sourcing need, support gap, or strategy question needs coordinated advisory support.'],
+    ];
+    return implode('', array_map(fn($x) => '<article class="news-card"><p class="eyebrow">Insight</p><h2>' . h($x[0]) . '</h2><p>' . h($x[1]) . '</p><a href="/contact">Discuss this topic <span aria-hidden="true">&rarr;</span></a></article>', $items));
+}
+
+function relatedSolutions(array $brand, array $brands, bool $compact = false): string
 {
     $cards = '';
     foreach ($brand['related'] as $slug) {
         $other = $brands[$slug];
         $cards .= '<article class="related-card"><p class="eyebrow">' . h($other['short']) . '</p><h3>' . h($other['tagline']) . '</h3><a href="https://' . h($other['domain']) . '/">' . h($other['name']) . ' <span aria-hidden="true">&rarr;</span></a></article>';
     }
-    return '<section class="section related-solutions"><div class="container"><div class="section-heading centered"><p class="eyebrow">Related BTP Solutions</p><h2>Keep the work inside one connected ecosystem.</h2></div><div class="related-grid">' . $cards . '</div></div></section>';
+    $heading = $compact ? '<p class="eyebrow">Related BTP Solutions</p><h2>Connected support across the BTP ecosystem.</h2>' : '<p class="eyebrow">Related BTP Solutions</p><h2>Keep the work inside one connected ecosystem.</h2>';
+    return '<section class="section related-solutions"><div class="container"><div class="section-heading centered">' . $heading . '</div><div class="related-grid">' . $cards . '</div></div></section>';
 }
 
 function headerInclude(): string
@@ -404,6 +463,7 @@ function headerInclude(): string
 <?php
 $brand = require __DIR__ . '/site.php';
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
+function asset(string $path): string { return '/assets/' . ltrim($path, '/'); }
 $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
 ?><!doctype html>
 <html lang="en">
@@ -417,16 +477,17 @@ $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
   <meta property="og:description" content="<?= e($metaDescription ?? $brand['summary']) ?>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<?= e($canonical) ?>">
-  <meta property="og:image" content="https://<?= e($brand['domain']) ?>/assets/images/logo.png">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script src="/assets/js/main.js" defer></script>
+  <meta property="og:image" content="https://<?= e($brand['domain']) ?><?= e(asset('images/logo.png')) ?>">
+  <link rel="preload" href="<?= e(asset('css/style.css')) ?>" as="style">
+  <link rel="stylesheet" href="<?= e(asset('css/style.css')) ?>">
+  <script src="<?= e(asset('js/main.js')) ?>" defer></script>
   <?php require __DIR__ . '/analytics.php'; ?>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="/assets/images/logo.svg" alt="<?= e($brand['name']) ?> logo"></a>
+    <a class="brand" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" width="210" height="82"></a>
     <?php require __DIR__ . '/navigation.php'; ?>
     <a class="button button-primary header-cta" href="/contact"><?= e($brand['cta']) ?></a>
     <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -444,6 +505,7 @@ function navigationInclude(): string
     <li><a href="/">Home</a></li>
     <li><a href="/about">About</a></li>
     <li><a href="/services">Services</a></li>
+    <li><a href="/news">News</a></li>
     <li><a href="/contact">Contact</a></li>
   </ul>
 </nav>
@@ -465,8 +527,8 @@ function footerInclude(): string
     </div>
   </section>
   <div class="container footer-grid">
-    <div><img src="/assets/images/logo.svg" alt="<?= e($brand['name']) ?> logo"><p><?= e($brand['summary']) ?></p></div>
-    <div><h3>Pages</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/contact">Contact</a></div>
+    <div><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" loading="lazy"><p><?= e($brand['summary']) ?></p></div>
+    <div><h3>Pages</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></div>
     <div><h3>Contact</h3><p>info@btpinnovations.com<br>(800) 781-6632</p><p>276 5th Avenue Suite 704<br>New York, NY 10001</p></div>
   </div>
 </footer>
@@ -496,11 +558,68 @@ toggle?.addEventListener('click', () => {
 JS;
 }
 
+function visualSvg(array $brand, string $type): string
+{
+    $accent = h($brand['accent']);
+    $accent2 = h($brand['accent2']);
+    $title = h($brand['short']);
+    $labels = array_map('h', $brand['visual']);
+    [$l0, $l1, $l2, $l3] = $labels;
+    $heading = match ($type) {
+        'process' => 'Decision Workflow',
+        'trust' => 'BTP Ecosystem',
+        default => 'Enterprise Service Map',
+    };
+    $heading = h($heading);
+    return <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-labelledby="title desc">
+  <title id="title">$title $heading</title>
+  <desc id="desc">Abstract enterprise technology visual for $title showing coordinated service blocks.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="$accent" stop-opacity=".95"/>
+      <stop offset="1" stop-color="$accent2" stop-opacity=".9"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0f172a" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="760" height="520" rx="26" fill="#f8fbff"/>
+  <path d="M70 390 C170 250 240 430 354 250 S570 150 690 260" fill="none" stroke="$accent" stroke-width="3" stroke-opacity=".22"/>
+  <circle cx="616" cy="112" r="76" fill="$accent" opacity=".12"/>
+  <circle cx="132" cy="402" r="58" fill="$accent2" opacity=".12"/>
+  <rect x="66" y="58" width="628" height="70" rx="14" fill="#fff" filter="url(#s)"/>
+  <rect x="88" y="82" width="104" height="20" rx="10" fill="url(#g)"/>
+  <text x="214" y="98" font-family="Segoe UI, Arial" font-size="28" font-weight="800" fill="#000">$heading</text>
+  <g filter="url(#s)">
+    <rect x="88" y="178" width="220" height="116" rx="16" fill="#fff"/>
+    <rect x="88" y="178" width="220" height="7" rx="4" fill="$accent"/>
+    <text x="112" y="226" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l0</text>
+    <text x="112" y="258" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Define scope and ownership</text>
+    <rect x="372" y="178" width="220" height="116" rx="16" fill="#fff"/>
+    <rect x="372" y="178" width="220" height="7" rx="4" fill="$accent2"/>
+    <text x="396" y="226" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l1</text>
+    <text x="396" y="258" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Compare options and risk</text>
+    <rect x="176" y="340" width="220" height="116" rx="16" fill="#fff"/>
+    <rect x="176" y="340" width="220" height="7" rx="4" fill="#000"/>
+    <text x="200" y="388" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l2</text>
+    <text x="200" y="420" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Move to a practical path</text>
+    <rect x="462" y="340" width="220" height="116" rx="16" fill="#fff"/>
+    <rect x="462" y="340" width="220" height="7" rx="4" fill="#ff3b30"/>
+    <text x="486" y="388" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l3</text>
+    <text x="486" y="420" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Support next-step execution</text>
+  </g>
+  <path d="M308 236 H372 M482 294 V340 M286 294 V340" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 8"/>
+</svg>
+SVG;
+}
+
 function css(array $brand): string
 {
     $accent = $brand['accent'];
+    $accent2 = $brand['accent2'];
     return <<<CSS
-:root{--black:#000;--white:#fff;--blue:#2aa8ff;--blue-deep:#0067f0;--red:#ff3b30;--ink:#111827;--muted:#566172;--line:#e4e9f0;--surface:#f5f8fc;--surface-2:#eaf6ff;--accent:$accent;--shadow:0 18px 48px rgba(15,23,42,.12);--radius:8px;--max:1200px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 40px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:24px;min-height:88px}.brand img{width:clamp(150px,14vw,210px)}.site-nav{justify-self:center}.nav-menu{display:flex;gap:30px;align-items:center;padding:0;margin:0;list-style:none}.nav-menu a{position:relative;font-size:15px;font-weight:750}.nav-menu a:hover:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;background:var(--red)}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:850;line-height:1.15}.button-primary{color:#fff;background:var(--red);box-shadow:0 12px 28px rgba(255,59,48,.22)}.button-secondary{color:#fff;background:var(--blue-deep);box-shadow:0 12px 26px rgba(0,103,240,.2)}.button-outline{border:1px solid #151515;background:#fff}.nav-toggle{display:none}.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,440px);gap:48px;align-items:center;min-height:620px;padding:clamp(58px,7vw,90px) max(24px,calc((100vw - var(--max))/2));overflow:hidden;background:linear-gradient(112deg,#fff 0%,#fff 52%,#edf8ff 100%)}.hero:after{content:"";position:absolute;right:-120px;top:80px;width:420px;height:420px;border:1px solid rgba(42,168,255,.18);border-radius:50%;pointer-events:none}.hero h1,.page-hero h1{max-width:850px;margin:0 0 18px;color:#000;font-size:clamp(38px,5.1vw,64px);line-height:1.05;letter-spacing:0}.hero p,.page-hero p{max-width:720px;margin:0;color:#1f2937;font-size:clamp(18px,1.8vw,20px)}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--red);font-size:13px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:48px;height:2px;background:var(--red)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-proof{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}.hero-proof span{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#243044;font-size:13px;font-weight:800}.hero-visual{position:relative;z-index:1}.visual-panel{padding:20px;border:1px solid rgba(42,168,255,.25);border-radius:12px;background:rgba(255,255,255,.88);box-shadow:var(--shadow)}.visual-header{display:flex;gap:7px;margin-bottom:18px}.visual-header span{width:10px;height:10px;border-radius:50%;background:var(--line)}.visual-header span:nth-child(2){background:var(--blue)}.visual-header span:nth-child(3){background:var(--red)}.visual-map{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px;border-radius:10px;background:linear-gradient(145deg,#06101e,#0b2d4c);color:#fff}.visual-map strong{grid-column:1/-1;padding:16px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.08);font-size:22px}.visual-map em{min-height:78px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:8px;background:rgba(255,255,255,.06);font-style:normal;font-weight:750}.visual-footer{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.visual-footer span{padding:10px;border-radius:8px;background:var(--surface);text-align:center;font-size:13px;font-weight:850}.section{padding:clamp(58px,6.5vw,88px) 0}.muted{background:var(--surface)}.page-hero{padding:clamp(68px,8vw,104px) 0;background:linear-gradient(110deg,#fff,#edf8ff)}.two-column,.split-intro,.contact-grid,.executive-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:50px;align-items:start}.section h2{margin:0 0 16px;color:#000;font-size:clamp(30px,3.7vw,46px);line-height:1.1}.section h3{margin:0 0 10px;color:#000;line-height:1.18}.section p{color:var(--muted)}.section-heading{max-width:640px}.sticky-heading{position:sticky;top:118px}.section-heading.centered{max-width:790px;margin:0 auto 30px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.card-grid,.detail-grid,.related-grid,.faq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.process-grid,.journey-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}.revenue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.service-card,.detail-card,.related-card,.contact-form,.contact-panel,.cta-card,.process-grid article,.proof-grid article,.revenue-grid article,.journey-grid article,.faq-grid article{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 12px 32px rgba(15,23,42,.07)}.service-card,.detail-card,.related-card,.revenue-grid article,.faq-grid article{transition:transform .18s ease,box-shadow .18s ease}.service-card:hover,.detail-card:hover,.related-card:hover,.revenue-grid article:hover,.faq-grid article:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.service-icon,.process-grid span,.revenue-grid span{display:inline-grid;place-items:center;min-width:44px;height:38px;margin-bottom:14px;color:#fff;background:var(--accent);border-radius:8px;font-size:13px;font-weight:900}.detail-card ul{padding-left:20px;color:var(--muted)}.journey-band{background:linear-gradient(180deg,#fff,var(--surface))}.journey-grid article{box-shadow:none}.journey-grid span{display:block;margin-bottom:8px;color:#005bd8;font-weight:900}.process-band{background:#000;color:#fff}.process-band h2,.process-band p{color:#fff}.process-grid article{background:#050505;border-color:#242424}.trust-band{background:var(--surface)}.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#000}.proof-grid article{border:0;border-radius:0;background:#050505;color:#fff}.proof-grid strong{display:block;font-size:21px;line-height:1.15}.proof-grid span{color:rgba(255,255,255,.72)}.related-card a{display:inline-flex;margin-top:12px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card{display:flex;justify-content:space-between;align-items:center;gap:28px}.final-cta .cta-card,.footer-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#062b4c);border-color:#1f2937}.final-cta h2,.final-cta p,.footer-cta h2,.footer-cta p{color:#fff}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}input:focus,textarea:focus{outline:3px solid rgba(42,168,255,.2);border-color:var(--blue-deep)}.full{grid-column:1/-1}.site-footer{color:#fff;background:#050505}.footer-cta{padding:44px 0}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding:44px 0}.footer-grid img{width:170px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:1100px){.hero{grid-template-columns:1fr}.hero-visual{max-width:520px}.process-grid,.journey-grid{grid-template-columns:repeat(3,1fr)}.card-grid,.detail-grid,.related-grid,.faq-grid,.revenue-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.container{width:min(100% - 28px,var(--max))}.header-inner{grid-template-columns:auto auto;min-height:78px}.brand img{width:150px}.header-cta{display:none}.nav-toggle{display:inline-grid;gap:4px;justify-self:end;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;padding:16px 0}.hero,.two-column,.split-intro,.contact-grid,.executive-grid,.cta-card,.footer-grid{grid-template-columns:1fr}.hero{min-height:auto;padding-top:48px}.hero-visual{display:none}.sticky-heading{position:static}.card-grid,.detail-grid,.related-grid,.process-grid,.journey-grid,.proof-grid,.revenue-grid,.faq-grid{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(34px,10vw,50px)}.hero p,.page-hero p{font-size:17px}.section{padding:54px 0}.cta-card{align-items:flex-start}}
+:root{--black:#000;--white:#fff;--blue:#2aa8ff;--blue-deep:#0067f0;--red:#ff3b30;--ink:#111827;--muted:#566172;--line:#e3e8ef;--surface:#f6f9fd;--surface-2:#eaf6ff;--accent:$accent;--accent-2:$accent2;--shadow:0 18px 44px rgba(15,23,42,.12);--radius:8px;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 40px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:22px;min-height:92px}.brand img{width:clamp(184px,18vw,260px)}.site-nav{justify-self:center}.nav-menu{display:flex;gap:24px;align-items:center;padding:0;margin:0;list-style:none}.nav-menu a{position:relative;font-size:14px;font-weight:780}.nav-menu a:hover:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;background:var(--red)}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:850;line-height:1.15}.button-primary{color:#fff;background:var(--red);box-shadow:0 12px 28px rgba(255,59,48,.22)}.button-secondary{color:#fff;background:var(--blue-deep);box-shadow:0 12px 26px rgba(0,103,240,.2)}.button-outline{border:1px solid #151515;background:#fff}.nav-toggle{display:none}.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,430px);gap:44px;align-items:center;min-height:560px;padding:clamp(48px,6vw,78px) max(24px,calc((100vw - var(--max))/2));background:linear-gradient(112deg,#fff 0%,#fff 50%,color-mix(in srgb,var(--accent) 10%,#fff) 100%);overflow:hidden}.hero h1,.page-hero h1{max-width:820px;margin:0 0 18px;color:#000;font-size:clamp(36px,4.7vw,58px);line-height:1.06;letter-spacing:0}.hero p,.page-hero p{max-width:700px;margin:0;color:#1f2937;font-size:clamp(17px,1.6vw,19px)}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--red);font-size:12px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:42px;height:2px;background:var(--red)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}.hero-proof{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.hero-proof span{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#243044;font-size:13px;font-weight:800}.hero-visual{position:relative}.hero-visual .visual-card{margin:0}.visual-card{margin:0;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}.visual-card img{width:100%;border-radius:8px}.section{padding:clamp(48px,5.6vw,76px) 0}.muted{background:var(--surface)}.color-band{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 12%,#fff),#fff 55%,color-mix(in srgb,var(--accent-2) 10%,#fff))}.page-hero{padding:clamp(58px,7vw,90px) 0;background:linear-gradient(110deg,#fff,color-mix(in srgb,var(--accent) 10%,#fff))}.visual-split,.contact-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:42px;align-items:center}.visual-split.reverse{grid-template-columns:1fr 1fr}.section h2{margin:0 0 14px;color:#000;font-size:clamp(28px,3.4vw,42px);line-height:1.12}.section h3{margin:0 0 10px;color:#000;line-height:1.18}.section p{color:var(--muted)}.section-heading{max-width:640px}.section-heading.centered{max-width:760px;margin:0 auto 28px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.card-grid,.detail-grid,.related-grid,.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.compact{gap:16px}.process-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.service-card,.detail-card,.related-card,.news-card,.contact-form,.contact-panel,.cta-card,.process-grid article,.proof-grid article{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 10px 26px rgba(15,23,42,.07)}.service-card,.detail-card,.related-card,.news-card{border-top:4px solid var(--accent);transition:transform .18s ease,box-shadow .18s ease}.service-card:hover,.detail-card:hover,.related-card:hover,.news-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.service-icon,.process-grid span{display:inline-grid;place-items:center;min-width:42px;height:36px;margin-bottom:12px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-size:12px;font-weight:900}.process-band{background:#050505;color:#fff}.process-band h2,.process-band p,.process-band h3{color:#fff}.process-grid article{background:#111;border-color:#252525;box-shadow:none}.mini-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.mini-proof article{padding:16px;border-radius:8px;background:#fff;border:1px solid var(--line)}.trust-band{background:var(--surface)}.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#000}.proof-grid article{border:0;border-radius:0;background:#050505;color:#fff}.proof-grid strong{display:block;font-size:20px;line-height:1.15}.proof-grid span{color:rgba(255,255,255,.72)}.related-solutions{background:#fff}.related-card a,.news-card a{display:inline-flex;margin-top:10px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card{display:flex;justify-content:space-between;align-items:center;gap:24px}.final-cta .cta-card,.footer-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#062b4c);border-color:#1f2937}.final-cta h2,.final-cta p,.footer-cta h2,.footer-cta p{color:#fff}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}input:focus,textarea:focus{outline:3px solid rgba(42,168,255,.22);border-color:var(--blue-deep)}.full{grid-column:1/-1}.site-footer{color:#fff;background:#050505}.footer-cta{padding:38px 0}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;padding:40px 0}.footer-grid img{width:190px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:1080px){.hero,.visual-split,.visual-split.reverse,.contact-grid{grid-template-columns:1fr}.hero-visual{max-width:520px}.card-grid,.detail-grid,.related-grid,.news-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.container{width:min(100% - 28px,var(--max))}.header-inner{grid-template-columns:auto auto;min-height:78px}.brand img{width:172px}.header-cta{display:none}.nav-toggle{display:inline-grid;gap:4px;justify-self:end;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;padding:16px 0}.hero{min-height:auto;padding-top:44px}.hero-visual{display:none}.card-grid,.detail-grid,.related-grid,.process-grid,.proof-grid,.mini-proof,.news-grid{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(34px,10vw,48px)}.hero p,.page-hero p{font-size:17px}.section{padding:48px 0}.cta-card{align-items:flex-start;flex-direction:column}}
 CSS;
 }
 
@@ -512,7 +631,7 @@ function robots(array $brand): string
 function sitemap(array $brand): string
 {
     $d = 'https://' . $brand['domain'];
-    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>$d/</loc></url>\n  <url><loc>$d/about</loc></url>\n  <url><loc>$d/services</loc></url>\n  <url><loc>$d/contact</loc></url>\n</urlset>\n";
+    return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>$d/</loc></url>\n  <url><loc>$d/about</loc></url>\n  <url><loc>$d/services</loc></url>\n  <url><loc>$d/news</loc></url>\n  <url><loc>$d/contact</loc></url>\n</urlset>\n";
 }
 
 function htaccess(): string
@@ -527,18 +646,18 @@ function webConfig(): string
 
 function readme(string $slug, array $brand): string
 {
-    return "# {$brand['name']}\n\nProduction-ready lightweight PHP 8.3 website for {$brand['domain']}.\n\nDeploy the repository root directly to the Plesk domain folder. `index.php` must be in the domain root.\n\nPages: Home, About, Services, Contact.\n";
+    return "# {$brand['name']}\n\nProduction-ready lightweight PHP 8.3 website for {$brand['domain']}.\n\nDeploy the repository root directly to the Plesk domain folder. `index.php` must be in the domain root.\n\nPages: Home, About, Services, News, Contact.\n";
 }
 
 function deployment(string $slug, array $brand): string
 {
     $branch = $slug === 'cloudexcelon' ? 'plesk-deploy' : 'deploy-' . $slug;
-    return "# Deployment - {$brand['name']}\n\n## GitHub Push\n\n```powershell\ngit add .\ngit commit -m \"Update {$brand['short']} website\"\ngit push origin $branch\n```\n\n## Plesk Git Deployment\n\n1. Open Plesk > Websites & Domains.\n2. Open Git for the target domain.\n3. Use the `$branch` repository branch for this site.\n4. Set deployment path to the domain root, not a nested `public_html` folder.\n5. Deploy repository.\n6. Confirm `index.php` exists directly in the domain folder.\n7. Test `/`, `/about`, `/services`, and `/contact`.\n\n## Updates\n\nUse **Update from Remote**, then **Deploy HEAD Commit**.\n\n## Troubleshooting\n\n- 403.14 means `index.php` is missing from the served folder or the wrong deployment path is selected.\n- 404 on `/services` means the deploy did not include `services/index.php` or the wrong folder was deployed.\n- Check Plesk Logs for PHP warnings and IIS errors.\n- Verify asset paths start with `/assets/` and the domain root contains `assets`, `includes`, and the page files.\n";
+    return "# Deployment - {$brand['name']}\n\n## GitHub Push\n\n```powershell\ngit add .\ngit commit -m \"Update {$brand['short']} website\"\ngit push origin $branch\n```\n\n## Plesk Git Deployment\n\n1. Open Plesk > Websites & Domains.\n2. Open Git for the target domain.\n3. Use the `$branch` repository branch for this site.\n4. Set deployment path to the domain root, not a nested `public_html` folder.\n5. Deploy repository.\n6. Confirm `index.php` exists directly in the domain folder.\n7. Test `/`, `/about`, `/services`, `/news`, and `/contact`.\n\n## Updates\n\nUse **Update from Remote**, then **Deploy HEAD Commit**.\n\n## Troubleshooting\n\n- 403.14 means `index.php` is missing from the served folder or the wrong deployment path is selected.\n- 404 on `/services` means the deploy did not include `services/index.php` or the wrong folder was deployed.\n- Check Plesk Logs for PHP warnings and IIS errors.\n- Verify asset paths resolve through the `asset()` helper and the domain root contains `assets`, `includes`, and the page files.\n";
 }
 
 function designSystem(): string
 {
-    return "# BTP Design System\n\nTypography: Segoe UI/Inter-style system font, strong enterprise headlines, readable body copy, no viewport-scaled letter spacing.\n\nPalette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus restrained brand accent tokens.\n\nButtons: red primary conversion CTA, blue secondary service action, black-outline discovery action.\n\nCards: 8px radius, light border, subtle shadow, compact enterprise spacing, hover only where it helps scannability.\n\nSpacing: mobile-first sections using responsive clamp spacing and a 1200px max container. Whitespace separates decisions, not decoration.\n\nHero system: concise executive headline, proof chips, and a CSS-built enterprise workflow visual instead of generic stock photography.\n\nContent system: every site includes value proposition, revenue model, problems solved, capabilities, process, outcomes, FAQ, related BTP solutions, and one lead form.\n\nForms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n";
+    return "# BTP Design System\n\nTypography: Segoe UI/Inter-style system font, strong enterprise headlines, readable body copy, no viewport-scaled letter spacing.\n\nPalette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus controlled brand accent tokens.\n\nAsset system: all CSS, JavaScript, logos, and visuals resolve through the PHP `asset()` helper and root-relative `/assets/...` URLs.\n\nButtons: red primary conversion CTA, blue secondary service action, black-outline discovery action.\n\nCards: 8px radius, light border, subtle shadow, compact enterprise spacing, and color-accented service tops.\n\nSpacing: shorter pages, intentional whitespace, compact card grids, and visual split sections.\n\nHero system: concise executive headline, proof chips, and a brand-specific SVG service visual.\n\nContent system: every site includes hero, service cards, benefits/trust, visual process, ecosystem links, final CTA, News cards, and one lead form.\n\nForms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n";
 }
 
 function masterReadme(array $brands): string
