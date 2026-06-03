@@ -1,73 +1,35 @@
-<?php
-$pageTitle = 'BTP PraaS News | IT Staffing Insights';
-$metaDescription = 'Discover BTP PraaS insights on staffing challenges, trends, productivity gaps, continuity, and flexible IT staffing solutions.';
-$pagePath = '/news';
-require __DIR__ . '/includes/header.php';
-?>
-<section class="page-hero news-hero">
-    <div class="container narrow">
-        <p class="eyebrow">News</p>
-        <h1>Discover insights that matter.</h1>
-        <p>Explore challenges, trends, and solutions shaping the future of IT staffing and innovation.</p>
-        <div class="news-feature">
-            <span>Featured Article</span>
-            <strong>The cost of productivity gaps in contract staffing.</strong>
-        </div>
-    </div>
-</section>
-<section class="section news-controls-section">
-    <div class="container">
-        <div class="filter-bar" aria-label="News categories">
-            <span class="active">All</span>
-            <span>Staffing</span>
-            <span>Trends</span>
-            <span>Operations</span>
-            <span>Cost Savings</span>
-        </div>
-    </div>
-</section>
-<section class="section">
-    <div class="container news-grid">
-        <article>
-            <p class="eyebrow">Staffing</p>
-            <h2>The cost of productivity gaps in contract staffing</h2>
-            <p>Talent gaps can create business costs, missed deadlines, and delivery risk. Backup coverage helps reduce disruption and preserve momentum.</p>
-            <a href="/contact">Read more</a>
-        </article>
-        <article>
-            <p class="eyebrow">Trends</p>
-            <h2>Why continuity is becoming a staffing priority</h2>
-            <p>Teams need flexible professionals who can integrate quickly and operate with backup support when availability changes.</p>
-            <a href="/about">Read more</a>
-        </article>
-        <article>
-            <p class="eyebrow">Operations</p>
-            <h2>How PraaS support helps complex tasks move forward</h2>
-            <p>PraaS Pros can consult the BTP PraaS team for task-specific help, giving clients stronger support than a lone contractor model.</p>
-            <a href="/services">Read more</a>
-        </article>
-    </div>
-</section>
-<section class="section newsletter-section">
-    <div class="container newsletter-card">
-        <div>
-            <p class="eyebrow">Newsletter</p>
-            <h2>Stay current on PraaS staffing and sourcing insights.</h2>
-            <p>Get updates on staffing continuity, technology sourcing, Resource-as-a-Service, and practical ways to reduce operational friction.</p>
-        </div>
-        <form class="newsletter-form" action="/news" method="post">
-            <label class="sr-only" for="newsletter-email">Email address</label>
-            <input id="newsletter-email" name="email" type="email" placeholder="Business email" autocomplete="email">
-            <!-- TODO: Connect newsletter signup to email marketing or CRM platform before production use. -->
-            <button class="button button-primary" type="submit">Subscribe</button>
-        </form>
-    </div>
-</section>
-<section class="section news-timeline-section">
-    <div class="container timeline">
-        <div><span>All</span><p>Follow PraaS updates across staffing, trends, highlights, and operations.</p></div>
-        <div><span>Subscribe</span><p>Join the newsletter to receive staffing insights and PraaS updates.</p></div>
-        <div><span>Next</span><p>More articles can be added as PraaS publishes new guidance.</p></div>
-    </div>
-</section>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php $brand = require __DIR__ . '/includes/site.php'; ?>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BTP CloudEXCELON | News</title>
+  <meta name="description" content="BTP CloudEXCELON helps organizations plan, modernize, optimize, and manage cloud environments that support real business needs.">
+  <link rel="canonical" href="https://dev.cloudexcelon.com/">
+  <meta property="og:title" content="BTP CloudEXCELON | News">
+  <meta property="og:description" content="BTP CloudEXCELON helps organizations plan, modernize, optimize, and manage cloud environments that support real business needs.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dev.cloudexcelon.com/">
+  <meta property="og:image" content="https://dev.cloudexcelon.com/assets/images/btp-logo.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/main.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+  <a class="logo" href="/"><img src="/assets/images/btp-logo.png" alt="BTP Innovations"></a>
+  <button class="menu" type="button" aria-expanded="false">Menu</button>
+  <nav><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></nav>
+  <a class="top-cta" href="/contact">Start a Conversation</a>
+</header>
+<main id="main"><section class="page-hero"><p class="eyebrow">News</p><h1>Insights from BTP CloudEXCELON.</h1><p>Practical updates on Cloud architecture and infrastructure built for scalable enterprise environments.</p></section>
+<section class="section split"><div><p class="eyebrow">Featured Insight</p><h2>How coordinated technology decisions reduce cost, risk, and operational drag.</h2></div><div><p>Cloud decisions can become complicated quickly. Organizations often face rising costs, unclear architecture, underused services, security concerns, and uncertainty about which platform or migration path is right for them.</p><p>Connect with BTP CloudEXCELON to plan, optimize, or modernize your cloud environment with a clearer path forward.</p><div class="actions"><a class="btn red" href="/contact">Discuss Your Priorities</a><a class="btn outline" href="/services">View Services</a></div></div></section>
+<section class="section muted"><div class="section-head"><p class="eyebrow">Articles</p><h2>Current focus areas for business leaders.</h2></div><div class="cards"><article><span>ST</span><h3>Making technology decisions with fewer blind spots</h3><p>BTP CloudEXCELON helps organizations plan, modernize, optimize, and manage cloud environments that support real business needs.</p><a class="text-link" href="/contact">Talk about this</a></article><article><span>OP</span><h3>Why execution support matters after recommendations</h3><p>BTP CloudEXCELON helps clients evaluate current environments, define the right cloud strategy, deploy scalable solutions, and optimize performance over time.</p><a class="text-link" href="/contact">Talk about this</a></article><article><span>EC</span><h3>Using one coordinated path across advisory, partners, and delivery</h3><p>As part of the BTP Innovations ecosystem, CloudEXCELON supports businesses across cloud advisory, migration, infrastructure design, cost optimization, resilience planning, and ongoing cloud operations.</p><a class="text-link" href="/contact">Talk about this</a></article></div></section>
+<section class="section newsletter"><div><p class="eyebrow">Stay Connected</p><h2>Get practical technology guidance from the BTP Innovations ecosystem.</h2></div><form method="post" action="/contact"><label>Email<input type="email" name="email" required></label><button class="btn red" type="submit">Request Updates</button><!-- TODO: Connect newsletter signup to an email marketing or CRM platform. --></form></section></main>
+<footer>
+  <section class="footer-cta"><div><p class="eyebrow">BTP Innovations Ecosystem</p><h2>Connect with BTP CloudEXCELON to plan, optimize, or modernize your cloud environment with a clearer path forward.</h2></div><a class="btn red" href="/contact">Contact BTP CloudEXCELON</a></section>
+  <div class="footer-grid"><div><img src="/assets/images/btp-logo.png" alt="BTP Innovations"><p>Cloud architecture and infrastructure built for scalable enterprise environments.</p></div><div><h3>Pages</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></div><div><h3>Contact</h3><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><p>(800) 781-6632<br>info@dev.cloudexcelon.com</p></div></div>
+</footer>
+</body>
+</html>
