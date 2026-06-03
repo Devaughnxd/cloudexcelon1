@@ -4,6 +4,14 @@ return array (
   'short' => 'PraaS',
   'domain' => 'praas.cloudexcelon.com',
   'accent' => '#2AA8FF',
+  'accent2' => '#7C3AED',
+  'visual' => 
+  array (
+    0 => 'Procurement map',
+    1 => 'Vendor fit',
+    2 => 'License clarity',
+    3 => 'Sourcing path',
+  ),
   'cta' => 'Schedule a Sourcing Consultation',
   'tagline' => 'Procurement and sourcing support that simplifies technology acquisition through one coordinated path.',
   'headline' => 'Technology procurement and sourcing support without vendor noise.',
