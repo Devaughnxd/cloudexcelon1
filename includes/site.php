@@ -1,25 +1,57 @@
 <?php
 return array (
   'name' => 'BTP TechAdvisors',
+  'short' => 'TechAdvisors',
   'domain' => 'techadvisors.cloudexcelon.com',
+  'accent' => '#0067F0',
+  'cta' => 'Talk to an Advisor',
   'tagline' => 'Strategic advisory and client engagement for complex technology decisions.',
-  'headline' => 'Vendor-neutral technology advisory for smarter business decisions.',
-  'summary' => 'BTP TechAdvisors helps organizations make clearer, smarter, and more cost-effective technology decisions.',
-  'about' => 
+  'headline' => 'Vendor-neutral guidance for decisions that carry real business risk.',
+  'summary' => 'BTP TechAdvisors helps leaders evaluate technology options, clarify tradeoffs, prioritize roadmaps, and move from strategy to accountable execution.',
+  'audience' => 'Executives, IT leaders, operations teams, and finance stakeholders making decisions across cloud, cybersecurity, AI, managed IT, communications, and software platforms.',
+  'problems' => 
   array (
-    0 => 'We work with businesses that need guidance across cloud, cybersecurity, connectivity, software, AI, managed IT, and broader digital transformation priorities.',
-    1 => 'Technology decisions are often complicated by too many vendors, overlapping tools, rising costs, and unclear implementation paths. BTP TechAdvisors brings structure to that process by combining practical advisory support with access to the broader BTP Innovations ecosystem.',
-    2 => 'We are advisory-first, but not advisory-only. Through BTP solution brands and partner networks, we help clients move from recommendations to execution.',
+    0 => 'Too many competing vendor claims',
+    1 => 'Technology roadmaps without execution clarity',
+    2 => 'Rising spend across overlapping tools',
+    3 => 'Unclear implementation risk',
   ),
-  'services' => 
+  'capabilities' => 
   array (
-    0 => 'Technology Strategy',
-    1 => 'Vendor-Neutral Advisory',
-    2 => 'Digital Transformation',
-    3 => 'IT Roadmapping',
-    4 => 'Solution Evaluation',
-    5 => 'Cost Optimization',
+    0 => 'Technology strategy',
+    1 => 'Vendor-neutral advisory',
+    2 => 'Digital transformation planning',
+    3 => 'IT roadmap development',
+    4 => 'Solution evaluation',
+    5 => 'Cost optimization',
   ),
-  'cta' => 'Connect with BTP TechAdvisors when your business needs clearer technology decisions and a practical path to execution.',
-  'accent' => '#2AA8FF',
+  'deliverables' => 
+  array (
+    0 => 'Discovery brief',
+    1 => 'Options and tradeoff analysis',
+    2 => 'Roadmap recommendations',
+    3 => 'Vendor-neutral scorecard',
+    4 => 'Execution alignment plan',
+  ),
+  'process' => 
+  array (
+    0 => 'Listen and discover',
+    1 => 'Identify the gaps',
+    2 => 'Evaluate options',
+    3 => 'Call in the right expert',
+    4 => 'Deliver together',
+  ),
+  'outcomes' => 
+  array (
+    0 => 'Clearer decisions',
+    1 => 'Reduced technology risk',
+    2 => 'Better executive alignment',
+    3 => 'Practical next steps',
+  ),
+  'related' => 
+  array (
+    0 => 'praas',
+    1 => 'securiscope',
+    2 => 'cloudexcelon',
+  ),
 );
