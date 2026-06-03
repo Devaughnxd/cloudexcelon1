@@ -5,14 +5,14 @@
 ```powershell
 git add .
 git commit -m "Update CloudEXCELON website"
-git push origin plesk-deploy
+git push origin deploy-cloudexcelon
 ```
 
 ## Plesk Git Deployment
 
 1. Open Plesk > Websites & Domains.
 2. Open Git for the target domain.
-3. Use the `plesk-deploy` repository branch for this site.
+3. Use the `deploy-cloudexcelon` repository branch for this site.
 4. Set deployment path to the domain root, not a nested `public_html` folder.
 5. Deploy repository.
 6. Confirm `index.php` exists directly in the domain folder.
