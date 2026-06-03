@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://techadvisors.cloudexcelon.com/sitemap.xml
