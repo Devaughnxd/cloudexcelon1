@@ -4,6 +4,14 @@ return array (
   'short' => 'CloudEXCELON',
   'domain' => 'dev.cloudexcelon.com',
   'accent' => '#2AA8FF',
+  'accent2' => '#0067F0',
+  'visual' => 
+  array (
+    0 => 'Architecture',
+    1 => 'Migration',
+    2 => 'Optimization',
+    3 => 'CloudOps',
+  ),
   'cta' => 'Discuss Your Cloud Roadmap',
   'tagline' => 'Cloud architecture and infrastructure built for scalable enterprise environments.',
   'headline' => 'Cloud architecture built for scale, resilience, and operational clarity.',
