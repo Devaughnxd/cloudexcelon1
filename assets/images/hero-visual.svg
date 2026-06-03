@@ -22,21 +22,29 @@
   <rect width="880" height="560" rx="28" fill="url(#grid)"/>
   <rect width="880" height="560" rx="28" fill="url(#r)"/>
   <path d="M54 458 C174 312 255 456 374 282 S640 132 812 256" fill="none" stroke="#FF3B30" stroke-width="3" stroke-opacity=".28"/>
-  <g filter="url(#s)">
-    <rect x="56" y="54" width="326" height="404" rx="22" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)"/>
-    <rect x="82" y="84" width="92" height="18" rx="9" fill="url(#g)"/>
-    <text x="82" y="142" font-family="Segoe UI, Arial" font-size="32" font-weight="850" fill="#fff">Enterprise Service Map</text>
-    <text x="82" y="184" font-family="Segoe UI, Arial" font-size="17" fill="#cbd5e1">CodeIGNITE workflow visualization</text>
-    <g font-family="Segoe UI, Arial" font-size="15" font-weight="800" fill="#fff">
-      <rect x="82" y="232" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="#FF3B30" stroke-opacity=".5"/><text x="104" y="259">Product scope</text>
-      <rect x="82" y="292" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="#F59E0B" stroke-opacity=".5"/><text x="104" y="319">APIs</text>
-      <rect x="82" y="352" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="#ff3b30" stroke-opacity=".5"/><text x="104" y="379">Platform build</text>
-      <rect x="82" y="412" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="#ffffff" stroke-opacity=".18"/><text x="104" y="439">Release path</text>
+  <g filter="url(#s)" font-family="Segoe UI, Arial">
+    <rect x="54" y="52" width="286" height="64" rx="18" fill="#ffffff" fill-opacity=".1" stroke="#ffffff" stroke-opacity=".16"/>
+    <rect x="78" y="76" width="76" height="16" rx="8" fill="url(#g)"/>
+    <text x="172" y="91" font-size="18" font-weight="850" fill="#fff">Enterprise Service Map</text>
+    <g stroke="#ffffff" stroke-opacity=".22" stroke-width="2" stroke-dasharray="7 9">
+      <path d="M150 212 H290"/>
+      <path d="M150 304 H290"/>
+      <path d="M150 396 H290"/>
+    </g>
+    <g>
+      <rect x="58" y="170" width="192" height="66" rx="16" fill="#ffffff" fill-opacity=".09" stroke="#FF3B30" stroke-opacity=".65"/>
+      <circle cx="92" cy="203" r="15" fill="#FF3B30"/><text x="118" y="209" font-size="15" font-weight="850" fill="#fff">Product scope</text>
+      <rect x="58" y="262" width="210" height="66" rx="16" fill="#ffffff" fill-opacity=".09" stroke="#F59E0B" stroke-opacity=".65"/>
+      <circle cx="92" cy="295" r="15" fill="#F59E0B"/><text x="118" y="301" font-size="15" font-weight="850" fill="#fff">APIs</text>
+      <rect x="58" y="354" width="202" height="66" rx="16" fill="#ffffff" fill-opacity=".09" stroke="#ff3b30" stroke-opacity=".65"/>
+      <circle cx="92" cy="387" r="15" fill="#ff3b30"/><text x="118" y="393" font-size="15" font-weight="850" fill="#fff">Platform build</text>
+      <rect x="58" y="446" width="228" height="66" rx="16" fill="#ffffff" fill-opacity=".09" stroke="#ffffff" stroke-opacity=".24"/>
+      <circle cx="92" cy="479" r="15" fill="#fff" fill-opacity=".2"/><text x="118" y="485" font-size="15" font-weight="850" fill="#fff">Release path</text>
     </g>
   </g>
     <g class="motif code" transform="translate(336 132)">
     <rect x="0" y="0" width="316" height="252" rx="20" fill="#071b31" stroke="#FF3B30" stroke-opacity=".5"/>
-    <rect x="0" y="0" width="316" height="42" rx="20" fill="rgba(255,255,255,.1)"/>
+    <rect x="0" y="0" width="316" height="42" rx="20" fill="#ffffff" fill-opacity=".1"/>
     <circle cx="30" cy="22" r="6" fill="#ff3b30"/><circle cx="52" cy="22" r="6" fill="#F59E0B"/><circle cx="74" cy="22" r="6" fill="#FF3B30"/>
     <path d="M64 95 L34 125 L64 155 M252 95 L282 125 L252 155" fill="none" stroke="#FF3B30" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M132 176 H238 M94 78 H214 M94 118 H190 M94 138 H226" stroke="#dbeafe" stroke-width="8" stroke-opacity=".55" stroke-linecap="round"/>
