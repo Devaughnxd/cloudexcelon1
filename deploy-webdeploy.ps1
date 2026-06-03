@@ -10,7 +10,7 @@ if (-not (Test-Path -LiteralPath $msdeploy)) {
 
 $projectRoot = $PSScriptRoot
 $sourcePath = Join-Path $projectRoot 'public_html'
-$userName = 'btpinnov'
+$userName = 'devaughnd'
 $siteName = 'dev.cloudexcelon.com'
 $publishUrl = 'https://dev.cloudexcelon.com:8172/msdeploy.axd?site=dev.cloudexcelon.com'
 
