@@ -9,6 +9,7 @@ Pages: Home, About, Services, News, Contact.
 ## Quality Process
 
 - `docs/website-audit.md`: running issue log. Log issues before fixing them.
+- `docs/plesk-preview-audit.md`: Plesk preview rendering, spacing, path, and deployment-readiness log.
 - `docs/competitive-benchmark.md`: visual, UX, and information architecture benchmark guide.
 - `docs/content-source-policy.md`: BTP-only factual content policy.
 - `docs/qos-checklist.md`: pre-deployment quality checklist.
