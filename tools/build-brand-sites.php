@@ -130,6 +130,7 @@ $logoSource = $root . DIRECTORY_SEPARATOR . 'btp-sitejet-build' . DIRECTORY_SEPA
 if (!is_file($logoSource)) {
     $logoSource = 'C:\\Users\\DEVAU\\OneDrive\\Desktop\\BTP\\BTP Logo.png';
 }
+$generatedLogoRoot = $root . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'brand-logos';
 
 foreach ($brands as $slug => $brand) {
     $siteRoot = $outputRoot . DIRECTORY_SEPARATOR . $slug . DIRECTORY_SEPARATOR . 'public_html';
@@ -146,7 +147,10 @@ foreach ($brands as $slug => $brand) {
     write_file($siteRoot . '/includes/site.php', "<?php\nreturn $brandPhp;\n");
     write_file($siteRoot . '/assets/css/style.css', css($brand));
     write_file($siteRoot . '/assets/js/main.js', js());
-    $brandLogoSource = $slug === 'praas' ? 'C:\\Users\\DEVAU\\OneDrive\\Desktop\\BTP\\BTP_PraaS-WM29r4HBIJTLGZI4w3hFMw.png' : $logoSource;
+    $brandLogoSource = $generatedLogoRoot . DIRECTORY_SEPARATOR . $slug . '.png';
+    if (!is_file($brandLogoSource)) {
+        $brandLogoSource = $slug === 'praas' ? 'C:\\Users\\DEVAU\\OneDrive\\Desktop\\BTP\\BTP_PraaS-WM29r4HBIJTLGZI4w3hFMw.png' : $logoSource;
+    }
     if (is_file($brandLogoSource)) {
         if (!is_dir($siteRoot . '/assets/images')) {
             mkdir($siteRoot . '/assets/images', 0777, true);
@@ -159,9 +163,14 @@ foreach ($brands as $slug => $brand) {
     }
     write_file($siteRoot . '/privacy-policy.php', legal($brand, 'Privacy Policy'));
     write_file($siteRoot . '/legal-notice.php', legal($brand, 'Legal Notice'));
+    foreach (['about', 'services', 'news', 'contact', 'privacy-policy', 'legal-notice'] as $route) {
+        $target = $route . '.php';
+        write_file($siteRoot . '/' . $route . '/index.php', "<?php\nrequire __DIR__ . '/../$target';\n");
+    }
     write_file($siteRoot . '/robots.txt', "User-agent: *\nAllow: /\n\nSitemap: https://{$brand['domain']}/sitemap.xml\n");
     write_file($siteRoot . '/sitemap.xml', sitemap($brand));
     write_file($siteRoot . '/.htaccess', htaccess());
+    write_file($siteRoot . '/web.config', webConfig());
     write_file($outputRoot . DIRECTORY_SEPARATOR . $slug . DIRECTORY_SEPARATOR . 'README.md', readme($brand, $slug));
 }
 
@@ -263,7 +272,7 @@ HTML;
 <section class="page-hero"><p class="eyebrow">News</p><h1>Insights from {$name}.</h1><p>Practical updates on {$tagline}</p></section>
 <section class="section split"><div><p class="eyebrow">Featured Insight</p><h2>How coordinated technology decisions reduce cost, risk, and operational drag.</h2></div><div><p>{$about[1]}</p><p>BTP's Quarterback model orchestrates the right expertise around each client need, from discovery and gap identification to expert engagement and delivery accountability.</p><p>{$cta}</p><div class="actions"><a class="btn red" href="/contact">Discuss Your Priorities</a><a class="btn outline" href="/services">View Services</a></div></div></section>
 <section class="section muted"><div class="section-head"><p class="eyebrow">Articles</p><h2>Current focus areas for business leaders.</h2></div><div class="cards">{$articles}</div></section>
-<section class="section newsletter"><div><p class="eyebrow">Stay Connected</p><h2>Get practical technology guidance from the BTP Innovations ecosystem.</h2></div><form method="post" action="/contact"><label>Email<input type="email" name="email" required></label><button class="btn red" type="submit">Request Updates</button><!-- TODO: Connect newsletter signup to an email marketing or CRM platform. --></form></section>
+<section class="section newsletter"><div><p class="eyebrow">Stay Connected</p><h2>Get practical technology guidance from the BTP Innovations ecosystem.</h2></div><div class="cta-panel"><p>For updates, sales conversations, discovery requests, and project support, use the contact page so BTP can route the request through one intake path.</p><a class="btn red" href="/contact">Contact {$name}</a></div></section>
 HTML;
         return layout($brand, $title, $description, $body);
     }
@@ -349,6 +358,25 @@ function htaccess(): string
     return "Options -Indexes\nDirectoryIndex index.php\n<IfModule mod_rewrite.c>\nRewriteEngine On\nRewriteCond %{REQUEST_FILENAME} !-d\nRewriteCond %{REQUEST_FILENAME}\\.php -f\nRewriteRule ^(.+?)/?$ $1.php [L]\n</IfModule>\n";
 }
 
+function webConfig(): string
+{
+    return <<<'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <system.webServer>
+    <defaultDocument enabled="true">
+      <files>
+        <clear />
+        <add value="index.php" />
+        <add value="index.html" />
+      </files>
+    </defaultDocument>
+    <directoryBrowse enabled="false" />
+  </system.webServer>
+</configuration>
+XML;
+}
+
 function readme(array $brand, string $slug): string
 {
     return "# {$brand['name']}\n\nDeployable PHP 8.3 website for {$brand['domain']}.\n\nUpload the contents of `public_html` to the domain document root or deploy from the matching Git branch `deploy-$slug`.\n\nFor Plesk, set the deployment path to the website document root so `index.php` lands directly in the served folder.\n";
@@ -372,7 +400,7 @@ function css(array $brand): string
 {
     $accent = $brand['accent'];
     return <<<CSS
-:root{--black:#000;--white:#fff;--blue:#2AA8FF;--red:#FF3B30;--ink:#111827;--muted:#5b6472;--line:#e5e9f0;--surface:#f6f9fc;--accent:$accent;--max:1180px;--shadow:0 20px 55px rgba(15,23,42,.12)}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);line-height:1.55;background:#fff}a{text-decoration:none;color:inherit}.skip{position:absolute;left:-999px}.header{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;min-height:92px;padding:12px max(24px,calc((100vw - var(--max))/2));background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.logo img{width:190px;max-width:34vw}nav{display:flex;justify-content:center;gap:28px;font-weight:750}.top-cta,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:800}.top-cta,.btn.red{color:#fff;background:var(--red);box-shadow:0 14px 26px rgba(255,59,48,.2)}.btn.outline{border:1px solid #111;background:#fff}.text-link{display:inline-flex;margin-top:10px;color:#005bd8;font-weight:850}.menu{display:none}.hero,.page-hero{padding:clamp(70px,8vw,120px) max(24px,calc((100vw - var(--max))/2));background:linear-gradient(105deg,#fff 0%,#fff 50%,#eaf6ff 100%)}.hero{display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:center}.hero h1,.page-hero h1{max-width:850px;margin:0 0 18px;font-size:clamp(42px,6vw,72px);line-height:1.04;letter-spacing:0}.hero p,.page-hero p{max-width:700px;font-size:20px;color:#202938}.hero aside{padding:30px;border:1px solid rgba(42,168,255,.25);border-top:5px solid var(--accent);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.hero aside span,.eyebrow{display:inline-flex;gap:12px;align-items:center;margin:0 0 12px;color:var(--red);font-size:13px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:44px;height:2px;background:var(--red)}.hero aside strong{display:block;font-size:28px;line-height:1.14}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.section{padding:clamp(64px,7vw,100px) max(24px,calc((100vw - var(--max))/2))}.muted{background:var(--surface)}.dark{color:#fff;background:#000}.dark h2,.dark p{color:#fff}.split,.newsletter{display:grid;grid-template-columns:.8fr 1.2fr;gap:54px;align-items:start}.section h2{margin:0 0 16px;font-size:clamp(30px,4vw,48px);line-height:1.08}.section p{color:var(--muted)}.dark p{color:rgba(255,255,255,.78)}.cards,.detail-cards,.process{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.cards article,.detail-cards article,.process article,form,aside{padding:26px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 32px rgba(15,23,42,.07)}.cards span,.process span{display:inline-grid;place-items:center;min-width:42px;height:38px;margin-bottom:14px;color:#fff;background:var(--accent);border-radius:8px;font-weight:900}.detail-cards ul{padding-left:20px;color:var(--muted)}.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#000;color:#fff}.proof div{padding:32px;background:#050505}.proof strong{display:block;font-size:28px}.proof span{color:rgba(255,255,255,.75)}.contact{display:grid;grid-template-columns:1fr 360px;gap:28px}form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}.full,form button{grid-column:1/-1}footer{color:#fff;background:#050505}.footer-cta{display:flex;justify-content:space-between;gap:28px;align-items:center;padding:46px max(24px,calc((100vw - var(--max))/2));background:linear-gradient(100deg,#000,#062b4c)}.footer-cta h2{max-width:850px;margin:0;font-size:clamp(26px,4vw,42px);line-height:1.1}.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px;padding:48px max(24px,calc((100vw - var(--max))/2))}.footer-grid img{width:170px;background:#fff;border-radius:6px;padding:8px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:880px){.header{grid-template-columns:auto auto}.top-cta{display:none}.menu{display:inline-flex;justify-content:center;min-height:42px;padding:9px 13px;border:1px solid var(--line);background:#fff;border-radius:6px}nav{display:none;grid-column:1/-1;justify-content:start;flex-direction:column}.nav-open nav{display:flex}.hero,.split,.newsletter,.cards,.detail-cards,.process,.proof,.contact,.footer-cta,.footer-grid{grid-template-columns:1fr;display:grid}form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(36px,10vw,54px)}}
+:root{--black:#000;--white:#fff;--blue:#2AA8FF;--red:#FF3B30;--ink:#111827;--muted:#5b6472;--line:#e5e9f0;--surface:#f6f9fc;--accent:$accent;--max:1180px;--shadow:0 20px 55px rgba(15,23,42,.12)}*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--ink);line-height:1.55;background:#fff}a{text-decoration:none;color:inherit}.skip{position:absolute;left:-999px}.header{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;min-height:92px;padding:12px max(24px,calc((100vw - var(--max))/2));background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.logo img{width:190px;max-width:34vw}nav{display:flex;justify-content:center;gap:28px;font-weight:750}.top-cta,.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:800}.top-cta,.btn.red{color:#fff;background:var(--red);box-shadow:0 14px 26px rgba(255,59,48,.2)}.btn.outline{border:1px solid #111;background:#fff}.text-link{display:inline-flex;margin-top:10px;color:#005bd8;font-weight:850}.menu{display:none}.hero,.page-hero{padding:clamp(70px,8vw,120px) max(24px,calc((100vw - var(--max))/2));background:linear-gradient(105deg,#fff 0%,#fff 50%,#eaf6ff 100%)}.hero{display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:center}.hero h1,.page-hero h1{max-width:850px;margin:0 0 18px;font-size:clamp(42px,6vw,72px);line-height:1.04;letter-spacing:0}.hero p,.page-hero p{max-width:700px;font-size:20px;color:#202938}.hero aside{padding:30px;border:1px solid rgba(42,168,255,.25);border-top:5px solid var(--accent);border-radius:8px;background:#fff;box-shadow:var(--shadow)}.hero aside span,.eyebrow{display:inline-flex;gap:12px;align-items:center;margin:0 0 12px;color:var(--red);font-size:13px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:44px;height:2px;background:var(--red)}.hero aside strong{display:block;font-size:28px;line-height:1.14}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.section{padding:clamp(64px,7vw,100px) max(24px,calc((100vw - var(--max))/2))}.muted{background:var(--surface)}.dark{color:#fff;background:#000}.dark h2,.dark p{color:#fff}.split,.newsletter{display:grid;grid-template-columns:.8fr 1.2fr;gap:54px;align-items:start}.section h2{margin:0 0 16px;font-size:clamp(30px,4vw,48px);line-height:1.08}.section p{color:var(--muted)}.dark p{color:rgba(255,255,255,.78)}.cards,.detail-cards,.process{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.cards article,.detail-cards article,.process article,form,aside,.cta-panel{padding:26px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 32px rgba(15,23,42,.07)}.cards span,.process span{display:inline-grid;place-items:center;min-width:42px;height:38px;margin-bottom:14px;color:#fff;background:var(--accent);border-radius:8px;font-weight:900}.detail-cards ul{padding-left:20px;color:var(--muted)}.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#000;color:#fff}.proof div{padding:32px;background:#050505}.proof strong{display:block;font-size:28px}.proof span{color:rgba(255,255,255,.75)}.contact{display:grid;grid-template-columns:1fr 360px;gap:28px}form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}.full,form button{grid-column:1/-1}footer{color:#fff;background:#050505}.footer-cta{display:flex;justify-content:space-between;gap:28px;align-items:center;padding:46px max(24px,calc((100vw - var(--max))/2));background:linear-gradient(100deg,#000,#062b4c)}.footer-cta h2{max-width:850px;margin:0;font-size:clamp(26px,4vw,42px);line-height:1.1}.footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px;padding:48px max(24px,calc((100vw - var(--max))/2))}.footer-grid img{width:170px;background:#fff;border-radius:6px;padding:8px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:880px){.header{grid-template-columns:auto auto}.top-cta{display:none}.menu{display:inline-flex;justify-content:center;min-height:42px;padding:9px 13px;border:1px solid var(--line);background:#fff;border-radius:6px}nav{display:none;grid-column:1/-1;justify-content:start;flex-direction:column}.nav-open nav{display:flex}.hero,.split,.newsletter,.cards,.detail-cards,.process,.proof,.contact,.footer-cta,.footer-grid{grid-template-columns:1fr;display:grid}form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(36px,10vw,54px)}}
 CSS;
 }
 
