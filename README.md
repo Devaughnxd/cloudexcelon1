@@ -1,94 +1,45 @@
-# BTP PraaS Website
+# BTP Brand Website System
 
-Production-ready PHP 8.3 website for BTP PraaS, built for InterServer shared hosting and cPanel Git deployment.
+This repository contains lightweight PHP 8.3 websites for the BTP brand ecosystem. Each finished website is generated into `sites/<brand>` with `index.php` directly at the deploy root.
 
-## Pages
+## Active Site Roots
 
-- Home
-- About Us
-- Services
-- News
-- Contact
-- Privacy Policy
-- Legal Notice
+- `sites/praas` - BTP PraaS
+- `sites/techadvisors` - BTP TechAdvisors
+- `sites/securiscope` - BTP SecuriSCOPE
+- `sites/managesp` - BTP ManageSP
+- `sites/cloudexcelon` - BTP CloudEXCELON for `dev.cloudexcelon.com`
+- `sites/codeignite` - BTP CodeIGNITE
+- `sites/datastaisis` - BTP DatastAIsis
 
-## Stack
+## Design System
 
-- PHP 8.3 compatible includes
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- No database
-- No framework
+The sites share one BTP design system: BTP bar-logo identity, black/white/blue/red palette, Fluent-inspired cards, executive-grade hero layouts, revenue-model sections, customer journey sections, FAQ content for AI search, related BTP solution cross-sells, and one lead-generation contact form.
 
-## Structure
+## Deployment Branches
 
-```text
-public_html/
-  index.php
-  about.php
-  services.php
-  news.php
-  contact.php
-  privacy-policy.php
-  legal-notice.php
-  sitemap.xml
-  robots.txt
-  .htaccess
-  .cpanel.yml
-  assets/
-    css/
-      style.css
-    js/
-    images/
-  includes/
-    header.php
-    footer.php
-    navigation.php
-    site.php
+- `plesk-deploy` - BTP CloudEXCELON
+- `deploy-praas` - BTP PraaS
+- `deploy-techadvisors` - BTP TechAdvisors
+- `deploy-securiscope` - BTP SecuriSCOPE
+- `deploy-managesp` - BTP ManageSP
+- `deploy-codeignite` - BTP CodeIGNITE
+- `deploy-datastaisis` - BTP DatastAIsis
+
+There is no `deploy-cloudexcelon` branch. Use `plesk-deploy` for CloudEXCELON.
+
+## Local Preview
+
+```powershell
+php -S 127.0.0.1:8094 -t sites/cloudexcelon
 ```
 
-## Contact Form
+Then open `http://127.0.0.1:8094/`.
 
-The contact form is frontend-ready and posts to `/contact`. SMTP delivery is intentionally left as TODO comments in `public_html/contact.php` so it can be configured with InterServer SMTP credentials or a transactional email provider.
+## Regenerate Sites
 
-## Production Domain
-
-The current deployment domain is:
-
-```text
-https://dev.cloudexcelon.com
+```powershell
+php tools/build-brand-sites.php
 ```
 
-If the domain changes later, update:
-
-- `public_html/sitemap.xml`
-- `public_html/robots.txt`
-- `public_html/includes/site.php`
-
-The PHP templates automatically use the current deployed domain for canonical tags, Open Graph tags, schema URLs, and the footer website link.
-
-## Local Development
-
-From the project root:
-
-```bash
-php -S localhost:8080 -t public_html
-```
-
-Open `http://localhost:8080`.
-
-## Local QA Tools
-
-This workspace includes local validation tooling:
-
-```bash
-npm install
-npm run check:php
-php -S localhost:8080 -t public_html
-npm run check:browser
-```
-
-`check:php` lints all PHP templates and includes. `check:browser` uses Playwright to verify all pages load and the mobile navigation opens.
-
-Do not upload `node_modules` to InterServer. It is local QA tooling only.
+The generator uses existing logo assets from `assets/brand-logos` and writes complete deploy roots under `sites`.
