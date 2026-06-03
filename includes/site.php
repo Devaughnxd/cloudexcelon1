@@ -4,6 +4,14 @@ return array (
   'short' => 'CodeIGNITE',
   'domain' => 'codeignite.cloudexcelon.com',
   'accent' => '#FF3B30',
+  'accent2' => '#F59E0B',
+  'visual' => 
+  array (
+    0 => 'Product scope',
+    1 => 'APIs',
+    2 => 'Platform build',
+    3 => 'Release path',
+  ),
   'cta' => 'Discuss Your Project',
   'tagline' => 'Software development and application engineering for platform innovation.',
   'headline' => 'Software engineering for applications, platforms, workflows, and modernization.',
