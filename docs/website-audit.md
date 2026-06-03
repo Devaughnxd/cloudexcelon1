@@ -67,3 +67,11 @@ This file is the running improvement log for BTP SecuriSCOPE. Before future webs
 - Fix applied: Added `docs/qos-checklist.md` to every generated site and introduced `tools/verify-sites.ps1` as the pre-deployment gate.
 - Verification: Run `powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1` before pushing deploy branches.
 
+### 2026-06-03 - Plesk preview and reload behavior caused inconsistent loading perception
+- Severity: High
+- Affected area: Header include, navigation include, footer include, generated page links, asset helper, JavaScript reload handling
+- Finding: Plesk preview serves the site under `/plesk-site-preview/{domain}/`, but root-relative links and assets can resolve outside the preview path. Browser scroll restoration can also reload the page at the previous scroll position, making the site appear to load directly into lower sections or the footer.
+- Planned correction: Replace hardcoded root links with a dynamic `site_url()` helper, make `asset()` preview-aware, convert generated page links/forms to helper-based URLs, and reset scroll to the top on reload when no hash is present.
+- Fix applied: Added preview-safe routing helpers, updated shared header/navigation/footer links, converted generated body links, and added reload scroll restoration handling in `assets/js/main.js`.
+- Verification: Regenerate sites, confirm active HTML/PHP contains no hardcoded root internal links, lint PHP, and smoke-test all routes/assets.
+
