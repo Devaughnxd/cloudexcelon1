@@ -51,3 +51,19 @@ This file is the running improvement log for BTP PraaS. Before future website is
 - Fix applied: Updated deployment documentation and branch workflow to use `deploy-cloudexcelon`; old `plesk-deploy` is removed during the final remote branch refresh.
 - Verification: Confirm remote has `deploy-cloudexcelon` and no `plesk-deploy` branch.
 
+### 2026-06-03 - Competitor benchmarking needed documented guardrails
+- Severity: Medium
+- Affected area: Creative direction, UX review, content governance, and SEO/AIO strategy
+- Finding: Competitor comparison is useful for visual quality, navigation clarity, page flow, and service explanation standards, but it needed a clear rule that BTP site content must remain sourced from BTP-owned materials only.
+- Planned correction: Add a competitive benchmark document and a content source policy for each site.
+- Fix applied: Added `docs/competitive-benchmark.md` and `docs/content-source-policy.md` to the generated site root. Competitors are benchmarks for layout, UX, information architecture, and conversion quality only.
+- Verification: Confirm generated docs exist in every site and no competitor factual claims are introduced into page copy.
+
+### 2026-06-03 - QOS verification needed a repeatable repository gate
+- Severity: High
+- Affected area: PHP quality, route health, asset loading, Plesk readiness, accessibility, and content hygiene
+- Finding: Visual and deployment changes needed a consistent verification process before refreshing deployment branches.
+- Planned correction: Add a QOS checklist per site and a root verification script that lint-checks PHP, checks content/path hygiene, and smoke-tests site routes/assets locally.
+- Fix applied: Added `docs/qos-checklist.md` to every generated site and introduced `tools/verify-sites.ps1` as the pre-deployment gate.
+- Verification: Run `powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1` before pushing deploy branches.
+

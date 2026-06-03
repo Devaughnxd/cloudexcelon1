@@ -17,3 +17,7 @@ Hero system: concise executive headline, proof chips, and a brand-specific SVG s
 Content system: every site includes hero, service cards, benefits/trust, visual process, ecosystem links, final CTA, News cards, and one lead form.
 
 Forms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.
+
+Benchmarking: competitor and peer websites are reviewed for visual quality, UX flow, information architecture, CTA strategy, and scanability only. Page copy and factual claims must come from BTP-owned sources.
+
+QOS: run `tools/verify-sites.ps1` before pushing deploy branches. Each site includes `docs/website-audit.md`, `docs/competitive-benchmark.md`, `docs/qos-checklist.md`, and `docs/content-source-policy.md`.

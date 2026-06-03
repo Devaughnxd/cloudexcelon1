@@ -28,7 +28,14 @@ The sites share one BTP design system: BTP bar-logo identity, black/white/blue/r
 
 Use `deploy-cloudexcelon` for CloudEXCELON.
 
-Each deploy branch also includes `docs/website-audit.md`. Log discovered issues there before fixing them, then update the same entry with the files changed and verification performed.
+Each deploy branch also includes:
+
+- `docs/website-audit.md` - log discovered issues before fixing them.
+- `docs/competitive-benchmark.md` - compare visual quality, UX flow, service-page structure, and CTA clarity against enterprise peers.
+- `docs/content-source-policy.md` - keep factual copy limited to BTP-owned websites, documents, and folders.
+- `docs/qos-checklist.md` - route, asset, content, accessibility, and Plesk readiness checks.
+
+Competitor sites are benchmarks for quality and structure only. Do not use competitor content as BTP factual copy.
 
 ## Local Preview
 
@@ -45,3 +52,13 @@ php tools/build-brand-sites.php
 ```
 
 The generator uses existing logo assets from `assets/brand-logos` and writes complete deploy roots under `sites`.
+
+## QOS Verification
+
+Run this before pushing deploy branches:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1
+```
+
+The script lints PHP, checks for bad path/content patterns, starts temporary local PHP servers, and smoke-tests every page plus core assets for all generated sites.

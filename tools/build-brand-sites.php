@@ -212,6 +212,9 @@ foreach ($brands as $slug => $brand) {
     write_file($siteRoot . '/README.md', readme($slug, $brand));
     write_file($siteRoot . '/DEPLOYMENT.md', deployment($slug, $brand));
     write_file($siteRoot . '/docs/website-audit.md', websiteAudit($slug, $brand));
+    write_file($siteRoot . '/docs/competitive-benchmark.md', competitiveBenchmark($slug, $brand));
+    write_file($siteRoot . '/docs/qos-checklist.md', qosChecklist($slug, $brand));
+    write_file($siteRoot . '/docs/content-source-policy.md', contentSourcePolicy($slug, $brand));
 }
 
 write_file($outputRoot . DIRECTORY_SEPARATOR . 'DESIGN_SYSTEM.md', designSystem());
@@ -895,13 +898,13 @@ function webConfig(): string
 
 function readme(string $slug, array $brand): string
 {
-    return "# {$brand['name']}\n\nProduction-ready lightweight PHP 8.3 website for {$brand['domain']}.\n\nDeploy the repository root directly to the Plesk domain folder. `index.php` must be in the domain root.\n\nPages: Home, About, Services, News, Contact.\n";
+    return "# {$brand['name']}\n\nProduction-ready lightweight PHP 8.3 website for {$brand['domain']}.\n\nDeploy the repository root directly to the Plesk domain folder. `index.php` must be in the domain root.\n\nPages: Home, About, Services, News, Contact.\n\n## Quality Process\n\n- `docs/website-audit.md`: running issue log. Log issues before fixing them.\n- `docs/competitive-benchmark.md`: visual, UX, and information architecture benchmark guide.\n- `docs/content-source-policy.md`: BTP-only factual content policy.\n- `docs/qos-checklist.md`: pre-deployment quality checklist.\n\nCompetitor sites may be used to judge design quality, service-page structure, and conversion flow. They must not be used as factual sources for BTP claims or service copy.\n";
 }
 
 function deployment(string $slug, array $brand): string
 {
     $branch = 'deploy-' . $slug;
-    return "# Deployment - {$brand['name']}\n\n## GitHub Push\n\n```powershell\ngit add .\ngit commit -m \"Update {$brand['short']} website\"\ngit push origin $branch\n```\n\n## Plesk Git Deployment\n\n1. Open Plesk > Websites & Domains.\n2. Open Git for the target domain.\n3. Use the `$branch` repository branch for this site.\n4. Set deployment path to the domain root, not a nested `public_html` folder.\n5. Deploy repository.\n6. Confirm `index.php` exists directly in the domain folder.\n7. Test `/`, `/about`, `/services`, `/news`, and `/contact`.\n\n## Updates\n\nUse **Update from Remote**, then **Deploy HEAD Commit**.\n\n## Troubleshooting\n\n- 403.14 means `index.php` is missing from the served folder or the wrong deployment path is selected.\n- 404 on `/services` means the deploy did not include `services/index.php` or the wrong folder was deployed.\n- Check Plesk Logs for PHP warnings and IIS errors.\n- Verify asset paths resolve through the `asset()` helper and the domain root contains `assets`, `includes`, and the page files.\n";
+    return "# Deployment - {$brand['name']}\n\n## GitHub Push\n\n```powershell\ngit add .\ngit commit -m \"Update {$brand['short']} website\"\ngit push origin $branch\n```\n\n## Pre-Deployment QOS\n\nFrom the main repository, run:\n\n```powershell\npowershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1\n```\n\nReview `docs/website-audit.md`, `docs/competitive-benchmark.md`, `docs/content-source-policy.md`, and `docs/qos-checklist.md` before refreshing the deploy branch.\n\n## Plesk Git Deployment\n\n1. Open Plesk > Websites & Domains.\n2. Open Git for the target domain.\n3. Use the `$branch` repository branch for this site.\n4. Set deployment path to the domain root, not a nested `public_html` folder.\n5. Deploy repository.\n6. Confirm `index.php` exists directly in the domain folder.\n7. Test `/`, `/about`, `/services`, `/news`, and `/contact`.\n\n## Updates\n\nUse **Update from Remote**, then **Deploy HEAD Commit**.\n\n## Troubleshooting\n\n- 403.14 means `index.php` is missing from the served folder or the wrong deployment path is selected.\n- 404 on `/services` means the deploy did not include `services/index.php` or the wrong folder was deployed.\n- Check Plesk Logs for PHP warnings and IIS errors.\n- Verify asset paths resolve through the `asset()` helper and the domain root contains `assets`, `includes`, and the page files.\n";
 }
 
 function websiteAudit(string $slug, array $brand): string
@@ -949,17 +952,148 @@ function websiteAudit(string $slug, array $brand): string
         "- Finding: CloudEXCELON was deployed from `plesk-deploy`, but the desired branch name is `deploy-cloudexcelon`.\n" .
         "- Planned correction: Rename deployment branch to `deploy-cloudexcelon`, remove `plesk-deploy`, and update deployment documentation.\n" .
         "- Fix applied: Updated deployment documentation and branch workflow to use `deploy-cloudexcelon`; old `plesk-deploy` is removed during the final remote branch refresh.\n" .
-        "- Verification: Confirm remote has `deploy-cloudexcelon` and no `plesk-deploy` branch.\n\n";
+        "- Verification: Confirm remote has `deploy-cloudexcelon` and no `plesk-deploy` branch.\n\n" .
+        "### {$date} - Competitor benchmarking needed documented guardrails\n" .
+        "- Severity: Medium\n" .
+        "- Affected area: Creative direction, UX review, content governance, and SEO/AIO strategy\n" .
+        "- Finding: Competitor comparison is useful for visual quality, navigation clarity, page flow, and service explanation standards, but it needed a clear rule that BTP site content must remain sourced from BTP-owned materials only.\n" .
+        "- Planned correction: Add a competitive benchmark document and a content source policy for each site.\n" .
+        "- Fix applied: Added `docs/competitive-benchmark.md` and `docs/content-source-policy.md` to the generated site root. Competitors are benchmarks for layout, UX, information architecture, and conversion quality only.\n" .
+        "- Verification: Confirm generated docs exist in every site and no competitor factual claims are introduced into page copy.\n\n" .
+        "### {$date} - QOS verification needed a repeatable repository gate\n" .
+        "- Severity: High\n" .
+        "- Affected area: PHP quality, route health, asset loading, Plesk readiness, accessibility, and content hygiene\n" .
+        "- Finding: Visual and deployment changes needed a consistent verification process before refreshing deployment branches.\n" .
+        "- Planned correction: Add a QOS checklist per site and a root verification script that lint-checks PHP, checks content/path hygiene, and smoke-tests site routes/assets locally.\n" .
+        "- Fix applied: Added `docs/qos-checklist.md` to every generated site and introduced `tools/verify-sites.ps1` as the pre-deployment gate.\n" .
+        "- Verification: Run `powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1` before pushing deploy branches.\n\n";
+}
+
+function competitorSet(string $slug): array
+{
+    return match ($slug) {
+        'praas' => ['CDW', 'Insight', 'SHI', 'Microsoft partner procurement pages'],
+        'techadvisors' => ['Accenture technology consulting', 'Deloitte technology strategy', 'Slalom advisory', 'CDW advisory services'],
+        'securiscope' => ['CrowdStrike', 'Palo Alto Networks', 'Arctic Wolf', 'Microsoft Security'],
+        'managesp' => ['Rackspace managed services', 'CDW managed services', 'Ntiva', 'enterprise MSP operations pages'],
+        'cloudexcelon' => ['Rackspace cloud services', 'CDW cloud', 'Insight cloud', 'Microsoft Azure partner pages'],
+        'codeignite' => ['Thoughtworks', 'Slalom Build', 'EPAM', 'Accenture software engineering'],
+        'datastaisis' => ['Microsoft Fabric', 'Databricks', 'Snowflake', 'Accenture data and AI'],
+        default => ['enterprise consulting websites', 'Microsoft partner websites', 'managed technology service providers'],
+    };
+}
+
+function competitiveBenchmark(string $slug, array $brand): string
+{
+    $competitors = implode(', ', competitorSet($slug));
+    return "# Competitive Benchmark - {$brand['name']}\n\n" .
+        "Purpose: keep {$brand['name']} visually and structurally competitive with enterprise technology websites while preserving BTP-owned messaging and factual accuracy.\n\n" .
+        "## Benchmark Scope\n\n" .
+        "Compare against: {$competitors}.\n\n" .
+        "Use competitor and peer websites only to evaluate:\n\n" .
+        "- Above-the-fold clarity and first-five-second comprehension.\n" .
+        "- Visual hierarchy, section rhythm, contrast, and premium enterprise polish.\n" .
+        "- Navigation clarity, page length, CTA placement, and scanning behavior.\n" .
+        "- Service explanation depth, FAQ quality, and information architecture.\n" .
+        "- Trust-building patterns that do not rely on invented metrics.\n" .
+        "- Mobile layout quality, footer clarity, and contact conversion flow.\n\n" .
+        "## Content Guardrail\n\n" .
+        "Competitor websites are not approved sources for BTP factual copy. Do not copy competitor wording, claims, service descriptions, statistics, client names, certifications, pricing, or proof points.\n\n" .
+        "Approved BTP content sources are documented in `docs/content-source-policy.md`. If a claim is not supported by BTP materials, write conservative value-focused copy instead of inventing specifics.\n\n" .
+        "## Brand-Specific Comparison Focus\n\n" .
+        "- Primary revenue lane: {$brand['tagline']}\n" .
+        "- Buyer question to answer quickly: How does {$brand['short']} help a decision maker reduce risk, save time, or improve execution?\n" .
+        "- Visual standard: the page should feel custom-built for {$brand['short']}, not like a generic card template with swapped text.\n" .
+        "- Information standard: service cards should define what can be bought, who it helps, problems solved, deliverables, and next steps.\n\n" .
+        "## Review Checklist\n\n" .
+        "- Hero explains the service lane in under five seconds.\n" .
+        "- Primary CTA is visible in under one second.\n" .
+        "- Service cards are specific to {$brand['short']} and not generic consulting language.\n" .
+        "- Visuals support the service story instead of decorating the page.\n" .
+        "- Process section explains how a buyer moves from inquiry to next step.\n" .
+        "- Trust section uses methods, clarity, and delivery discipline instead of fake numbers.\n" .
+        "- Related BTP Solutions keep visitors inside the BTP ecosystem.\n" .
+        "- Footer logo remains visible and the footer includes useful contact paths.\n" .
+        "- Mobile page is readable, compact, and easy to navigate.\n\n" .
+        "## Update Rule\n\n" .
+        "When the benchmark exposes a gap, log it first in `docs/website-audit.md`, then update the site using BTP-owned content only. After the update, run the QOS checklist and verification script from the main repo.\n";
+}
+
+function qosChecklist(string $slug, array $brand): string
+{
+    return "# QOS Checklist - {$brand['name']}\n\n" .
+        "QOS for this website means reliability, performance, deployment readiness, accessibility, SEO/AIO clarity, and maintainable lead-generation quality.\n\n" .
+        "## Pre-Deployment Gate\n\n" .
+        "Run from the main repository before refreshing deploy branches:\n\n" .
+        "```powershell\npowershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1\n```\n\n" .
+        "The verification gate checks PHP linting, route availability, asset availability, content hygiene, and common Plesk path issues.\n\n" .
+        "## Route And Asset Health\n\n" .
+        "- `/`, `/about`, `/services`, `/news`, and `/contact` load without 404s.\n" .
+        "- `/docs/website-audit.md`, `/docs/competitive-benchmark.md`, `/docs/qos-checklist.md`, and `/docs/content-source-policy.md` exist in the generated site root.\n" .
+        "- `/assets/css/style.css` loads.\n" .
+        "- `/assets/js/main.js` loads.\n" .
+        "- `/assets/images/logo.svg` loads and remains readable in header and footer.\n" .
+        "- Service visuals load from `/assets/images/*.svg` with no broken image references.\n" .
+        "- Route wrappers such as `/services/index.php` are present for IIS/Plesk friendly URLs.\n\n" .
+        "## Content And Trust Hygiene\n\n" .
+        "- No lorem ipsum, placeholder sections, fake metrics, fake certifications, or unverified ownership claims.\n" .
+        "- Copy is sourced from BTP-owned websites, BTP documents, or conservative service language derived from BTP materials.\n" .
+        "- Competitor research informs structure and quality only, not factual content.\n" .
+        "- CTA wording matches {$brand['short']} and guides the user to a contact conversation.\n" .
+        "- Contact form fields use CRM-ready names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n\n" .
+        "## Performance And Accessibility\n\n" .
+        "- PHP 8.3 compatible with no database dependency.\n" .
+        "- No React, Next.js, Node runtime, WordPress, or heavy animation libraries.\n" .
+        "- SVG visuals are lightweight and loaded from the local asset folder.\n" .
+        "- Non-critical visuals use lazy loading where applicable.\n" .
+        "- Mobile navigation opens and closes with JavaScript enabled.\n" .
+        "- Headings follow a clear hierarchy and body text has readable contrast.\n" .
+        "- Forms have labels and focus states.\n\n" .
+        "## Plesk Readiness\n\n" .
+        "- `index.php` exists directly in the deploy branch root.\n" .
+        "- Do not deploy a nested `public_html` folder.\n" .
+        "- `.htaccess` and `web.config` are present for Apache/IIS-style Plesk environments.\n" .
+        "- If a deployed domain shows `403.14`, confirm Plesk is pointed at the branch root and `index.php` is present.\n" .
+        "- If `/services` shows `404`, confirm `services/index.php` exists and the correct deploy branch was selected.\n\n" .
+        "## Owner Review\n\n" .
+        "Before Plesk deployment, visually check the homepage and child pages against the benchmark doc and ask whether a CIO, CTO, procurement leader, or business owner would understand the offer and trust the next step.\n";
+}
+
+function contentSourcePolicy(string $slug, array $brand): string
+{
+    return "# Content Source Policy - {$brand['name']}\n\n" .
+        "This policy protects BTP from inaccurate claims while still allowing the sites to improve visually and strategically against competitor standards.\n\n" .
+        "## Approved Content Sources\n\n" .
+        "- BTP-owned websites, including the existing PraaS website and BTP Innovations public web properties.\n" .
+        "- BTP Desktop folder assets, documents, PDFs, presentations, Word documents, service descriptions, logos, and marketing materials.\n" .
+        "- Existing generated BTP website repositories and their documented audit findings.\n" .
+        "- Conservative service copy derived from the approved BTP materials when the exact wording needs to be clearer for customers.\n\n" .
+        "## Not Approved For Factual Copy\n\n" .
+        "- Competitor websites.\n" .
+        "- Generic marketing templates.\n" .
+        "- AI-invented claims, numbers, awards, certifications, partnerships, case studies, or ownership status.\n" .
+        "- Placeholder testimonials or performance metrics.\n\n" .
+        "## Competitor Use Rule\n\n" .
+        "Competitors may be reviewed for design quality, visual rhythm, service-page structure, CTA strategy, and information architecture. They must not be used as the factual source for what BTP claims to do, who BTP has served, what BTP has achieved, or what credentials BTP holds.\n\n" .
+        "## Claim Standard\n\n" .
+        "Every specific claim should be traceable to BTP-owned materials. If the source is unclear, keep the wording practical and non-specific, such as \"structured delivery,\" \"vendor coordination,\" \"roadmap planning,\" or \"support transition,\" rather than inventing a result.\n\n" .
+        "## {$brand['short']} Content Boundaries\n\n" .
+        "- Service lane: {$brand['tagline']}\n" .
+        "- Approved service capabilities: " . implode(', ', $brand['capabilities']) . ".\n" .
+        "- Approved outcome language: " . implode(', ', $brand['outcomes']) . ".\n" .
+        "- Approved deliverable language: " . implode(', ', $brand['deliverables']) . ".\n\n" .
+        "## Change Process\n\n" .
+        "Before changing service copy, log the issue in `docs/website-audit.md`, identify the BTP source used, update the page, then run the QOS verification gate.\n";
 }
 
 function designSystem(): string
 {
-    return "# BTP Design System\n\nTypography: Segoe UI/Inter-style system font, strong enterprise headlines, readable body copy, no viewport-scaled letter spacing.\n\nPalette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus controlled brand accent tokens.\n\nAsset system: all CSS, JavaScript, logos, and visuals resolve through the PHP `asset()` helper and root-relative `/assets/...` URLs.\n\nButtons: red primary conversion CTA, blue secondary service action, black-outline discovery action.\n\nCards: 8px radius, light border, subtle shadow, compact enterprise spacing, and color-accented service tops.\n\nSpacing: shorter pages, intentional whitespace, compact card grids, and visual split sections.\n\nHero system: concise executive headline, proof chips, and a brand-specific SVG service visual.\n\nContent system: every site includes hero, service cards, benefits/trust, visual process, ecosystem links, final CTA, News cards, and one lead form.\n\nForms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n";
+    return "# BTP Design System\n\nTypography: Segoe UI/Inter-style system font, strong enterprise headlines, readable body copy, no viewport-scaled letter spacing.\n\nPalette: black `#000000`, white `#FFFFFF`, blue `#2AA8FF`, deep blue `#0067F0`, red `#FF3B30`, plus controlled brand accent tokens.\n\nAsset system: all CSS, JavaScript, logos, and visuals resolve through the PHP `asset()` helper and root-relative `/assets/...` URLs.\n\nButtons: red primary conversion CTA, blue secondary service action, black-outline discovery action.\n\nCards: 8px radius, light border, subtle shadow, compact enterprise spacing, and color-accented service tops.\n\nSpacing: shorter pages, intentional whitespace, compact card grids, and visual split sections.\n\nHero system: concise executive headline, proof chips, and a brand-specific SVG service visual.\n\nContent system: every site includes hero, service cards, benefits/trust, visual process, ecosystem links, final CTA, News cards, and one lead form.\n\nForms: one lead form only, with CRM-ready field names: `full_name`, `company_name`, `email`, `phone`, `message`, `brand`.\n\nBenchmarking: competitor and peer websites are reviewed for visual quality, UX flow, information architecture, CTA strategy, and scanability only. Page copy and factual claims must come from BTP-owned sources.\n\nQOS: run `tools/verify-sites.ps1` before pushing deploy branches. Each site includes `docs/website-audit.md`, `docs/competitive-benchmark.md`, `docs/qos-checklist.md`, and `docs/content-source-policy.md`.\n";
 }
 
 function masterReadme(array $brands): string
 {
-    $lines = ["# BTP Brand Websites", "", "Separate deploy-root PHP websites generated from one BTP design system.", ""];
+    $lines = ["# BTP Brand Websites", "", "Separate deploy-root PHP websites generated from one BTP design system.", "", "Each site includes audit, competitive benchmark, content-source, and QOS documentation under `docs/`.", ""];
     foreach ($brands as $slug => $brand) {
         $lines[] = "- `sites/$slug`: {$brand['name']} ({$brand['domain']})";
     }

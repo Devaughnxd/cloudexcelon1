@@ -30,6 +30,24 @@ For `dev.cloudexcelon.com`, use `deploy-cloudexcelon`.
 
 Each site root includes `docs/website-audit.md`. Before fixing a discovered issue, log it there with the affected area, severity, planned correction, and verification step. After the fix, update the same entry with what changed.
 
+## Competitive Benchmark And Content Policy
+
+Each site root includes `docs/competitive-benchmark.md` and `docs/content-source-policy.md`.
+
+- Use competitors and enterprise peers to judge visual polish, page flow, service explanation, CTA placement, and information architecture.
+- Use only BTP-owned websites, BTP folder materials, BTP documents, and conservative BTP-derived language for factual copy.
+- Do not copy competitor wording, service claims, metrics, certifications, client names, or proof points.
+
+## QOS Verification
+
+Before refreshing any deploy branch, run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools/verify-sites.ps1
+```
+
+This checks PHP linting, friendly routes, docs, CSS, JavaScript, images, removed placeholder/legal pages, fake metrics, and common deployment path issues.
+
 ## Future Updates
 
 On your local machine:

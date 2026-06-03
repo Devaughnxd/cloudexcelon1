@@ -2,6 +2,8 @@
 
 Separate deploy-root PHP websites generated from one BTP design system.
 
+Each site includes audit, competitive benchmark, content-source, and QOS documentation under `docs/`.
+
 - `sites/praas`: BTP PraaS (praas.cloudexcelon.com)
 - `sites/techadvisors`: BTP TechAdvisors (techadvisors.cloudexcelon.com)
 - `sites/securiscope`: BTP SecuriSCOPE (securiscope.cloudexcelon.com)
