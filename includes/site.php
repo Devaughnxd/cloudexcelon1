@@ -4,6 +4,14 @@ return array (
   'short' => 'TechAdvisors',
   'domain' => 'techadvisors.cloudexcelon.com',
   'accent' => '#0067F0',
+  'accent2' => '#14B8A6',
+  'visual' => 
+  array (
+    0 => 'Decision brief',
+    1 => 'Roadmap',
+    2 => 'Vendor scorecard',
+    3 => 'Executive alignment',
+  ),
   'cta' => 'Talk to an Advisor',
   'tagline' => 'Strategic advisory and client engagement for complex technology decisions.',
   'headline' => 'Vendor-neutral guidance for decisions that carry real business risk.',

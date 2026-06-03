@@ -1,6 +1,7 @@
 <?php
 $brand = require __DIR__ . '/site.php';
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
+function asset(string $path): string { return '/assets/' . ltrim($path, '/'); }
 $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
 ?><!doctype html>
 <html lang="en">
@@ -14,16 +15,17 @@ $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
   <meta property="og:description" content="<?= e($metaDescription ?? $brand['summary']) ?>">
   <meta property="og:type" content="website">
   <meta property="og:url" content="<?= e($canonical) ?>">
-  <meta property="og:image" content="https://<?= e($brand['domain']) ?>/assets/images/logo.png">
-  <link rel="stylesheet" href="/assets/css/style.css">
-  <script src="/assets/js/main.js" defer></script>
+  <meta property="og:image" content="https://<?= e($brand['domain']) ?><?= e(asset('images/logo.png')) ?>">
+  <link rel="preload" href="<?= e(asset('css/style.css')) ?>" as="style">
+  <link rel="stylesheet" href="<?= e(asset('css/style.css')) ?>">
+  <script src="<?= e(asset('js/main.js')) ?>" defer></script>
   <?php require __DIR__ . '/analytics.php'; ?>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container header-inner">
-    <a class="brand" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="/assets/images/logo.svg" alt="<?= e($brand['name']) ?> logo"></a>
+    <a class="brand" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" width="210" height="82"></a>
     <?php require __DIR__ . '/navigation.php'; ?>
     <a class="button button-primary header-cta" href="/contact"><?= e($brand['cta']) ?></a>
     <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
