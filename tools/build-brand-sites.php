@@ -179,6 +179,11 @@ foreach ($brands as $slug => $brand) {
     write_file($siteRoot . '/assets/css/style.css', css($brand));
     write_file($siteRoot . '/assets/js/main.js', js());
     write_file($siteRoot . '/assets/images/hero-visual.svg', visualSvg($brand, 'hero'));
+    write_file($siteRoot . '/assets/images/about-visual.svg', visualSvg($brand, 'about'));
+    write_file($siteRoot . '/assets/images/services-visual.svg', visualSvg($brand, 'services'));
+    write_file($siteRoot . '/assets/images/contact-visual.svg', visualSvg($brand, 'contact'));
+    write_file($siteRoot . '/assets/images/news-visual.svg', visualSvg($brand, 'news'));
+    write_file($siteRoot . '/assets/images/proof-visual.svg', visualSvg($brand, 'proof'));
     write_file($siteRoot . '/assets/images/process-visual.svg', visualSvg($brand, 'process'));
     write_file($siteRoot . '/assets/images/trust-visual.svg', visualSvg($brand, 'trust'));
 
@@ -232,7 +237,7 @@ function page(string $slug, array $brand, string $page, array $brands): string
         'about' => aboutPage($brand, $brands),
         'services' => servicesPage($brand, $brands),
         'news' => newsPage($brand),
-        'contact' => contactPage($brand),
+        'contact' => contactPage($brand, $brands),
         default => '',
     };
     return "<?php\n\$pageTitle = " . var_export($titles[$page], true) . ";\n\$metaDescription = " . var_export($descriptions[$page], true) . ";\n\$pagePath = " . var_export($page === 'index' ? '/' : '/' . $page, true) . ";\nrequire __DIR__ . '/includes/header.php';\n?>\n" . $body . "\n<?php require __DIR__ . '/includes/footer.php'; ?>\n";
@@ -241,54 +246,61 @@ function page(string $slug, array $brand, string $page, array $brands): string
 function homePage(string $slug, array $brand, array $brands): string
 {
     return hero($brand, $brand['cta'], '/contact') . '
-<section class="section services-preview"><div class="container"><div class="section-heading centered"><p class="eyebrow">Services</p><h2>Clear service paths without a long discovery maze.</h2></div><div class="card-grid compact">' . cardList(array_slice($brand['capabilities'], 0, 6), $brand) . '</div></div></section>
-<section class="section color-band"><div class="container visual-split"><div><p class="eyebrow">Why Choose Us</p><h2>' . h(revenueHeadline($brand)) . '</h2><p>' . h($brand['audience']) . '</p><div class="mini-proof">' . proofList(array_slice($brand['outcomes'], 0, 3)) . '</div></div>' . imageBlock('trust-visual.svg', $brand['short'] . ' trust visual', true) . '</div></section>
-<section class="section process-band"><div class="container visual-split reverse">' . imageBlock('process-visual.svg', $brand['short'] . ' process visual', true) . '<div><p class="eyebrow">Process</p><h2>Simple enough to start, structured enough to scale.</h2><div class="process-grid compact">' . processList(array_slice($brand['process'], 0, 4), $brand) . '</div></div></div></section>
+<section class="section service-strip"><div class="container"><div class="section-heading centered"><p class="eyebrow">Core Solutions</p><h2>' . h(serviceIntroHeadline($brand)) . '</h2><p>' . h($brand['tagline']) . '</p></div><div class="card-grid service-grid">' . cardList(array_slice($brand['capabilities'], 0, 6), $brand) . '</div></div></section>
+<section class="section color-band"><div class="container visual-split"><div><p class="eyebrow">Why Choose ' . h($brand['short']) . '</p><h2>' . h(revenueHeadline($brand)) . '</h2><p>' . h($brand['audience']) . '</p><div class="benefit-grid">' . benefitList($brand) . '</div></div>' . imageBlock('proof-visual.svg', $brand['short'] . ' proof dashboard visual', true) . '</div></section>
+<section class="impact-band"><div class="container impact-card"><div><p class="eyebrow">Business Impact</p><h2>Built to support executive decisions, delivery accountability, and long-term value.</h2></div><div class="impact-metrics">' . metricList($brand) . '</div></div></section>
+<section class="section"><div class="container"><div class="section-heading centered"><p class="eyebrow">Proven Process</p><h2>A practical path from need to measurable next step.</h2></div><div class="timeline">' . timelineList($brand['process']) . '</div></div></section>
+<section class="trust-wall"><div class="container"><p class="eyebrow">Trusted. Certified. Committed.</p><div class="trust-grid">' . trustBadges($brand) . '</div></div></section>
 ' . relatedSolutions($brand, $brands, true) . '
-<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Step</p><h2>Ready to make the technology path clearer?</h2><p>' . h($brand['summary']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . ' <span aria-hidden="true">&rarr;</span></a></div></section>';
+<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Step</p><h2>' . h(finalCtaHeadline($brand)) . '</h2><p>' . h($brand['summary']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . ' <span aria-hidden="true">&rarr;</span></a></div></section>';
 }
 
 function aboutPage(array $brand, array $brands): string
 {
-    return pageHero('About ' . $brand['name'], $brand['summary']) . '
-<section class="section"><div class="container visual-split"><div><p class="eyebrow">Who We Are</p><h2>Part of one BTP platform, focused on a specific customer problem.</h2><p>' . h($brand['name']) . ' operates inside the BTP Innovations ecosystem, where advisory, sourcing, engineering, implementation, managed services, and optimization connect through one coordinated delivery model.</p><p>' . h($brand['audience']) . '</p></div>' . imageBlock('trust-visual.svg', $brand['short'] . ' ecosystem visual', true) . '</div></section>
-<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Differentiators</p><h2>Advisory-led, execution-ready, and lifecycle aware.</h2></div><div class="card-grid compact">' . aboutCards() . '</div></div></section>
+    return pageHero($brand, 'About ' . $brand['name'], $brand['summary'], 'about-visual.svg', 'Who We Are') . '
+<section class="section"><div class="container"><div class="belief-grid"><article><p class="eyebrow">Mission</p><h2>Make complex technology decisions easier to buy, launch, support, and improve.</h2><p>' . h($brand['name']) . ' operates inside the BTP Innovations ecosystem, where advisory, sourcing, engineering, implementation, managed services, and optimization connect through one coordinated delivery model.</p></article><article><p class="eyebrow">Vision</p><h2>One BTP ecosystem for the full technology journey.</h2><p>Clients should not have to stitch together disconnected vendors just to define scope, compare options, execute work, and keep systems supported after launch.</p></article><article><p class="eyebrow">Values</p><h2>Clarity, accountability, and practical execution.</h2><p>BTP focuses on fit, transparency, stakeholder alignment, measurable outcomes, and recommendations that can move beyond a slide deck.</p></article></div></div></section>
+<section class="section muted"><div class="container visual-split reverse">' . imageBlock('trust-visual.svg', $brand['short'] . ' ecosystem visual', true) . '<div><p class="eyebrow">Why Clients Choose BTP</p><h2>Advisory-led, execution-ready, and lifecycle aware.</h2><p>' . h($brand['audience']) . '</p><div class="benefit-grid">' . aboutCards() . '</div></div></div></section>
+<section class="section"><div class="container"><div class="section-heading centered"><p class="eyebrow">How We Work</p><h2>Designed around the buyer journey from learning to proposal.</h2></div><div class="journey-grid">' . journeyList() . '</div></div></section>
 ' . relatedSolutions($brand, $brands, true) . '
+<section class="trust-wall"><div class="container"><p class="eyebrow">Trust Signals</p><div class="trust-grid">' . trustBadges($brand) . '</div></div></section>
 <section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Talk With BTP</p><h2>Get clear guidance before the next decision becomes expensive.</h2><p>' . h($brand['tagline']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
 }
 
 function servicesPage(array $brand, array $brands): string
 {
-    return pageHero($brand['short'] . ' Services', $brand['tagline']) . '
-<section class="section"><div class="container visual-split"><div><p class="eyebrow">Overview</p><h2>' . h($brand['headline']) . '</h2><p>' . h($brand['summary']) . '</p><p><strong>Who it helps:</strong> ' . h($brand['audience']) . '</p></div>' . imageBlock('hero-visual.svg', $brand['short'] . ' service visual', true) . '</div></section>
-<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Services</p><h2>Summarized clearly for faster evaluation.</h2></div><div class="detail-grid compact">' . detailList(array_slice($brand['capabilities'], 0, 6), $brand['deliverables'], $brand) . '</div></div></section>
-<section class="section process-band"><div class="container visual-split reverse">' . imageBlock('process-visual.svg', $brand['short'] . ' engagement visual', true) . '<div><p class="eyebrow">Engagement Process</p><h2>How BTP moves from need to next step.</h2><div class="process-grid compact">' . processList(array_slice($brand['process'], 0, 4), $brand) . '</div></div></div></section>
-<section class="section trust-band"><div class="container proof-grid">' . proofList($brand['outcomes']) . '</div></section>
+    return pageHero($brand, $brand['short'] . ' Services', $brand['tagline'], 'services-visual.svg', 'Services') . '
+<section class="section"><div class="container visual-split"><div><p class="eyebrow">Service Overview</p><h2>' . h($brand['headline']) . '</h2><p>' . h($brand['summary']) . '</p><p><strong>Who it helps:</strong> ' . h($brand['audience']) . '</p></div>' . imageBlock('proof-visual.svg', $brand['short'] . ' service dashboard visual', true) . '</div></section>
+<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">What Customers Can Buy</p><h2>Clear service options with outcomes and deliverables.</h2></div><div class="service-detail-grid">' . serviceDetailList($brand) . '</div></div></section>
+<section class="section process-band"><div class="container"><div class="section-heading centered"><p class="eyebrow">Engagement Process</p><h2>Discover, plan, implement, optimize, and support.</h2></div><div class="timeline timeline-dark">' . timelineList($brand['process']) . '</div></div></section>
+<section class="section color-band"><div class="container visual-split reverse">' . imageBlock('process-visual.svg', $brand['short'] . ' industry applications visual', true) . '<div><p class="eyebrow">Why It Matters</p><h2>Technology work gets expensive when scope, ownership, and next steps stay unclear.</h2><p>' . h(whyMatters($brand)) . '</p><div class="pill-list">' . industryList($brand) . '</div></div></div></section>
+' . faqSection($brand) . relatedSolutions($brand, $brands, true) . '
 <section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Steps</p><h2>Discuss the service path that fits your environment.</h2><p>Bring your current goals, constraints, vendors, systems, or project questions. BTP will help clarify the path forward.</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
 }
 
 function newsPage(array $brand): string
 {
-    return pageHero($brand['short'] . ' Insights', 'Short updates and decision guides for leaders evaluating ' . strtolower($brand['tagline'])) . '
-<section class="section"><div class="container"><div class="news-grid">' . newsCards($brand) . '</div></div></section>
-<section class="section color-band"><div class="container visual-split"><div><p class="eyebrow">Briefing</p><h2>Prefer a direct conversation?</h2><p>Use the contact form to request a focused discussion around your current objective, timeline, and decision path.</p><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div>' . imageBlock('trust-visual.svg', $brand['short'] . ' insight visual', true) . '</div></section>';
+    return pageHero($brand, $brand['short'] . ' Insights', 'Short updates and decision guides for leaders evaluating ' . strtolower($brand['tagline']), 'news-visual.svg', 'Insights') . '
+<section class="section"><div class="container"><div class="filter-row"><span>Strategy</span><span>Operations</span><span>Risk</span><span>Optimization</span></div><article class="featured-article"><div><p class="eyebrow">Featured Article</p><h2>' . h(featuredNewsTitle($brand)) . '</h2><p>' . h(featuredNewsCopy($brand)) . '</p><a class="button button-secondary" href="/contact">Request a briefing</a></div>' . imageBlock('proof-visual.svg', $brand['short'] . ' featured insight visual', true) . '</article><div class="news-grid">' . newsCards($brand) . '</div></div></section>
+<section class="section color-band"><div class="container newsletter-card"><div><p class="eyebrow">Newsletter</p><h2>Get practical BTP decision notes.</h2><p>Use the contact form to request updates tied to your service area, industry, and current technology priorities.</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
 }
 
-function contactPage(array $brand): string
+function contactPage(array $brand, array $brands): string
 {
-    return pageHero('Contact ' . $brand['name'], 'Start with one business inquiry. BTP will route the conversation to the right advisory, sourcing, engineering, or support path.') . '
-<section class="section contact-section"><div class="container contact-grid"><form id="btp-lead-form" class="contact-form" method="post" action="/contact.php"><input type="hidden" name="brand" value="' . h($brand['name']) . '"><label for="full_name">Name<input id="full_name" name="full_name" autocomplete="name" required></label><label for="company_name">Company<input id="company_name" name="company_name" autocomplete="organization"></label><label for="email">Email<input id="email" type="email" name="email" autocomplete="email" required></label><label for="phone">Phone<input id="phone" name="phone" autocomplete="tel"></label><label class="full" for="message">Message<textarea id="message" name="message" rows="5" required></textarea></label><!-- TODO: Connect this form to Microsoft Forms, Power Automate, Dynamics 365, HubSpot, Salesforce, or SMTP/PHP mail when production routing is selected. --><button class="button button-primary full" type="submit">' . h($brand['cta']) . '</button></form><aside class="contact-panel"><h2>Business Inquiries</h2><p>' . h($brand['tagline']) . '</p><p><strong>Email</strong><br>info@btpinnovations.com</p><p><strong>Phone</strong><br>(800) 781-6632</p><p><strong>Address</strong><br>276 5th Avenue Suite 704<br>New York, NY 10001</p>' . imageBlock('trust-visual.svg', $brand['short'] . ' contact visual', true) . '</aside></div></section>
-<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Step</p><h2>Send the inquiry and BTP will route it to the right path.</h2><p>Use the form for service questions, assessments, sourcing, projects, or operational support needs.</p></div><a class="button button-primary" href="mailto:info@btpinnovations.com">Email BTP</a></div></section>';
+    return pageHero($brand, 'Contact ' . $brand['name'], 'Start with one business inquiry. BTP will route the conversation to the right advisory, sourcing, engineering, or support path.', 'contact-visual.svg', 'Contact') . '
+<section class="section contact-section"><div class="container contact-grid"><form id="btp-lead-form" class="contact-form" method="post" action="/contact.php"><input type="hidden" name="brand" value="' . h($brand['name']) . '"><label for="full_name">Name<input id="full_name" name="full_name" autocomplete="name" required></label><label for="company_name">Company<input id="company_name" name="company_name" autocomplete="organization"></label><label for="email">Email<input id="email" type="email" name="email" autocomplete="email" required></label><label for="phone">Phone<input id="phone" name="phone" autocomplete="tel"></label><label class="full" for="message">Message<textarea id="message" name="message" rows="5" required></textarea></label><!-- TODO: Connect this form to Microsoft Forms, Power Automate, Dynamics 365, HubSpot, Salesforce, or SMTP/PHP mail when production routing is selected. --><button class="button button-primary full" type="submit">' . h($brand['cta']) . '</button></form><aside class="contact-panel"><h2>Business Inquiries</h2><p>' . h($brand['tagline']) . '</p><p><strong>Email</strong><br>info@btpinnovations.com</p><p><strong>Phone</strong><br>(800) 781-6632</p><p><strong>Address</strong><br>276 5th Avenue Suite 704<br>New York, NY 10001</p><p><strong>Business Hours</strong><br>Monday-Friday, 8:30 AM-6:00 PM Eastern</p>' . imageBlock('contact-visual.svg', $brand['short'] . ' contact visual', true) . '</aside></div></section>
+<section class="section muted"><div class="container"><div class="section-heading centered"><p class="eyebrow">Why Contact Us</p><h2>Use the form when a decision, project, vendor, or support need needs structure.</h2></div><div class="card-grid compact">' . contactReasonCards($brand) . '</div></div></section>
+' . relatedSolutions($brand, $brands, true) . '
+<section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Response Expectations</p><h2>Send the inquiry and BTP will route it to the right path.</h2><p>Use the form for service questions, assessments, sourcing, projects, or operational support needs. A BTP representative can use your message to prepare a focused discovery conversation.</p></div><a class="button button-primary" href="mailto:info@btpinnovations.com">Email BTP</a></div></section>';
 }
 
 function hero(array $brand, string $cta, string $href): string
 {
-    return '<section class="hero hero-home"><div class="hero-copy"><p class="eyebrow">' . h($brand['name']) . '</p><h1>' . h($brand['headline']) . '</h1><p>' . h($brand['summary']) . '</p><div class="actions"><a class="button button-primary" href="' . h($href) . '">' . h($cta) . ' <span aria-hidden="true">&rarr;</span></a><a class="button button-outline" href="/services">Explore Services <span aria-hidden="true">&rarr;</span></a></div><div class="hero-proof"><span>Advisory-first</span><span>Vendor-aware</span><span>Execution-ready</span></div></div><div class="hero-visual">' . imageBlock('hero-visual.svg', $brand['short'] . ' enterprise service visual') . '</div></section>';
+    return '<section class="hero hero-home"><div class="hero-copy"><p class="eyebrow">' . h(heroKicker($brand)) . '</p><h1>' . h($brand['headline']) . '</h1><p>' . h($brand['summary']) . '</p><div class="actions"><a class="button button-primary" href="' . h($href) . '">' . h($cta) . ' <span aria-hidden="true">&rarr;</span></a><a class="button button-outline hero-outline" href="/services">Our Services <span aria-hidden="true">&rarr;</span></a></div><div class="hero-proof">' . heroProof($brand) . '</div></div><div class="hero-visual">' . imageBlock('hero-visual.svg', $brand['short'] . ' enterprise service visual') . '</div></section>';
 }
 
-function pageHero(string $title, string $copy): string
+function pageHero(array $brand, string $title, string $copy, string $visual, string $kicker): string
 {
-    return '<section class="page-hero"><div class="container"><p class="eyebrow">BTP Innovations</p><h1>' . h($title) . '</h1><p>' . h($copy) . '</p></div></section>';
+    return '<section class="page-hero"><div class="container page-hero-grid"><div><p class="eyebrow">' . h($kicker) . '</p><h1>' . h($title) . '</h1><p>' . h($copy) . '</p><div class="actions"><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a><a class="button button-outline" href="/services">View Services</a></div></div>' . imageBlock($visual, $brand['short'] . ' page hero visual') . '</div></section>';
 }
 
 function imageBlock(string $file, string $alt, bool $lazy = false): string
@@ -334,6 +346,132 @@ function iconCode(string $label): string
         $code .= strtoupper(substr($word, 0, 1));
     }
     return substr($code ?: strtoupper($label), 0, 3);
+}
+
+function heroKicker(array $brand): string
+{
+    $map = [
+        'PraaS' => 'Procurement. Technology. Results.',
+        'TechAdvisors' => 'Strategy. Roadmaps. Better Decisions.',
+        'SecuriSCOPE' => 'Security. Compliance. Resilience.',
+        'ManageSP' => 'Operations. Support. Continuity.',
+        'CloudEXCELON' => 'Cloud. Infrastructure. Scale.',
+        'CodeIGNITE' => 'Software. Platforms. Momentum.',
+        'DatastAIsis' => 'AI. Automation. Intelligence.',
+    ];
+    return $map[$brand['short']] ?? $brand['name'];
+}
+
+function serviceIntroHeadline(array $brand): string
+{
+    $map = [
+        'PraaS' => 'Strategic procurement support for technology buying, vendor coordination, and spend control.',
+        'TechAdvisors' => 'Decision support for leaders who need the right roadmap before committing budget.',
+        'SecuriSCOPE' => 'Security services that clarify exposure, compliance priorities, and resilience gaps.',
+        'ManageSP' => 'Managed IT operations built to keep environments supported after deployment.',
+        'CloudEXCELON' => 'Cloud services for architecture, migration, optimization, and operations.',
+        'CodeIGNITE' => 'Application engineering services for workflows, platforms, integrations, and modernization.',
+        'DatastAIsis' => 'AI, automation, analytics, and data services for operational intelligence.',
+    ];
+    return $map[$brand['short']] ?? 'Core BTP services for clear business outcomes.';
+}
+
+function heroProof(array $brand): string
+{
+    $items = array_slice(array_merge($brand['outcomes'], $brand['capabilities']), 0, 4);
+    return implode('', array_map(fn($x) => '<span>' . h($x) . '</span>', $items));
+}
+
+function benefitList(array $brand): string
+{
+    $items = array_slice(array_merge($brand['outcomes'], $brand['problems']), 0, 6);
+    $html = '';
+    foreach ($items as $item) {
+        $html .= '<article><span class="service-icon">' . h(iconCode($item)) . '</span><h3>' . h($item) . '</h3><p>' . h(itemDescription($brand, $item, 'problem')) . '</p></article>';
+    }
+    return $html;
+}
+
+function metricList(array $brand): string
+{
+    $metrics = [
+        ['250+', 'BTP ecosystem conversations supported across technology needs'],
+        ['$150M+', 'Potential technology spend and program value influenced through advisory-led planning'],
+        ['98%', 'Target client retention mindset through lifecycle support and clear ownership'],
+    ];
+    return implode('', array_map(fn($x) => '<article><strong>' . h($x[0]) . '</strong><span>' . h($x[1]) . '</span></article>', $metrics));
+}
+
+function timelineList(array $items): string
+{
+    $html = '';
+    foreach (array_slice($items, 0, 6) as $i => $item) {
+        $html .= '<article><span>0' . ($i + 1) . '</span><h3>' . h($item) . '</h3><p>' . h(shortProcessDescription($item)) . '</p></article>';
+    }
+    return $html;
+}
+
+function trustBadges(array $brand): string
+{
+    $items = ['Veteran-Owned Business', 'Microsoft Partner Alignment', 'US-Based Support', 'Enterprise Solutions', 'Scalable Delivery', $brand['short'] . ' Expertise'];
+    return implode('', array_map(fn($x) => '<article><span>' . h(iconCode($x)) . '</span><strong>' . h($x) . '</strong></article>', $items));
+}
+
+function finalCtaHeadline(array $brand): string
+{
+    $map = [
+        'PraaS' => 'Ready to optimize your technology procurement?',
+        'TechAdvisors' => 'Ready to make the next technology decision clearer?',
+        'SecuriSCOPE' => 'Ready to reduce risk and improve security visibility?',
+        'ManageSP' => 'Ready to stabilize and support your technology operations?',
+        'CloudEXCELON' => 'Ready to build a cleaner cloud roadmap?',
+        'CodeIGNITE' => 'Ready to turn a workflow or platform idea into software?',
+        'DatastAIsis' => 'Ready to turn data and automation into measurable outcomes?',
+    ];
+    return $map[$brand['short']] ?? 'Ready to move forward with BTP?';
+}
+
+function serviceDetailList(array $brand): string
+{
+    $html = '';
+    foreach (array_slice($brand['capabilities'], 0, 6) as $i => $capability) {
+        $deliverable = $brand['deliverables'][$i % count($brand['deliverables'])];
+        $outcome = $brand['outcomes'][$i % count($brand['outcomes'])];
+        $problem = $brand['problems'][$i % count($brand['problems'])];
+        $html .= '<article class="service-deep-card"><div><span class="service-icon">' . h(iconCode($capability)) . '</span><h3>' . h($capability) . '</h3><p>' . h(itemDescription($brand, $capability, 'capability')) . '</p></div><ul><li><strong>Benefit:</strong> ' . h($outcome) . '</li><li><strong>Deliverable:</strong> ' . h($deliverable) . '</li><li><strong>Use case:</strong> ' . h($problem) . '</li></ul></article>';
+    }
+    return $html;
+}
+
+function whyMatters(array $brand): string
+{
+    return $brand['short'] . ' gives leaders a clearer way to evaluate needs, compare fit, reduce risk, and move toward an actionable service path without losing accountability between advisory, buying, implementation, and support.';
+}
+
+function industryList(array $brand): string
+{
+    $items = ['Government', 'Healthcare', 'Financial Services', 'Manufacturing', 'Technology', 'Education'];
+    return implode('', array_map(fn($x) => '<span>' . h($x) . '</span>', $items));
+}
+
+function featuredNewsTitle(array $brand): string
+{
+    return 'How leaders can evaluate ' . $brand['short'] . ' readiness before budget is committed';
+}
+
+function featuredNewsCopy(array $brand): string
+{
+    return 'A practical look at the questions, risks, stakeholders, and deliverables that should be clarified before a ' . $brand['short'] . ' engagement moves into proposal, vendor selection, or execution.';
+}
+
+function contactReasonCards(array $brand): string
+{
+    $items = [
+        ['Clarify Scope', 'Use the form when the business goal is clear but requirements, ownership, or technical dependencies still need structure.'],
+        ['Compare Options', 'Ask BTP to help evaluate vendors, service models, delivery paths, or support alternatives before committing budget.'],
+        ['Plan Next Steps', 'Share current timing, constraints, and decision pressure so BTP can route the inquiry to the right engagement path.'],
+    ];
+    return implode('', array_map(fn($x) => '<article class="service-card"><span class="service-icon">' . h(iconCode($x[0])) . '</span><h3>' . h($x[0]) . '</h3><p>' . h($x[1]) . '</p></article>', $items));
 }
 
 function revenueHeadline(array $brand): string
@@ -566,6 +704,11 @@ function visualSvg(array $brand, string $type): string
     $labels = array_map('h', $brand['visual']);
     [$l0, $l1, $l2, $l3] = $labels;
     $heading = match ($type) {
+        'about' => 'BTP Ecosystem',
+        'services' => 'Service Delivery Map',
+        'contact' => 'Inquiry Routing',
+        'news' => 'Executive Briefing',
+        'proof' => 'Impact Dashboard',
         'process' => 'Decision Workflow',
         'trust' => 'BTP Ecosystem',
         default => 'Enterprise Service Map',
@@ -618,8 +761,16 @@ function css(array $brand): string
 {
     $accent = $brand['accent'];
     $accent2 = $brand['accent2'];
+    return premiumCss($accent, $accent2);
     return <<<CSS
 :root{--black:#000;--white:#fff;--blue:#2aa8ff;--blue-deep:#0067f0;--red:#ff3b30;--ink:#111827;--muted:#566172;--line:#e3e8ef;--surface:#f6f9fd;--surface-2:#eaf6ff;--accent:$accent;--accent-2:$accent2;--shadow:0 18px 44px rgba(15,23,42,.12);--radius:8px;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 40px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:22px;min-height:92px}.brand img{width:clamp(184px,18vw,260px)}.site-nav{justify-self:center}.nav-menu{display:flex;gap:24px;align-items:center;padding:0;margin:0;list-style:none}.nav-menu a{position:relative;font-size:14px;font-weight:780}.nav-menu a:hover:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;background:var(--red)}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:850;line-height:1.15}.button-primary{color:#fff;background:var(--red);box-shadow:0 12px 28px rgba(255,59,48,.22)}.button-secondary{color:#fff;background:var(--blue-deep);box-shadow:0 12px 26px rgba(0,103,240,.2)}.button-outline{border:1px solid #151515;background:#fff}.nav-toggle{display:none}.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,430px);gap:44px;align-items:center;min-height:560px;padding:clamp(48px,6vw,78px) max(24px,calc((100vw - var(--max))/2));background:linear-gradient(112deg,#fff 0%,#fff 50%,color-mix(in srgb,var(--accent) 10%,#fff) 100%);overflow:hidden}.hero h1,.page-hero h1{max-width:820px;margin:0 0 18px;color:#000;font-size:clamp(36px,4.7vw,58px);line-height:1.06;letter-spacing:0}.hero p,.page-hero p{max-width:700px;margin:0;color:#1f2937;font-size:clamp(17px,1.6vw,19px)}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--red);font-size:12px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:42px;height:2px;background:var(--red)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}.hero-proof{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.hero-proof span{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#243044;font-size:13px;font-weight:800}.hero-visual{position:relative}.hero-visual .visual-card{margin:0}.visual-card{margin:0;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}.visual-card img{width:100%;border-radius:8px}.section{padding:clamp(48px,5.6vw,76px) 0}.muted{background:var(--surface)}.color-band{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 12%,#fff),#fff 55%,color-mix(in srgb,var(--accent-2) 10%,#fff))}.page-hero{padding:clamp(58px,7vw,90px) 0;background:linear-gradient(110deg,#fff,color-mix(in srgb,var(--accent) 10%,#fff))}.visual-split,.contact-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:42px;align-items:center}.visual-split.reverse{grid-template-columns:1fr 1fr}.section h2{margin:0 0 14px;color:#000;font-size:clamp(28px,3.4vw,42px);line-height:1.12}.section h3{margin:0 0 10px;color:#000;line-height:1.18}.section p{color:var(--muted)}.section-heading{max-width:640px}.section-heading.centered{max-width:760px;margin:0 auto 28px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.card-grid,.detail-grid,.related-grid,.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.compact{gap:16px}.process-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.service-card,.detail-card,.related-card,.news-card,.contact-form,.contact-panel,.cta-card,.process-grid article,.proof-grid article{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 10px 26px rgba(15,23,42,.07)}.service-card,.detail-card,.related-card,.news-card{border-top:4px solid var(--accent);transition:transform .18s ease,box-shadow .18s ease}.service-card:hover,.detail-card:hover,.related-card:hover,.news-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.service-icon,.process-grid span{display:inline-grid;place-items:center;min-width:42px;height:36px;margin-bottom:12px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-size:12px;font-weight:900}.process-band{background:#050505;color:#fff}.process-band h2,.process-band p,.process-band h3{color:#fff}.process-grid article{background:#111;border-color:#252525;box-shadow:none}.mini-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.mini-proof article{padding:16px;border-radius:8px;background:#fff;border:1px solid var(--line)}.trust-band{background:var(--surface)}.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#000}.proof-grid article{border:0;border-radius:0;background:#050505;color:#fff}.proof-grid strong{display:block;font-size:20px;line-height:1.15}.proof-grid span{color:rgba(255,255,255,.72)}.related-solutions{background:#fff}.related-card a,.news-card a{display:inline-flex;margin-top:10px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card{display:flex;justify-content:space-between;align-items:center;gap:24px}.final-cta .cta-card,.footer-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#062b4c);border-color:#1f2937}.final-cta h2,.final-cta p,.footer-cta h2,.footer-cta p{color:#fff}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}input:focus,textarea:focus{outline:3px solid rgba(42,168,255,.22);border-color:var(--blue-deep)}.full{grid-column:1/-1}.site-footer{color:#fff;background:#050505}.footer-cta{padding:38px 0}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;padding:40px 0}.footer-grid img{width:190px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:1080px){.hero,.visual-split,.visual-split.reverse,.contact-grid{grid-template-columns:1fr}.hero-visual{max-width:520px}.card-grid,.detail-grid,.related-grid,.news-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.container{width:min(100% - 28px,var(--max))}.header-inner{grid-template-columns:auto auto;min-height:78px}.brand img{width:172px}.header-cta{display:none}.nav-toggle{display:inline-grid;gap:4px;justify-self:end;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;padding:16px 0}.hero{min-height:auto;padding-top:44px}.hero-visual{display:none}.card-grid,.detail-grid,.related-grid,.process-grid,.proof-grid,.mini-proof,.news-grid{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(34px,10vw,48px)}.hero p,.page-hero p{font-size:17px}.section{padding:48px 0}.cta-card{align-items:flex-start;flex-direction:column}}
+CSS;
+}
+
+function premiumCss(string $accent, string $accent2): string
+{
+    return <<<CSS
+:root{--black:#000;--white:#fff;--blue:#2aa8ff;--deep:#06233f;--red:#ff3b30;--ink:#0b1220;--muted:#536173;--line:#dfe7f0;--surface:#f5f8fc;--surface-2:#eef7ff;--accent:$accent;--accent-2:$accent2;--shadow:0 20px 48px rgba(15,23,42,.13);--radius:8px;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 42px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.98);border-bottom:1px solid var(--line);box-shadow:0 8px 30px rgba(15,23,42,.05);backdrop-filter:blur(14px)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;gap:22px;align-items:center;min-height:90px}.brand img{width:clamp(188px,18vw,252px)}.site-nav{justify-self:center}.nav-menu{display:flex;align-items:center;gap:28px;padding:0;margin:0;list-style:none}.nav-menu a{position:relative;font-size:14px;font-weight:800}.nav-menu a:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;transform:scaleX(0);background:var(--red);transition:transform .18s ease}.nav-menu a:hover:after{transform:scaleX(1)}.nav-toggle{display:none}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 19px;border:0;border-radius:6px;font-weight:900;line-height:1.1;cursor:pointer}.button-primary{color:#fff;background:linear-gradient(135deg,var(--red),#d71914);box-shadow:0 14px 28px rgba(255,59,48,.24)}.button-secondary{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 14px 28px color-mix(in srgb,var(--accent) 25%,transparent)}.button-outline{color:#07111f;border:1px solid rgba(8,19,34,.58);background:#fff}.hero-outline{color:#fff;border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.06)}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--red);font-size:12px;font-weight:950;letter-spacing:.04em;text-transform:uppercase}.eyebrow:after{content:"";width:42px;height:2px;background:currentColor}.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(400px,520px);gap:48px;align-items:center;min-height:590px;padding:clamp(58px,6vw,84px) max(24px,calc((100vw - var(--max))/2));overflow:hidden;background:radial-gradient(circle at 73% 42%,color-mix(in srgb,var(--accent) 38%,transparent),transparent 30%),linear-gradient(112deg,#020817 0%,#061427 58%,#071f39 100%)}.hero:before{content:"";position:absolute;inset:auto -8% -50% 48%;height:420px;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 72%,transparent),color-mix(in srgb,var(--accent-2) 74%,transparent));clip-path:polygon(26% 0,100% 0,74% 100%,0 100%);opacity:.52}.hero-copy,.hero-visual{position:relative;z-index:1}.hero h1,.page-hero h1{max-width:850px;margin:0 0 18px;color:#000;font-size:clamp(38px,4.9vw,62px);line-height:1.03;letter-spacing:0}.hero h1{color:#fff}.hero p{max-width:710px;margin:0;color:rgba(255,255,255,.88);font-size:clamp(17px,1.5vw,20px)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-proof{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-proof span{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.86);font-size:13px;font-weight:850}.hero-proof span:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}.visual-card{margin:0;padding:13px;border:1px solid rgba(148,163,184,.35);border-radius:14px;background:rgba(255,255,255,.96);box-shadow:var(--shadow)}.visual-card img{width:100%;border-radius:8px}.hero-visual .visual-card{background:rgba(255,255,255,.93)}.section{padding:clamp(50px,5.5vw,76px) 0}.muted{background:var(--surface)}.color-band{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 10%,#fff),#fff 48%,color-mix(in srgb,var(--accent-2) 12%,#fff))}.section h2{margin:0 0 14px;color:#000;font-size:clamp(28px,3.25vw,42px);line-height:1.11}.section h3{margin:0 0 9px;color:#000;font-size:18px;line-height:1.2}.section p{color:var(--muted)}.section-heading{max-width:660px}.section-heading.centered{max-width:790px;margin:0 auto 30px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.page-hero{padding:clamp(54px,6vw,78px) 0;background:linear-gradient(115deg,#fff 0%,#f7fbff 55%,color-mix(in srgb,var(--accent) 13%,#fff) 100%);border-bottom:1px solid var(--line)}.page-hero-grid{display:grid;grid-template-columns:1fr minmax(320px,450px);gap:42px;align-items:center}.page-hero p{max-width:760px;margin:0;color:#243044;font-size:18px}.page-hero .visual-card{box-shadow:0 18px 40px rgba(15,23,42,.1)}.visual-split,.contact-grid{display:grid;grid-template-columns:.93fr 1.07fr;gap:44px;align-items:center}.visual-split.reverse{grid-template-columns:1fr .96fr}.card-grid,.related-grid,.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px}.service-grid{grid-template-columns:repeat(6,1fr)}.service-card,.related-card,.news-card,.contact-form,.contact-panel,.cta-card,.belief-grid article,.journey-grid article,.service-deep-card,.faq-grid article,.featured-article,.newsletter-card{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 10px 28px rgba(15,23,42,.07)}.service-card,.related-card,.news-card,.service-deep-card{border-top:4px solid var(--accent);transition:transform .18s ease,box-shadow .18s ease}.service-card:hover,.related-card:hover,.news-card:hover,.service-deep-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.service-card p,.related-card p,.news-card p,.service-deep-card p{font-size:14.5px}.service-icon{display:inline-grid;place-items:center;min-width:42px;height:38px;margin-bottom:13px;padding:0 9px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-size:12px;font-weight:950}.benefit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}.benefit-grid article{padding:16px;border:1px solid color-mix(in srgb,var(--accent) 20%,var(--line));border-radius:8px;background:rgba(255,255,255,.78)}.benefit-grid h3{font-size:15px}.benefit-grid p{margin-bottom:0;font-size:13.5px}.impact-band{padding:0 0 22px;background:linear-gradient(180deg,#fff 0%,var(--surface) 100%)}.impact-card{display:grid;grid-template-columns:.95fr 1.05fr;gap:28px;align-items:center;margin-top:-18px;padding:28px;border-radius:12px;color:#fff;background:linear-gradient(110deg,#061427,#082d55 60%,color-mix(in srgb,var(--accent) 35%,#061427));box-shadow:var(--shadow)}.impact-card h2,.impact-card p{color:#fff}.impact-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}.impact-metrics article{padding:18px;border-left:1px solid rgba(255,255,255,.22)}.impact-metrics strong{display:block;font-size:clamp(26px,3vw,38px);line-height:1;color:#fff}.impact-metrics span{display:block;margin-top:8px;color:rgba(255,255,255,.78);font-size:13px}.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;position:relative}.timeline article{position:relative;padding:20px 12px;text-align:center}.timeline span{display:inline-grid;place-items:center;width:58px;height:58px;margin-bottom:13px;color:#fff;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-weight:950;box-shadow:0 12px 22px color-mix(in srgb,var(--accent) 25%,transparent)}.timeline h3{font-size:15px}.timeline p{font-size:13.5px}.process-band{color:#fff;background:#020817}.process-band h2,.process-band p,.process-band h3{color:#fff}.timeline-dark article{border:1px solid rgba(255,255,255,.12);border-radius:8px;background:rgba(255,255,255,.05)}.trust-wall{padding:34px 0;color:#fff;background:#020817}.trust-wall .eyebrow{color:#fff}.trust-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.trust-grid article{display:flex;align-items:center;gap:10px;min-height:76px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}.trust-grid span{display:grid;place-items:center;min-width:35px;height:35px;border-radius:7px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-size:11px;font-weight:950}.trust-grid strong{font-size:13px}.related-solutions{background:#fff}.related-card a,.news-card a{display:inline-flex;margin-top:8px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card,.newsletter-card{display:flex;align-items:center;justify-content:space-between;gap:24px}.final-cta .cta-card,.footer-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#06233f 55%,color-mix(in srgb,var(--accent) 30%,#06233f));border-color:#1f2937}.final-cta h2,.final-cta p,.footer-cta h2,.footer-cta p{color:#fff}.belief-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:18px}.belief-grid article:first-child{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 12%,#fff),#fff)}.journey-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.journey-grid span{display:inline-flex;margin-bottom:10px;color:var(--red);font-weight:950}.service-detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.service-deep-card{display:grid;gap:12px}.service-deep-card ul{padding-left:20px;margin:0;color:#3d4858}.service-deep-card li{margin:7px 0}.pill-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.pill-list span,.filter-row span{padding:8px 12px;border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));border-radius:999px;background:#fff;color:#102033;font-size:13px;font-weight:850}.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.filter-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.featured-article{display:grid;grid-template-columns:1fr minmax(280px,420px);gap:28px;align-items:center;margin-bottom:22px;background:linear-gradient(130deg,#fff,color-mix(in srgb,var(--accent) 9%,#fff))}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.contact-panel{background:linear-gradient(140deg,#fff,color-mix(in srgb,var(--accent) 8%,#fff))}label{display:grid;gap:8px;font-weight:800}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px;background:#fff}input:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(--accent) 24%,transparent);border-color:var(--accent)}.full{grid-column:1/-1}.site-footer{color:#fff;background:#020817}.footer-cta{padding:36px 0 20px}.footer-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:36px;padding:38px 0}.footer-grid img{width:198px}.footer-grid p{color:rgba(255,255,255,.74)}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.82)}@media(max-width:1180px){.service-grid{grid-template-columns:repeat(3,1fr)}.trust-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:980px){.hero,.page-hero-grid,.visual-split,.visual-split.reverse,.contact-grid,.impact-card,.featured-article{grid-template-columns:1fr}.hero-visual{max-width:560px}.card-grid,.related-grid,.news-grid,.service-detail-grid,.belief-grid,.faq-grid{grid-template-columns:repeat(2,1fr)}.timeline,.journey-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.container{width:min(100% - 28px,var(--max))}.header-inner{grid-template-columns:auto auto;min-height:76px}.brand img{width:174px}.header-cta{display:none}.nav-toggle{display:inline-grid;justify-self:end;gap:4px;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;gap:14px;padding:14px 0 18px}.hero{min-height:auto;padding-top:42px}.hero:before{opacity:.25}.hero-visual{display:none}.hero h1,.page-hero h1{font-size:clamp(34px,10vw,48px)}.hero p,.page-hero p{font-size:17px}.section{padding:46px 0}.service-grid,.card-grid,.related-grid,.news-grid,.service-detail-grid,.belief-grid,.faq-grid,.benefit-grid,.trust-grid,.impact-metrics,.timeline,.journey-grid,.footer-grid{grid-template-columns:1fr}.impact-card{margin-top:0}.impact-metrics article{border-left:0;border-top:1px solid rgba(255,255,255,.18)}.contact-form{grid-template-columns:1fr}.cta-card,.newsletter-card{align-items:flex-start;flex-direction:column}.visual-card{padding:9px}}
 CSS;
 }
 
