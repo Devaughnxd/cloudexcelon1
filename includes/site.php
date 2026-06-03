@@ -4,6 +4,14 @@ return array (
   'short' => 'ManageSP',
   'domain' => 'managesp.cloudexcelon.com',
   'accent' => '#2AA8FF',
+  'accent2' => '#10B981',
+  'visual' => 
+  array (
+    0 => 'Support queue',
+    1 => 'Operations',
+    2 => 'Escalation',
+    3 => 'Lifecycle',
+  ),
   'cta' => 'Request Support',
   'tagline' => 'Managed IT services that keep operations supported after deployment.',
   'headline' => 'Managed IT support that keeps business technology stable after launch.',
