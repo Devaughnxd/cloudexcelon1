@@ -18,7 +18,7 @@ The sites share one BTP design system: BTP bar-logo identity, black/white/blue/r
 
 ## Deployment Branches
 
-- `plesk-deploy` - BTP CloudEXCELON
+- `deploy-cloudexcelon` - BTP CloudEXCELON
 - `deploy-praas` - BTP PraaS
 - `deploy-techadvisors` - BTP TechAdvisors
 - `deploy-securiscope` - BTP SecuriSCOPE
@@ -26,7 +26,9 @@ The sites share one BTP design system: BTP bar-logo identity, black/white/blue/r
 - `deploy-codeignite` - BTP CodeIGNITE
 - `deploy-datastaisis` - BTP DatastAIsis
 
-There is no `deploy-cloudexcelon` branch. Use `plesk-deploy` for CloudEXCELON.
+Use `deploy-cloudexcelon` for CloudEXCELON.
+
+Each deploy branch also includes `docs/website-audit.md`. Log discovered issues there before fixing them, then update the same entry with the files changed and verification performed.
 
 ## Local Preview
 

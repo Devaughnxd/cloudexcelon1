@@ -4,7 +4,7 @@ Each BTP website is deployed from its own branch. The branch root contains `inde
 
 ## Branch Map
 
-- CloudEXCELON: `plesk-deploy`
+- CloudEXCELON: `deploy-cloudexcelon`
 - PraaS: `deploy-praas`
 - TechAdvisors: `deploy-techadvisors`
 - SecuriSCOPE: `deploy-securiscope`
@@ -24,7 +24,11 @@ Each BTP website is deployed from its own branch. The branch root contains `inde
 8. Confirm `index.php` exists directly in the domain root.
 9. Test `/`, `/about`, `/services`, `/news`, and `/contact`.
 
-For `dev.cloudexcelon.com`, use `plesk-deploy`.
+For `dev.cloudexcelon.com`, use `deploy-cloudexcelon`.
+
+## Website Audit Log
+
+Each site root includes `docs/website-audit.md`. Before fixing a discovered issue, log it there with the affected area, severity, planned correction, and verification step. After the fix, update the same entry with what changed.
 
 ## Future Updates
 

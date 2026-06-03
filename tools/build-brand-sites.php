@@ -211,6 +211,7 @@ foreach ($brands as $slug => $brand) {
     write_file($siteRoot . '/web.config', webConfig());
     write_file($siteRoot . '/README.md', readme($slug, $brand));
     write_file($siteRoot . '/DEPLOYMENT.md', deployment($slug, $brand));
+    write_file($siteRoot . '/docs/website-audit.md', websiteAudit($slug, $brand));
 }
 
 write_file($outputRoot . DIRECTORY_SEPARATOR . 'DESIGN_SYSTEM.md', designSystem());
@@ -247,10 +248,10 @@ function homePage(string $slug, array $brand, array $brands): string
 {
     return hero($brand, $brand['cta'], '/contact') . '
 <section class="section service-strip"><div class="container"><div class="section-heading centered"><p class="eyebrow">Core Solutions</p><h2>' . h(serviceIntroHeadline($brand)) . '</h2><p>' . h($brand['tagline']) . '</p></div><div class="card-grid service-grid">' . cardList(array_slice($brand['capabilities'], 0, 6), $brand) . '</div></div></section>
-<section class="section color-band"><div class="container visual-split"><div><p class="eyebrow">Why Choose ' . h($brand['short']) . '</p><h2>' . h(revenueHeadline($brand)) . '</h2><p>' . h($brand['audience']) . '</p><div class="benefit-grid">' . benefitList($brand) . '</div></div>' . imageBlock('proof-visual.svg', $brand['short'] . ' proof dashboard visual', true) . '</div></section>
-<section class="impact-band"><div class="container impact-card"><div><p class="eyebrow">Business Impact</p><h2>Built to support executive decisions, delivery accountability, and long-term value.</h2></div><div class="impact-metrics">' . metricList($brand) . '</div></div></section>
-<section class="section"><div class="container"><div class="section-heading centered"><p class="eyebrow">Proven Process</p><h2>A practical path from need to measurable next step.</h2></div><div class="timeline">' . timelineList($brand['process']) . '</div></div></section>
-<section class="trust-wall"><div class="container"><p class="eyebrow">Trusted. Certified. Committed.</p><div class="trust-grid">' . trustBadges($brand) . '</div></div></section>
+<section class="section feature-dark"><div class="container feature-layout"><div class="feature-copy"><p class="eyebrow">Why Choose ' . h($brand['short']) . '</p><h2>' . h(strengthHeadline($brand)) . '</h2><p>' . h($brand['audience']) . '</p><div class="benefit-grid dark-benefits">' . benefitList($brand) . '</div></div>' . imageBlock('proof-visual.svg', $brand['short'] . ' service workflow visualization', true) . '</div></section>
+<section class="section process-light"><div class="container"><div class="section-heading centered"><p class="eyebrow">Proven Process</p><h2>A practical path from need to measurable next step.</h2></div><div class="timeline">' . timelineList($brand['process']) . '</div></div></section>
+<section class="section industry-band"><div class="container visual-split reverse">' . imageBlock('process-visual.svg', $brand['short'] . ' industry workflow visual', true) . '<div><p class="eyebrow">Where It Fits</p><h2>' . h(industryHeadline($brand)) . '</h2><p>' . h(whyMatters($brand)) . '</p><div class="pill-list">' . industryList($brand) . '</div></div></div></section>
+<section class="trust-wall"><div class="container"><div class="section-heading"><p class="eyebrow">Why Companies Choose BTP</p><h2>Trust built through clarity, structure, and accountable service delivery.</h2></div><div class="trust-grid">' . trustBadges($brand) . '</div></div></section>
 ' . relatedSolutions($brand, $brands, true) . '
 <section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Next Step</p><h2>' . h(finalCtaHeadline($brand)) . '</h2><p>' . h($brand['summary']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . ' <span aria-hidden="true">&rarr;</span></a></div></section>';
 }
@@ -262,7 +263,7 @@ function aboutPage(array $brand, array $brands): string
 <section class="section muted"><div class="container visual-split reverse">' . imageBlock('trust-visual.svg', $brand['short'] . ' ecosystem visual', true) . '<div><p class="eyebrow">Why Clients Choose BTP</p><h2>Advisory-led, execution-ready, and lifecycle aware.</h2><p>' . h($brand['audience']) . '</p><div class="benefit-grid">' . aboutCards() . '</div></div></div></section>
 <section class="section"><div class="container"><div class="section-heading centered"><p class="eyebrow">How We Work</p><h2>Designed around the buyer journey from learning to proposal.</h2></div><div class="journey-grid">' . journeyList() . '</div></div></section>
 ' . relatedSolutions($brand, $brands, true) . '
-<section class="trust-wall"><div class="container"><p class="eyebrow">Trust Signals</p><div class="trust-grid">' . trustBadges($brand) . '</div></div></section>
+<section class="trust-wall"><div class="container"><div class="section-heading"><p class="eyebrow">Trust Signals</p><h2>Service confidence without inflated claims.</h2></div><div class="trust-grid">' . trustBadges($brand) . '</div></div></section>
 <section class="section final-cta"><div class="container cta-card"><div><p class="eyebrow">Talk With BTP</p><h2>Get clear guidance before the next decision becomes expensive.</h2><p>' . h($brand['tagline']) . '</p></div><a class="button button-primary" href="/contact">' . h($brand['cta']) . '</a></div></section>';
 }
 
@@ -394,12 +395,7 @@ function benefitList(array $brand): string
 
 function metricList(array $brand): string
 {
-    $metrics = [
-        ['250+', 'BTP ecosystem conversations supported across technology needs'],
-        ['$150M+', 'Potential technology spend and program value influenced through advisory-led planning'],
-        ['98%', 'Target client retention mindset through lifecycle support and clear ownership'],
-    ];
-    return implode('', array_map(fn($x) => '<article><strong>' . h($x[0]) . '</strong><span>' . h($x[1]) . '</span></article>', $metrics));
+    return '';
 }
 
 function timelineList(array $items): string
@@ -413,8 +409,43 @@ function timelineList(array $items): string
 
 function trustBadges(array $brand): string
 {
-    $items = ['Veteran-Owned Business', 'Microsoft Partner Alignment', 'US-Based Support', 'Enterprise Solutions', 'Scalable Delivery', $brand['short'] . ' Expertise'];
-    return implode('', array_map(fn($x) => '<article><span>' . h(iconCode($x)) . '</span><strong>' . h($x) . '</strong></article>', $items));
+    $items = [
+        ['Dedicated Expertise', 'Specialized guidance aligned to the service lane and business objective.'],
+        ['Structured Delivery', 'Discovery, planning, execution, and handoff steps stay visible.'],
+        ['Scalable Engagement', 'Support can start focused and expand as scope becomes clearer.'],
+        ['Strategic Guidance', 'Recommendations are shaped around fit, risk, and timing.'],
+        ['Long-Term Partnership', 'BTP keeps lifecycle support and future optimization in view.'],
+        [$brand['short'] . ' Methods', 'Brand-specific workflows support the work customers actually need.'],
+    ];
+    return implode('', array_map(fn($x) => '<article><span>' . h(iconCode($x[0])) . '</span><div><strong>' . h($x[0]) . '</strong><p>' . h($x[1]) . '</p></div></article>', $items));
+}
+
+function strengthHeadline(array $brand): string
+{
+    $map = [
+        'PraaS' => 'Procurement decisions become easier when sourcing, vendors, spend, and handoff are coordinated.',
+        'TechAdvisors' => 'Complex decisions need a roadmap, a decision framework, and a clear path to execution.',
+        'SecuriSCOPE' => 'Security posture improves when risk, controls, compliance, and monitoring are connected.',
+        'ManageSP' => 'Operations become more reliable when support workflows, ownership, and escalation are clear.',
+        'CloudEXCELON' => 'Cloud programs work better when architecture, migration, operations, and cost control stay aligned.',
+        'CodeIGNITE' => 'Software projects move faster when workflows, architecture, releases, and integrations are sequenced.',
+        'DatastAIsis' => 'Data and AI create value when use cases, automation, dashboards, and governance fit the business.',
+    ];
+    return $map[$brand['short']] ?? $brand['headline'];
+}
+
+function industryHeadline(array $brand): string
+{
+    $map = [
+        'PraaS' => 'Designed for teams buying technology across vendors, contracts, licenses, and implementation paths.',
+        'TechAdvisors' => 'Designed for leaders who need decision clarity before technology spend becomes hard to unwind.',
+        'SecuriSCOPE' => 'Designed for organizations balancing protection, compliance, monitoring, and resilience.',
+        'ManageSP' => 'Designed for environments that need dependable support after projects go live.',
+        'CloudEXCELON' => 'Designed for hybrid and cloud environments that need scale without operational confusion.',
+        'CodeIGNITE' => 'Designed for teams turning manual workflows and platform gaps into business software.',
+        'DatastAIsis' => 'Designed for teams turning fragmented data and repetitive work into intelligent operations.',
+    ];
+    return $map[$brand['short']] ?? $brand['tagline'];
 }
 
 function finalCtaHeadline(array $brand): string
@@ -602,6 +633,7 @@ function headerInclude(): string
 $brand = require __DIR__ . '/site.php';
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 function asset(string $path): string { return '/assets/' . ltrim($path, '/'); }
+function footerDescription(array $brand): string { return $brand['name'] . ' helps clients clarify needs, compare options, coordinate delivery paths, and move technology work toward accountable next steps.'; }
 $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
 ?><!doctype html>
 <html lang="en">
@@ -655,19 +687,15 @@ function footerInclude(): string
     return <<<'PHP'
 </main>
 <footer class="site-footer">
-  <section class="footer-cta">
-    <div class="container cta-card">
-      <div>
-        <p class="eyebrow">BTP Innovations</p>
-        <h2><?= e($brand['tagline']) ?></h2>
-      </div>
-      <a class="button button-primary" href="/contact"><?= e($brand['cta']) ?></a>
-    </div>
-  </section>
   <div class="container footer-grid">
-    <div><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" loading="lazy"><p><?= e($brand['summary']) ?></p></div>
-    <div><h3>Pages</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></div>
-    <div><h3>Contact</h3><p>info@btpinnovations.com<br>(800) 781-6632</p><p>276 5th Avenue Suite 704<br>New York, NY 10001</p></div>
+    <div class="footer-brand">
+      <a class="footer-logo-panel" href="/" aria-label="<?= e($brand['name']) ?> home"><img src="<?= e(asset('images/logo.svg')) ?>" alt="<?= e($brand['name']) ?> logo" loading="lazy"></a>
+      <p><?= e(footerDescription($brand)) ?></p>
+      <div class="social-links" aria-label="Social links"><a href="https://www.linkedin.com/company/btp-innovations/" aria-label="LinkedIn">in</a><a href="mailto:info@btpinnovations.com" aria-label="Email">@</a><a href="/contact" aria-label="Request consultation">→</a></div>
+    </div>
+    <div><h3>Navigation</h3><a href="/">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/news">News</a><a href="/contact">Contact</a></div>
+    <div><h3>Services</h3><?php foreach (array_slice($brand['capabilities'], 0, 6) as $capability): ?><a href="/services"><?= e($capability) ?></a><?php endforeach; ?></div>
+    <div class="footer-contact"><h3>Contact</h3><p>info@btpinnovations.com<br>(800) 781-6632</p><p>276 5th Avenue Suite 704<br>New York, NY 10001</p><a class="button button-primary" href="/contact">Request Consultation</a></div>
   </div>
 </footer>
 </body>
@@ -714,63 +742,133 @@ function visualSvg(array $brand, string $type): string
         default => 'Enterprise Service Map',
     };
     $heading = h($heading);
+    $motif = match ($brand['short']) {
+        'PraaS' => <<<SVG
+  <g class="motif procurement" transform="translate(345 155)">
+    <circle cx="132" cy="112" r="112" fill="none" stroke="$accent" stroke-width="2" stroke-opacity=".55"/>
+    <path d="M28 112 H264 M132 8 V224 M54 46 C92 80 170 80 226 46 M54 178 C92 144 170 144 226 178" fill="none" stroke="#66c7ff" stroke-width="2" stroke-opacity=".45"/>
+    <g fill="#fff" font-family="Segoe UI, Arial" font-weight="800" font-size="15">
+      <rect x="80" y="78" width="104" height="42" rx="8" fill="$accent"/><text x="102" y="105">Vendors</text>
+      <rect x="5" y="142" width="122" height="42" rx="8" fill="#071b31" stroke="$accent"/><text x="24" y="168">Contracts</text>
+      <rect x="155" y="142" width="114" height="42" rx="8" fill="#071b31" stroke="$accent2"/><text x="181" y="168">Spend</text>
+    </g>
+  </g>
+SVG,
+        'TechAdvisors' => <<<SVG
+  <g class="motif advisory" transform="translate(342 150)">
+    <rect x="0" y="0" width="292" height="230" rx="18" fill="#071b31" stroke="$accent" stroke-opacity=".45"/>
+    <path d="M42 55 H246 M42 115 H246 M42 175 H246" stroke="#dbeafe" stroke-opacity=".18"/>
+    <path d="M58 178 C92 122 132 152 164 90 S218 72 244 42" fill="none" stroke="$accent" stroke-width="5"/>
+    <circle cx="58" cy="178" r="9" fill="$accent2"/><circle cx="164" cy="90" r="9" fill="$accent"/><circle cx="244" cy="42" r="9" fill="#ff3b30"/>
+    <rect x="42" y="26" width="92" height="28" rx="6" fill="rgba(255,255,255,.1)"/><rect x="42" y="86" width="126" height="28" rx="6" fill="rgba(255,255,255,.1)"/><rect x="42" y="146" width="168" height="28" rx="6" fill="rgba(255,255,255,.1)"/>
+  </g>
+SVG,
+        'SecuriSCOPE' => <<<SVG
+  <g class="motif security" transform="translate(348 142)">
+    <circle cx="135" cy="120" r="112" fill="none" stroke="$accent" stroke-width="3" stroke-opacity=".65"/>
+    <circle cx="135" cy="120" r="72" fill="none" stroke="$accent2" stroke-width="2" stroke-dasharray="8 8"/>
+    <path d="M135 48 L203 76 V121 C203 166 174 196 135 214 C96 196 67 166 67 121 V76 Z" fill="rgba(255,59,48,.18)" stroke="$accent" stroke-width="4"/>
+    <path d="M98 122 L124 148 L174 92" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M135 120 L232 72 M135 120 L44 185 M135 120 L248 176" stroke="#66c7ff" stroke-opacity=".55"/>
+  </g>
+SVG,
+        'ManageSP' => <<<SVG
+  <g class="motif ops" transform="translate(338 138)">
+    <rect x="0" y="0" width="306" height="244" rx="20" fill="#071b31" stroke="$accent" stroke-opacity=".45"/>
+    <rect x="24" y="24" width="258" height="50" rx="10" fill="rgba(255,255,255,.1)"/>
+    <rect x="24" y="94" width="124" height="126" rx="12" fill="rgba(42,168,255,.14)" stroke="$accent"/>
+    <rect x="166" y="94" width="116" height="32" rx="8" fill="$accent2"/><rect x="166" y="142" width="116" height="32" rx="8" fill="rgba(255,255,255,.12)"/><rect x="166" y="190" width="116" height="32" rx="8" fill="rgba(255,255,255,.12)"/>
+    <circle cx="62" cy="135" r="16" fill="$accent"/><circle cx="103" cy="172" r="16" fill="$accent2"/><path d="M78 145 L91 162" stroke="#fff" stroke-width="4"/>
+  </g>
+SVG,
+        'CloudEXCELON' => <<<SVG
+  <g class="motif cloud" transform="translate(332 136)">
+    <path d="M94 112 C96 70 130 42 173 50 C192 20 246 28 260 69 C300 72 326 101 326 138 C326 179 295 206 250 206 H102 C58 206 28 178 28 139 C28 104 54 113 94 112Z" fill="rgba(42,168,255,.16)" stroke="$accent" stroke-width="4"/>
+    <g stroke="#fff" stroke-opacity=".6" stroke-width="2"><path d="M98 210 V252 H252 V210 M176 208 V252 M98 252 H64 M176 252 H176 M252 252 H292"/></g>
+    <g fill="$accent"><circle cx="64" cy="252" r="12"/><circle cx="176" cy="252" r="12"/><circle cx="292" cy="252" r="12"/></g>
+    <rect x="106" y="104" width="152" height="56" rx="12" fill="#071b31" stroke="$accent2"/><path d="M126 132 H238" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+  </g>
+SVG,
+        'CodeIGNITE' => <<<SVG
+  <g class="motif code" transform="translate(336 132)">
+    <rect x="0" y="0" width="316" height="252" rx="20" fill="#071b31" stroke="$accent" stroke-opacity=".5"/>
+    <rect x="0" y="0" width="316" height="42" rx="20" fill="rgba(255,255,255,.1)"/>
+    <circle cx="30" cy="22" r="6" fill="#ff3b30"/><circle cx="52" cy="22" r="6" fill="$accent2"/><circle cx="74" cy="22" r="6" fill="$accent"/>
+    <path d="M64 95 L34 125 L64 155 M252 95 L282 125 L252 155" fill="none" stroke="$accent" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M132 176 H238 M94 78 H214 M94 118 H190 M94 138 H226" stroke="#dbeafe" stroke-width="8" stroke-opacity=".55" stroke-linecap="round"/>
+    <path d="M124 218 H274" stroke="$accent2" stroke-width="5" stroke-linecap="round"/>
+  </g>
+SVG,
+        'DatastAIsis' => <<<SVG
+  <g class="motif data" transform="translate(332 132)">
+    <rect x="0" y="0" width="316" height="252" rx="20" fill="#071b31" stroke="$accent2" stroke-opacity=".5"/>
+    <path d="M54 190 V96 M112 190 V62 M170 190 V126 M228 190 V82" stroke="$accent" stroke-width="18" stroke-linecap="round"/>
+    <path d="M56 82 C104 18 166 42 202 96 S270 156 292 62" fill="none" stroke="$accent2" stroke-width="5"/>
+    <g fill="#fff"><circle cx="56" cy="82" r="8"/><circle cx="202" cy="96" r="8"/><circle cx="292" cy="62" r="8"/></g>
+    <path d="M42 214 H278" stroke="#dbeafe" stroke-opacity=".35"/>
+  </g>
+SVG,
+        default => <<<SVG
+  <g transform="translate(345 155)"><circle cx="132" cy="112" r="112" fill="none" stroke="$accent" stroke-width="2"/><circle cx="132" cy="112" r="44" fill="$accent" opacity=".3"/></g>
+SVG,
+    };
     return <<<SVG
-<svg xmlns="http://www.w3.org/2000/svg" width="760" height="520" viewBox="0 0 760 520" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560" role="img" aria-labelledby="title desc">
   <title id="title">$title $heading</title>
-  <desc id="desc">Abstract enterprise technology visual for $title showing coordinated service blocks.</desc>
+  <desc id="desc">Brand-specific enterprise technology visual for $title showing the service workflow and supporting diagram.</desc>
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="$accent" stop-opacity=".95"/>
       <stop offset="1" stop-color="$accent2" stop-opacity=".9"/>
     </linearGradient>
+    <radialGradient id="r" cx=".72" cy=".34" r=".62">
+      <stop offset="0" stop-color="$accent" stop-opacity=".42"/>
+      <stop offset=".55" stop-color="$accent2" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#020817" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity=".06"/>
+    </pattern>
     <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0f172a" flood-opacity=".16"/>
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity=".28"/>
     </filter>
   </defs>
-  <rect width="760" height="520" rx="26" fill="#f8fbff"/>
-  <path d="M70 390 C170 250 240 430 354 250 S570 150 690 260" fill="none" stroke="$accent" stroke-width="3" stroke-opacity=".22"/>
-  <circle cx="616" cy="112" r="76" fill="$accent" opacity=".12"/>
-  <circle cx="132" cy="402" r="58" fill="$accent2" opacity=".12"/>
-  <rect x="66" y="58" width="628" height="70" rx="14" fill="#fff" filter="url(#s)"/>
-  <rect x="88" y="82" width="104" height="20" rx="10" fill="url(#g)"/>
-  <text x="214" y="98" font-family="Segoe UI, Arial" font-size="28" font-weight="800" fill="#000">$heading</text>
+  <rect width="880" height="560" rx="28" fill="#020817"/>
+  <rect width="880" height="560" rx="28" fill="url(#grid)"/>
+  <rect width="880" height="560" rx="28" fill="url(#r)"/>
+  <path d="M54 458 C174 312 255 456 374 282 S640 132 812 256" fill="none" stroke="$accent" stroke-width="3" stroke-opacity=".28"/>
   <g filter="url(#s)">
-    <rect x="88" y="178" width="220" height="116" rx="16" fill="#fff"/>
-    <rect x="88" y="178" width="220" height="7" rx="4" fill="$accent"/>
-    <text x="112" y="226" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l0</text>
-    <text x="112" y="258" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Define scope and ownership</text>
-    <rect x="372" y="178" width="220" height="116" rx="16" fill="#fff"/>
-    <rect x="372" y="178" width="220" height="7" rx="4" fill="$accent2"/>
-    <text x="396" y="226" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l1</text>
-    <text x="396" y="258" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Compare options and risk</text>
-    <rect x="176" y="340" width="220" height="116" rx="16" fill="#fff"/>
-    <rect x="176" y="340" width="220" height="7" rx="4" fill="#000"/>
-    <text x="200" y="388" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l2</text>
-    <text x="200" y="420" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Move to a practical path</text>
-    <rect x="462" y="340" width="220" height="116" rx="16" fill="#fff"/>
-    <rect x="462" y="340" width="220" height="7" rx="4" fill="#ff3b30"/>
-    <text x="486" y="388" font-family="Segoe UI, Arial" font-size="20" font-weight="800" fill="#000">$l3</text>
-    <text x="486" y="420" font-family="Segoe UI, Arial" font-size="14" fill="#586174">Support next-step execution</text>
+    <rect x="56" y="54" width="326" height="404" rx="22" fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.14)"/>
+    <rect x="82" y="84" width="92" height="18" rx="9" fill="url(#g)"/>
+    <text x="82" y="142" font-family="Segoe UI, Arial" font-size="32" font-weight="850" fill="#fff">$heading</text>
+    <text x="82" y="184" font-family="Segoe UI, Arial" font-size="17" fill="#cbd5e1">$title workflow visualization</text>
+    <g font-family="Segoe UI, Arial" font-size="15" font-weight="800" fill="#fff">
+      <rect x="82" y="232" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="$accent" stroke-opacity=".5"/><text x="104" y="259">$l0</text>
+      <rect x="82" y="292" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="$accent2" stroke-opacity=".5"/><text x="104" y="319">$l1</text>
+      <rect x="82" y="352" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="#ff3b30" stroke-opacity=".5"/><text x="104" y="379">$l2</text>
+      <rect x="82" y="412" width="250" height="42" rx="10" fill="rgba(255,255,255,.08)" stroke="#ffffff" stroke-opacity=".18"/><text x="104" y="439">$l3</text>
+    </g>
   </g>
-  <path d="M308 236 H372 M482 294 V340 M286 294 V340" stroke="#94a3b8" stroke-width="2" stroke-dasharray="7 8"/>
+  $motif
+  <circle cx="748" cy="92" r="70" fill="$accent" opacity=".12"/>
+  <circle cx="738" cy="466" r="96" fill="$accent2" opacity=".1"/>
 </svg>
 SVG;
 }
 
 function css(array $brand): string
 {
-    $accent = $brand['accent'];
-    $accent2 = $brand['accent2'];
-    return premiumCss($accent, $accent2);
-    return <<<CSS
-:root{--black:#000;--white:#fff;--blue:#2aa8ff;--blue-deep:#0067f0;--red:#ff3b30;--ink:#111827;--muted:#566172;--line:#e3e8ef;--surface:#f6f9fd;--surface-2:#eaf6ff;--accent:$accent;--accent-2:$accent2;--shadow:0 18px 44px rgba(15,23,42,.12);--radius:8px;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 40px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:22px;min-height:92px}.brand img{width:clamp(184px,18vw,260px)}.site-nav{justify-self:center}.nav-menu{display:flex;gap:24px;align-items:center;padding:0;margin:0;list-style:none}.nav-menu a{position:relative;font-size:14px;font-weight:780}.nav-menu a:hover:after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;background:var(--red)}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:6px;font-weight:850;line-height:1.15}.button-primary{color:#fff;background:var(--red);box-shadow:0 12px 28px rgba(255,59,48,.22)}.button-secondary{color:#fff;background:var(--blue-deep);box-shadow:0 12px 26px rgba(0,103,240,.2)}.button-outline{border:1px solid #151515;background:#fff}.nav-toggle{display:none}.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,430px);gap:44px;align-items:center;min-height:560px;padding:clamp(48px,6vw,78px) max(24px,calc((100vw - var(--max))/2));background:linear-gradient(112deg,#fff 0%,#fff 50%,color-mix(in srgb,var(--accent) 10%,#fff) 100%);overflow:hidden}.hero h1,.page-hero h1{max-width:820px;margin:0 0 18px;color:#000;font-size:clamp(36px,4.7vw,58px);line-height:1.06;letter-spacing:0}.hero p,.page-hero p{max-width:700px;margin:0;color:#1f2937;font-size:clamp(17px,1.6vw,19px)}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--red);font-size:12px;font-weight:900;text-transform:uppercase}.eyebrow:after{content:"";width:42px;height:2px;background:var(--red)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:26px}.hero-proof{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.hero-proof span{padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#243044;font-size:13px;font-weight:800}.hero-visual{position:relative}.hero-visual .visual-card{margin:0}.visual-card{margin:0;padding:14px;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:var(--shadow)}.visual-card img{width:100%;border-radius:8px}.section{padding:clamp(48px,5.6vw,76px) 0}.muted{background:var(--surface)}.color-band{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 12%,#fff),#fff 55%,color-mix(in srgb,var(--accent-2) 10%,#fff))}.page-hero{padding:clamp(58px,7vw,90px) 0;background:linear-gradient(110deg,#fff,color-mix(in srgb,var(--accent) 10%,#fff))}.visual-split,.contact-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:42px;align-items:center}.visual-split.reverse{grid-template-columns:1fr 1fr}.section h2{margin:0 0 14px;color:#000;font-size:clamp(28px,3.4vw,42px);line-height:1.12}.section h3{margin:0 0 10px;color:#000;line-height:1.18}.section p{color:var(--muted)}.section-heading{max-width:640px}.section-heading.centered{max-width:760px;margin:0 auto 28px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.card-grid,.detail-grid,.related-grid,.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.compact{gap:16px}.process-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.service-card,.detail-card,.related-card,.news-card,.contact-form,.contact-panel,.cta-card,.process-grid article,.proof-grid article{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 10px 26px rgba(15,23,42,.07)}.service-card,.detail-card,.related-card,.news-card{border-top:4px solid var(--accent);transition:transform .18s ease,box-shadow .18s ease}.service-card:hover,.detail-card:hover,.related-card:hover,.news-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}.service-icon,.process-grid span{display:inline-grid;place-items:center;min-width:42px;height:36px;margin-bottom:12px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-size:12px;font-weight:900}.process-band{background:#050505;color:#fff}.process-band h2,.process-band p,.process-band h3{color:#fff}.process-grid article{background:#111;border-color:#252525;box-shadow:none}.mini-proof{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.mini-proof article{padding:16px;border-radius:8px;background:#fff;border:1px solid var(--line)}.trust-band{background:var(--surface)}.proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#000}.proof-grid article{border:0;border-radius:0;background:#050505;color:#fff}.proof-grid strong{display:block;font-size:20px;line-height:1.15}.proof-grid span{color:rgba(255,255,255,.72)}.related-solutions{background:#fff}.related-card a,.news-card a{display:inline-flex;margin-top:10px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card{display:flex;justify-content:space-between;align-items:center;gap:24px}.final-cta .cta-card,.footer-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#062b4c);border-color:#1f2937}.final-cta h2,.final-cta p,.footer-cta h2,.footer-cta p{color:#fff}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}label{display:grid;gap:8px;font-weight:750}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px}input:focus,textarea:focus{outline:3px solid rgba(42,168,255,.22);border-color:var(--blue-deep)}.full{grid-column:1/-1}.site-footer{color:#fff;background:#050505}.footer-cta{padding:38px 0}.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;padding:40px 0}.footer-grid img{width:190px}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.78)}@media(max-width:1080px){.hero,.visual-split,.visual-split.reverse,.contact-grid{grid-template-columns:1fr}.hero-visual{max-width:520px}.card-grid,.detail-grid,.related-grid,.news-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.container{width:min(100% - 28px,var(--max))}.header-inner{grid-template-columns:auto auto;min-height:78px}.brand img{width:172px}.header-cta{display:none}.nav-toggle{display:inline-grid;gap:4px;justify-self:end;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;padding:16px 0}.hero{min-height:auto;padding-top:44px}.hero-visual{display:none}.card-grid,.detail-grid,.related-grid,.process-grid,.proof-grid,.mini-proof,.news-grid{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr}.hero h1,.page-hero h1{font-size:clamp(34px,10vw,48px)}.hero p,.page-hero p{font-size:17px}.section{padding:48px 0}.cta-card{align-items:flex-start;flex-direction:column}}
-CSS;
+    return agencyCss($brand['accent'], $brand['accent2']);
 }
 
 function premiumCss(string $accent, string $accent2): string
 {
+    return agencyCss($accent, $accent2);
+}
+function agencyCss(string $accent, string $accent2): string
+{
     return <<<CSS
-:root{--black:#000;--white:#fff;--blue:#2aa8ff;--deep:#06233f;--red:#ff3b30;--ink:#0b1220;--muted:#536173;--line:#dfe7f0;--surface:#f5f8fc;--surface-2:#eef7ff;--accent:$accent;--accent-2:$accent2;--shadow:0 20px 48px rgba(15,23,42,.13);--radius:8px;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 42px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.98);border-bottom:1px solid var(--line);box-shadow:0 8px 30px rgba(15,23,42,.05);backdrop-filter:blur(14px)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;gap:22px;align-items:center;min-height:90px}.brand img{width:clamp(188px,18vw,252px)}.site-nav{justify-self:center}.nav-menu{display:flex;align-items:center;gap:28px;padding:0;margin:0;list-style:none}.nav-menu a{position:relative;font-size:14px;font-weight:800}.nav-menu a:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;transform:scaleX(0);background:var(--red);transition:transform .18s ease}.nav-menu a:hover:after{transform:scaleX(1)}.nav-toggle{display:none}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 19px;border:0;border-radius:6px;font-weight:900;line-height:1.1;cursor:pointer}.button-primary{color:#fff;background:linear-gradient(135deg,var(--red),#d71914);box-shadow:0 14px 28px rgba(255,59,48,.24)}.button-secondary{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 14px 28px color-mix(in srgb,var(--accent) 25%,transparent)}.button-outline{color:#07111f;border:1px solid rgba(8,19,34,.58);background:#fff}.hero-outline{color:#fff;border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.06)}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--red);font-size:12px;font-weight:950;letter-spacing:.04em;text-transform:uppercase}.eyebrow:after{content:"";width:42px;height:2px;background:currentColor}.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(400px,520px);gap:48px;align-items:center;min-height:590px;padding:clamp(58px,6vw,84px) max(24px,calc((100vw - var(--max))/2));overflow:hidden;background:radial-gradient(circle at 73% 42%,color-mix(in srgb,var(--accent) 38%,transparent),transparent 30%),linear-gradient(112deg,#020817 0%,#061427 58%,#071f39 100%)}.hero:before{content:"";position:absolute;inset:auto -8% -50% 48%;height:420px;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 72%,transparent),color-mix(in srgb,var(--accent-2) 74%,transparent));clip-path:polygon(26% 0,100% 0,74% 100%,0 100%);opacity:.52}.hero-copy,.hero-visual{position:relative;z-index:1}.hero h1,.page-hero h1{max-width:850px;margin:0 0 18px;color:#000;font-size:clamp(38px,4.9vw,62px);line-height:1.03;letter-spacing:0}.hero h1{color:#fff}.hero p{max-width:710px;margin:0;color:rgba(255,255,255,.88);font-size:clamp(17px,1.5vw,20px)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-proof{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-proof span{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.86);font-size:13px;font-weight:850}.hero-proof span:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}.visual-card{margin:0;padding:13px;border:1px solid rgba(148,163,184,.35);border-radius:14px;background:rgba(255,255,255,.96);box-shadow:var(--shadow)}.visual-card img{width:100%;border-radius:8px}.hero-visual .visual-card{background:rgba(255,255,255,.93)}.section{padding:clamp(50px,5.5vw,76px) 0}.muted{background:var(--surface)}.color-band{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 10%,#fff),#fff 48%,color-mix(in srgb,var(--accent-2) 12%,#fff))}.section h2{margin:0 0 14px;color:#000;font-size:clamp(28px,3.25vw,42px);line-height:1.11}.section h3{margin:0 0 9px;color:#000;font-size:18px;line-height:1.2}.section p{color:var(--muted)}.section-heading{max-width:660px}.section-heading.centered{max-width:790px;margin:0 auto 30px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.page-hero{padding:clamp(54px,6vw,78px) 0;background:linear-gradient(115deg,#fff 0%,#f7fbff 55%,color-mix(in srgb,var(--accent) 13%,#fff) 100%);border-bottom:1px solid var(--line)}.page-hero-grid{display:grid;grid-template-columns:1fr minmax(320px,450px);gap:42px;align-items:center}.page-hero p{max-width:760px;margin:0;color:#243044;font-size:18px}.page-hero .visual-card{box-shadow:0 18px 40px rgba(15,23,42,.1)}.visual-split,.contact-grid{display:grid;grid-template-columns:.93fr 1.07fr;gap:44px;align-items:center}.visual-split.reverse{grid-template-columns:1fr .96fr}.card-grid,.related-grid,.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:19px}.service-grid{grid-template-columns:repeat(6,1fr)}.service-card,.related-card,.news-card,.contact-form,.contact-panel,.cta-card,.belief-grid article,.journey-grid article,.service-deep-card,.faq-grid article,.featured-article,.newsletter-card{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 10px 28px rgba(15,23,42,.07)}.service-card,.related-card,.news-card,.service-deep-card{border-top:4px solid var(--accent);transition:transform .18s ease,box-shadow .18s ease}.service-card:hover,.related-card:hover,.news-card:hover,.service-deep-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.service-card p,.related-card p,.news-card p,.service-deep-card p{font-size:14.5px}.service-icon{display:inline-grid;place-items:center;min-width:42px;height:38px;margin-bottom:13px;padding:0 9px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-size:12px;font-weight:950}.benefit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}.benefit-grid article{padding:16px;border:1px solid color-mix(in srgb,var(--accent) 20%,var(--line));border-radius:8px;background:rgba(255,255,255,.78)}.benefit-grid h3{font-size:15px}.benefit-grid p{margin-bottom:0;font-size:13.5px}.impact-band{padding:0 0 22px;background:linear-gradient(180deg,#fff 0%,var(--surface) 100%)}.impact-card{display:grid;grid-template-columns:.95fr 1.05fr;gap:28px;align-items:center;margin-top:-18px;padding:28px;border-radius:12px;color:#fff;background:linear-gradient(110deg,#061427,#082d55 60%,color-mix(in srgb,var(--accent) 35%,#061427));box-shadow:var(--shadow)}.impact-card h2,.impact-card p{color:#fff}.impact-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}.impact-metrics article{padding:18px;border-left:1px solid rgba(255,255,255,.22)}.impact-metrics strong{display:block;font-size:clamp(26px,3vw,38px);line-height:1;color:#fff}.impact-metrics span{display:block;margin-top:8px;color:rgba(255,255,255,.78);font-size:13px}.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;position:relative}.timeline article{position:relative;padding:20px 12px;text-align:center}.timeline span{display:inline-grid;place-items:center;width:58px;height:58px;margin-bottom:13px;color:#fff;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-weight:950;box-shadow:0 12px 22px color-mix(in srgb,var(--accent) 25%,transparent)}.timeline h3{font-size:15px}.timeline p{font-size:13.5px}.process-band{color:#fff;background:#020817}.process-band h2,.process-band p,.process-band h3{color:#fff}.timeline-dark article{border:1px solid rgba(255,255,255,.12);border-radius:8px;background:rgba(255,255,255,.05)}.trust-wall{padding:34px 0;color:#fff;background:#020817}.trust-wall .eyebrow{color:#fff}.trust-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.trust-grid article{display:flex;align-items:center;gap:10px;min-height:76px;padding:14px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}.trust-grid span{display:grid;place-items:center;min-width:35px;height:35px;border-radius:7px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-size:11px;font-weight:950}.trust-grid strong{font-size:13px}.related-solutions{background:#fff}.related-card a,.news-card a{display:inline-flex;margin-top:8px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card,.newsletter-card{display:flex;align-items:center;justify-content:space-between;gap:24px}.final-cta .cta-card,.footer-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#06233f 55%,color-mix(in srgb,var(--accent) 30%,#06233f));border-color:#1f2937}.final-cta h2,.final-cta p,.footer-cta h2,.footer-cta p{color:#fff}.belief-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:18px}.belief-grid article:first-child{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 12%,#fff),#fff)}.journey-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.journey-grid span{display:inline-flex;margin-bottom:10px;color:var(--red);font-weight:950}.service-detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.service-deep-card{display:grid;gap:12px}.service-deep-card ul{padding-left:20px;margin:0;color:#3d4858}.service-deep-card li{margin:7px 0}.pill-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.pill-list span,.filter-row span{padding:8px 12px;border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));border-radius:999px;background:#fff;color:#102033;font-size:13px;font-weight:850}.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.filter-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.featured-article{display:grid;grid-template-columns:1fr minmax(280px,420px);gap:28px;align-items:center;margin-bottom:22px;background:linear-gradient(130deg,#fff,color-mix(in srgb,var(--accent) 9%,#fff))}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.contact-panel{background:linear-gradient(140deg,#fff,color-mix(in srgb,var(--accent) 8%,#fff))}label{display:grid;gap:8px;font-weight:800}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px;background:#fff}input:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(--accent) 24%,transparent);border-color:var(--accent)}.full{grid-column:1/-1}.site-footer{color:#fff;background:#020817}.footer-cta{padding:36px 0 20px}.footer-grid{display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:36px;padding:38px 0}.footer-grid img{width:198px}.footer-grid p{color:rgba(255,255,255,.74)}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.82)}@media(max-width:1180px){.service-grid{grid-template-columns:repeat(3,1fr)}.trust-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:980px){.hero,.page-hero-grid,.visual-split,.visual-split.reverse,.contact-grid,.impact-card,.featured-article{grid-template-columns:1fr}.hero-visual{max-width:560px}.card-grid,.related-grid,.news-grid,.service-detail-grid,.belief-grid,.faq-grid{grid-template-columns:repeat(2,1fr)}.timeline,.journey-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:760px){.container{width:min(100% - 28px,var(--max))}.header-inner{grid-template-columns:auto auto;min-height:76px}.brand img{width:174px}.header-cta{display:none}.nav-toggle{display:inline-grid;justify-self:end;gap:4px;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;gap:14px;padding:14px 0 18px}.hero{min-height:auto;padding-top:42px}.hero:before{opacity:.25}.hero-visual{display:none}.hero h1,.page-hero h1{font-size:clamp(34px,10vw,48px)}.hero p,.page-hero p{font-size:17px}.section{padding:46px 0}.service-grid,.card-grid,.related-grid,.news-grid,.service-detail-grid,.belief-grid,.faq-grid,.benefit-grid,.trust-grid,.impact-metrics,.timeline,.journey-grid,.footer-grid{grid-template-columns:1fr}.impact-card{margin-top:0}.impact-metrics article{border-left:0;border-top:1px solid rgba(255,255,255,.18)}.contact-form{grid-template-columns:1fr}.cta-card,.newsletter-card{align-items:flex-start;flex-direction:column}.visual-card{padding:9px}}
+:root{--black:#000;--white:#fff;--red:#ff3b30;--blue:#2aa8ff;--ink:#09111f;--muted:#536173;--line:#d9e2ec;--surface:#f4f7fb;--surface-2:#eaf6ff;--navy:#020817;--navy-2:#071a30;--accent:$accent;--accent-2:$accent2;--shadow:0 22px 54px rgba(8,20,36,.16);--radius:8px;--max:1180px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#fff;font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.55}body.nav-open{overflow:hidden}a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}.container{width:min(100% - 42px,var(--max));margin-inline:auto}.skip-link{position:absolute;left:-999px}.skip-link:focus{left:12px;top:12px;z-index:1000;padding:10px 14px;color:#fff;background:#000}.site-header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 10px 28px rgba(15,23,42,.06)}.header-inner{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:24px;min-height:92px}.brand img{width:clamp(190px,18vw,260px)}.site-nav{justify-self:center}.nav-menu{display:flex;gap:28px;align-items:center;padding:0;margin:0;list-style:none}.nav-menu a{position:relative;font-size:14px;font-weight:850}.nav-menu a:after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .18s ease}.nav-menu a:hover:after{transform:scaleX(1)}.nav-toggle{display:none}.button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 19px;border-radius:6px;border:0;font-weight:900;line-height:1.1;cursor:pointer}.button-primary{color:#fff;background:linear-gradient(135deg,var(--red),#dc1f18);box-shadow:0 16px 32px rgba(255,59,48,.24)}.button-secondary{color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 16px 32px color-mix(in srgb,var(--accent) 26%,transparent)}.button-outline{color:#081525;border:1px solid rgba(8,21,37,.62);background:#fff}.hero-outline{color:#fff;border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.06)}.eyebrow{display:inline-flex;align-items:center;gap:12px;margin:0 0 14px;color:var(--accent);font-size:12px;font-weight:950;letter-spacing:.04em;text-transform:uppercase}.eyebrow:after{content:"";width:42px;height:2px;background:currentColor}.hero{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,560px);gap:48px;align-items:center;min-height:600px;padding:clamp(58px,6vw,88px) max(24px,calc((100vw - var(--max))/2));overflow:hidden;background:radial-gradient(circle at 78% 30%,color-mix(in srgb,var(--accent) 38%,transparent),transparent 31%),linear-gradient(112deg,#020817 0%,#071426 54%,#08233f 100%)}.hero:before{content:"";position:absolute;right:-9%;bottom:-44%;width:48%;height:480px;background:linear-gradient(125deg,color-mix(in srgb,var(--accent) 68%,transparent),color-mix(in srgb,var(--accent-2) 66%,transparent));clip-path:polygon(28% 0,100% 0,73% 100%,0 100%);opacity:.54}.hero-copy,.hero-visual{position:relative;z-index:1}.hero h1,.page-hero h1{max-width:850px;margin:0 0 18px;font-size:clamp(38px,4.9vw,62px);line-height:1.04;letter-spacing:0}.hero h1{color:#fff}.hero p{max-width:710px;margin:0;color:rgba(255,255,255,.88);font-size:clamp(17px,1.45vw,20px)}.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-proof{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}.hero-proof span{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.86);font-size:13px;font-weight:850}.hero-proof span:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}.visual-card{margin:0;padding:0;border:1px solid rgba(148,163,184,.28);border-radius:16px;background:rgba(255,255,255,.05);box-shadow:var(--shadow);overflow:hidden}.visual-card img{width:100%;border-radius:16px}.hero-visual .visual-card{background:rgba(255,255,255,.08);backdrop-filter:blur(8px)}.section{padding:clamp(52px,5.7vw,78px) 0}.section h2{margin:0 0 14px;color:#000;font-size:clamp(28px,3.25vw,42px);line-height:1.12}.section h3{margin:0 0 9px;color:#000;font-size:18px;line-height:1.2}.section p{color:var(--muted)}.section-heading{max-width:720px}.section-heading.centered{max-width:820px;margin:0 auto 30px;text-align:center}.section-heading.centered .eyebrow{justify-content:center}.service-strip{background:#fff}.feature-dark{position:relative;color:#fff;background:linear-gradient(124deg,#020817,#061426 55%,#071f38);overflow:hidden}.feature-dark:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 30%,color-mix(in srgb,var(--accent) 24%,transparent),transparent 34%),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(0deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:auto,36px 36px,36px 36px}.feature-layout{position:relative;display:grid;grid-template-columns:1fr minmax(390px,560px);gap:48px;align-items:center}.feature-dark h2,.feature-dark h3,.feature-dark p,.trust-wall h2,.trust-wall h3,.trust-wall p,.process-band h2,.process-band h3,.process-band p,.final-cta h2,.final-cta p{color:#fff}.feature-dark .visual-card{transform:translateY(18px);box-shadow:0 28px 70px rgba(0,0,0,.34)}.process-light{background:linear-gradient(180deg,#fff 0%,#f1f6fb 100%)}.industry-band{background:linear-gradient(132deg,color-mix(in srgb,var(--accent) 12%,#fff),#fff 48%,color-mix(in srgb,var(--accent-2) 16%,#fff))}.page-hero{padding:clamp(56px,6vw,82px) 0;background:linear-gradient(114deg,#fff 0%,#f7fbff 45%,color-mix(in srgb,var(--accent) 14%,#fff) 100%);border-bottom:1px solid var(--line)}.page-hero-grid,.visual-split,.contact-grid{display:grid;grid-template-columns:1fr minmax(360px,500px);gap:44px;align-items:center}.visual-split.reverse{grid-template-columns:minmax(360px,520px) 1fr}.page-hero p{max-width:760px;margin:0;color:#243044;font-size:18px}.card-grid,.related-grid,.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.service-grid{grid-template-columns:repeat(6,1fr)}.service-card,.related-card,.news-card,.contact-form,.contact-panel,.cta-card,.belief-grid article,.journey-grid article,.service-deep-card,.faq-grid article,.featured-article,.newsletter-card{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:0 10px 28px rgba(15,23,42,.075)}.service-card,.related-card,.news-card,.service-deep-card{border-top:4px solid var(--accent);transition:transform .18s ease,box-shadow .18s ease}.service-card:hover,.related-card:hover,.news-card:hover,.service-deep-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.service-card p,.related-card p,.news-card p,.service-deep-card p{font-size:14.5px}.service-icon{display:inline-grid;place-items:center;min-width:42px;height:38px;margin-bottom:13px;padding:0 9px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));border-radius:8px;font-size:12px;font-weight:950}.benefit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}.benefit-grid article{padding:16px;border:1px solid color-mix(in srgb,var(--accent) 24%,var(--line));border-radius:8px;background:rgba(255,255,255,.78)}.benefit-grid h3{font-size:15px}.benefit-grid p{margin-bottom:0;font-size:13.5px}.dark-benefits article{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);backdrop-filter:blur(6px)}.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}.timeline article{padding:20px 12px;text-align:center}.timeline span{display:inline-grid;place-items:center;width:58px;height:58px;margin-bottom:13px;color:#fff;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-weight:950;box-shadow:0 12px 22px color-mix(in srgb,var(--accent) 25%,transparent)}.timeline h3{font-size:15px}.timeline p{font-size:13.5px}.process-band{background:#020817}.timeline-dark article{border:1px solid rgba(255,255,255,.12);border-radius:8px;background:rgba(255,255,255,.05)}.trust-wall{padding:48px 0;color:#fff;background:radial-gradient(circle at 18% 20%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 32%),#020817}.trust-wall .section-heading{margin-bottom:24px}.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.trust-grid article{display:flex;gap:14px;min-height:112px;padding:18px;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.055)}.trust-grid span{display:grid;place-items:center;min-width:42px;height:42px;border-radius:8px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-2));font-size:11px;font-weight:950}.trust-grid strong{display:block;margin-bottom:5px;color:#fff}.trust-grid p{margin:0;color:rgba(255,255,255,.72);font-size:13.5px}.related-solutions{background:#fff}.related-card a,.news-card a{display:inline-flex;margin-top:8px;color:#005bd8;font-weight:900}.final-cta{background:#000}.cta-card,.newsletter-card{display:flex;align-items:center;justify-content:space-between;gap:24px}.final-cta .cta-card{color:#fff;background:linear-gradient(100deg,#000,#06233f 55%,color-mix(in srgb,var(--accent) 30%,#06233f));border-color:#1f2937}.belief-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:18px}.belief-grid article:first-child{background:linear-gradient(130deg,color-mix(in srgb,var(--accent) 12%,#fff),#fff)}.muted{background:#f4f7fb}.journey-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.journey-grid span{display:inline-flex;margin-bottom:10px;color:var(--red);font-weight:950}.service-detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.service-deep-card{display:grid;gap:12px}.service-deep-card ul{padding-left:20px;margin:0;color:#3d4858}.service-deep-card li{margin:7px 0}.pill-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.pill-list span,.filter-row span{padding:8px 12px;border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));border-radius:999px;background:#fff;color:#102033;font-size:13px;font-weight:850}.faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.filter-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}.featured-article{display:grid;grid-template-columns:1fr minmax(320px,460px);gap:30px;align-items:center;margin-bottom:22px;background:linear-gradient(130deg,#fff,color-mix(in srgb,var(--accent) 9%,#fff))}.contact-form{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.contact-panel{background:linear-gradient(140deg,#fff,color-mix(in srgb,var(--accent) 8%,#fff))}label{display:grid;gap:8px;font-weight:800}input,textarea{width:100%;padding:12px 14px;font:inherit;border:1px solid #cbd5e1;border-radius:6px;background:#fff}input:focus,textarea:focus{outline:3px solid color-mix(in srgb,var(--accent) 24%,transparent);border-color:var(--accent)}.full{grid-column:1/-1}.site-footer{position:relative;color:#fff;background:#020817;overflow:hidden}.site-footer:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 78% 15%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 32%);pointer-events:none}.footer-grid{position:relative;display:grid;grid-template-columns:1.3fr .8fr 1fr 1.05fr;gap:34px;padding:46px 0}.footer-logo-panel{display:inline-flex;align-items:center;justify-content:center;padding:12px 14px;margin-bottom:16px;border-radius:8px;background:#fff;box-shadow:0 14px 36px rgba(0,0,0,.28)}.footer-logo-panel img{width:210px}.footer-grid p{color:rgba(255,255,255,.76)}.footer-grid a{display:block;margin:0 0 8px;color:rgba(255,255,255,.82)}.footer-grid h3{margin:0 0 14px;color:#fff}.social-links{display:flex;gap:10px;margin-top:18px}.social-links a{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-weight:900}.footer-contact .button{display:inline-flex;margin-top:8px}@media(max-width:1180px){.service-grid{grid-template-columns:repeat(3,1fr)}.footer-grid{grid-template-columns:1fr 1fr}}@media(max-width:980px){.hero,.page-hero-grid,.visual-split,.visual-split.reverse,.contact-grid,.feature-layout,.featured-article{grid-template-columns:1fr}.hero-visual{max-width:620px}.card-grid,.related-grid,.news-grid,.service-detail-grid,.belief-grid,.faq-grid{grid-template-columns:repeat(2,1fr)}.timeline,.journey-grid{grid-template-columns:repeat(2,1fr)}.trust-grid{grid-template-columns:1fr 1fr}}@media(max-width:760px){.container{width:min(100% - 28px,var(--max))}.header-inner{grid-template-columns:auto auto;min-height:76px}.brand img{width:174px}.header-cta{display:none}.nav-toggle{display:inline-grid;justify-self:end;gap:4px;width:44px;height:42px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff}.nav-toggle span{height:2px;background:#000}.site-nav{display:none;grid-column:1/-1;justify-self:stretch}.nav-open .site-nav{display:block}.nav-menu{flex-direction:column;align-items:flex-start;gap:14px;padding:14px 0 18px}.hero{min-height:auto;padding-top:42px}.hero:before{opacity:.22}.hero-visual{display:none}.hero h1,.page-hero h1{font-size:clamp(34px,10vw,48px)}.hero p,.page-hero p{font-size:17px}.section{padding:46px 0}.service-grid,.card-grid,.related-grid,.news-grid,.service-detail-grid,.belief-grid,.faq-grid,.benefit-grid,.trust-grid,.timeline,.journey-grid,.footer-grid{grid-template-columns:1fr}.contact-form{grid-template-columns:1fr}.cta-card,.newsletter-card{align-items:flex-start;flex-direction:column}.footer-logo-panel img{width:190px}}
 CSS;
 }
 
@@ -802,8 +900,56 @@ function readme(string $slug, array $brand): string
 
 function deployment(string $slug, array $brand): string
 {
-    $branch = $slug === 'cloudexcelon' ? 'plesk-deploy' : 'deploy-' . $slug;
+    $branch = 'deploy-' . $slug;
     return "# Deployment - {$brand['name']}\n\n## GitHub Push\n\n```powershell\ngit add .\ngit commit -m \"Update {$brand['short']} website\"\ngit push origin $branch\n```\n\n## Plesk Git Deployment\n\n1. Open Plesk > Websites & Domains.\n2. Open Git for the target domain.\n3. Use the `$branch` repository branch for this site.\n4. Set deployment path to the domain root, not a nested `public_html` folder.\n5. Deploy repository.\n6. Confirm `index.php` exists directly in the domain folder.\n7. Test `/`, `/about`, `/services`, `/news`, and `/contact`.\n\n## Updates\n\nUse **Update from Remote**, then **Deploy HEAD Commit**.\n\n## Troubleshooting\n\n- 403.14 means `index.php` is missing from the served folder or the wrong deployment path is selected.\n- 404 on `/services` means the deploy did not include `services/index.php` or the wrong folder was deployed.\n- Check Plesk Logs for PHP warnings and IIS errors.\n- Verify asset paths resolve through the `asset()` helper and the domain root contains `assets`, `includes`, and the page files.\n";
+}
+
+function websiteAudit(string $slug, array $brand): string
+{
+    $date = '2026-06-03';
+    return "# Website Audit - {$brand['name']}\n\n" .
+        "This file is the running improvement log for {$brand['name']}. Before future website issues are fixed, log the issue here with the date, affected area, severity, planned correction, and verification result.\n\n" .
+        "## Audit Protocol\n\n" .
+        "- Log every discovered issue before applying the fix.\n" .
+        "- Track broken assets, weak CTAs, outdated service descriptions, SEO gaps, design problems, deployment issues, accessibility gaps, and content accuracy problems.\n" .
+        "- Keep entries factual. Do not invent metrics, certifications, ownership status, or proof points.\n" .
+        "- After the fix is applied, update the same entry with the files changed and the verification performed.\n\n" .
+        "## Current Improvement Log\n\n" .
+        "### {$date} - Visual rhythm was too static and overly white\n" .
+        "- Severity: High\n" .
+        "- Affected area: Home, About, Services, News, Contact shared layout system\n" .
+        "- Finding: Page sections relied too heavily on white backgrounds and card blocks, making the sites feel template-like instead of custom enterprise consulting websites.\n" .
+        "- Planned correction: Alternate dark, light, gradient, image-led, trust, CTA, and footer sections with stronger visual movement.\n" .
+        "- Fix applied: Updated the generated design system to include dark feature sections, light process sections, branded gradient industry sections, dark trust sections, and a redesigned dark footer.\n" .
+        "- Verification: Regenerate site, lint PHP, smoke-test all routes/assets, and visually inspect local pages.\n\n" .
+        "### {$date} - Footer logo visibility and footer content quality needed correction\n" .
+        "- Severity: High\n" .
+        "- Affected area: Footer include\n" .
+        "- Finding: The previous footer repeated generic tagline/CTA content and risked poor logo visibility on dark backgrounds.\n" .
+        "- Planned correction: Remove the generic footer CTA block, place the dark logo on a dedicated white logo panel, and add useful navigation, services, contact information, social links, and one Request Consultation CTA.\n" .
+        "- Fix applied: Rebuilt the generated footer include with a visible logo panel and practical footer columns.\n" .
+        "- Verification: Confirm logo displays in header/footer and footer no longer contains the removed generic tagline block.\n\n" .
+        "### {$date} - Fake trust metrics and incorrect ownership claim\n" .
+        "- Severity: High\n" .
+        "- Affected area: Home trust and impact sections\n" .
+        "- Finding: Invented metrics such as client counts, dollar amounts, retention percentages, and a Veteran-Owned Business claim were not verified by BTP documentation.\n" .
+        "- Planned correction: Remove fake numbers and unverified ownership claims. Replace with methodology-based trust language.\n" .
+        "- Fix applied: Removed business impact metrics and replaced trust content with dedicated expertise, structured delivery, scalable engagement, strategic guidance, long-term partnership, and brand-specific methods.\n" .
+        "- Verification: Search generated files for removed claims and metrics.\n\n" .
+        "### {$date} - Visuals were not service-specific enough\n" .
+        "- Severity: Medium\n" .
+        "- Affected area: SVG visual library\n" .
+        "- Finding: Visuals were too similar across brands and did not sufficiently complement each service category.\n" .
+        "- Planned correction: Generate brand-specific visual systems that support the service story.\n" .
+        "- Fix applied: Updated generated SVG visuals by brand: procurement workflows for PraaS, roadmaps for TechAdvisors, security/risk visuals for SecuriSCOPE, support operations for ManageSP, cloud topology for CloudEXCELON, code pipelines for CodeIGNITE, and AI/data workflows for DatastAIsis.\n" .
+        "- Verification: Confirm each site loads its generated SVG visual assets over HTTP.\n\n" .
+        "### {$date} - CloudEXCELON deployment branch naming needed correction\n" .
+        "- Severity: Medium\n" .
+        "- Affected area: Git deployment branches and deployment documentation\n" .
+        "- Finding: CloudEXCELON was deployed from `plesk-deploy`, but the desired branch name is `deploy-cloudexcelon`.\n" .
+        "- Planned correction: Rename deployment branch to `deploy-cloudexcelon`, remove `plesk-deploy`, and update deployment documentation.\n" .
+        "- Fix applied: Updated deployment documentation and branch workflow to use `deploy-cloudexcelon`; old `plesk-deploy` is removed during the final remote branch refresh.\n" .
+        "- Verification: Confirm remote has `deploy-cloudexcelon` and no `plesk-deploy` branch.\n\n";
 }
 
 function designSystem(): string

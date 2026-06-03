@@ -2,6 +2,7 @@
 $brand = require __DIR__ . '/site.php';
 function e(string $value): string { return htmlspecialchars($value, ENT_QUOTES, 'UTF-8'); }
 function asset(string $path): string { return '/assets/' . ltrim($path, '/'); }
+function footerDescription(array $brand): string { return $brand['name'] . ' helps clients clarify needs, compare options, coordinate delivery paths, and move technology work toward accountable next steps.'; }
 $canonical = 'https://' . $brand['domain'] . ($pagePath ?? '/');
 ?><!doctype html>
 <html lang="en">
